@@ -1,0 +1,11 @@
+@import '../../global_styles/variables.scss';
+
+.logo {
+  display: flex;
+
+  & h5 {
+    font-size: 1.8rem;
+    color: $accent-color;
+    margin-left: 0.7rem;
+  }
+}
