@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './logo.scss';
 
 const Logo = () => {
   return (
-    <div className='logo'>
+    <Link className='logo' to='/'>
       <svg
         width='43'
         height='43'
@@ -17,7 +18,7 @@ const Logo = () => {
         <rect x='24' y='9' width='8' height='21' rx='3' fill='white' />
       </svg>
       <h5>Frievel</h5>
-    </div>
+    </Link>
   );
 };
 
