@@ -1,0 +1,43 @@
+.top_header,
+.bottom_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 3.6rem;
+  background: #212324;
+  border-bottom: 1px #323434 solid;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0 2.8% 0 2.8%;
+
+  & svg {
+    height: 64%;
+  }
+
+  & input {
+    border: none;
+    border-radius: 3px;
+    background: #3a3b3c;
+    width: 83%;
+    height: 64%;
+    font-size: 1.07rem;
+    padding: 0 0.7rem 0 0.7rem;
+    color: #909090;
+
+    &::placeholder {
+      color: #909090;
+    }
+  }
+}
+
+.bottom_header {
+  bottom: 0;
+  top: initial;
+
+  & img {
+    border-radius: 50%;
+    width: 2.2rem;
+  }
+}
