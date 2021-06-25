@@ -4,9 +4,15 @@
   grid-template-columns: 16% 84%;
   border-bottom: 1px #4b4e4e solid;
   padding: 0 4% 0 4%;
+  margin-top: 1.6rem;
 
   &:first-child {
     margin-top: 4.5rem;
+  }
+
+  &:last-child {
+    margin-bottom: 4rem;
+    border: none;
   }
 
   & img {

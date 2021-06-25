@@ -1,5 +1,5 @@
 import React from 'react';
-import profilePic from '../../assets/img/profile_pic.jpg';
+import profilePic from '../../../assets/img/profile_pic.jpg';
 import './post.scss';
 
 const Post = () => {
