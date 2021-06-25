@@ -1,12 +1,15 @@
 import React from 'react';
 import './home.scss';
 import Header from '../../components/Header/Header';
+import Post from '../../components/Posts/Post';
 
 const Home = () => {
   return (
     <>
       <Header />
-      <h1>Home</h1>
+      <main>
+        <Post />
+      </main>
     </>
   );
 };

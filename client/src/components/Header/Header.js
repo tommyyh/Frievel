@@ -10,8 +10,8 @@ const Header = () => {
       <nav>
         <div className='top_header'>
           <svg
-            width='2rem'
-            height='43'
+            width='2.3rem'
+            height='2.3rem'
             viewBox='0 0 43 43'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
@@ -25,8 +25,8 @@ const Header = () => {
         </div>
         <div className='bottom_header'>
           <svg
-            width='1.78rem'
-            height='1.78rem'
+            width='1.85rem'
+            height='1.85rem'
             viewBox='0 0 29 29'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
@@ -49,8 +49,8 @@ const Header = () => {
             />
           </svg>
           <svg
-            width='1.8rem'
-            height='1.8rem'
+            width='1.77rem'
+            height='1.77rem'
             viewBox='0 0 24 23'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
