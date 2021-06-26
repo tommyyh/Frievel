@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import './login.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
+import Loading from '../../components/Loading/Loading';
 
 const Login = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
     <>
       <HelmetProvider>

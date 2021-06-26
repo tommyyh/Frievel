@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import './register.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
-import { HelmetProvider, Helmet } from 'react-helmet-async';
+import Loading from '../../components/Loading/Loading';
 
 const Register = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
     <>
       <HelmetProvider>
         <Helmet>
-          <title>Saved Posts • Frievel</title>
+          <title>Register • Frievel</title>
         </Helmet>
       </HelmetProvider>
       <main className='register'>
