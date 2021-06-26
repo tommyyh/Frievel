@@ -2,10 +2,16 @@ import React from 'react';
 import './register.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 const Register = () => {
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Saved Posts • Frievel</title>
+        </Helmet>
+      </HelmetProvider>
       <main className='register'>
         <div className='register_logo'>
           <Logo />

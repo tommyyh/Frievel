@@ -4,6 +4,7 @@ import './home.scss';
 import Header from '../../components/Header/Header';
 import Posts from '../../components/Posts/Posts';
 import NewPost from './component/NewPost';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 const Home = () => {
   const [newPost, setNewPost] = useState(false);
@@ -16,6 +17,11 @@ const Home = () => {
 
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Home • Frievel</title>
+        </Helmet>
+      </HelmetProvider>
       <Header />
       <main>
         <Posts />

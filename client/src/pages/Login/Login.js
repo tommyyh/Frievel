@@ -2,10 +2,16 @@ import React from 'react';
 import './login.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 
 const Login = () => {
   return (
     <>
+      <HelmetProvider>
+        <Helmet>
+          <title>Login • Frievel</title>
+        </Helmet>
+      </HelmetProvider>
       <main className='login'>
         <div className='login_logo'>
           <Logo />

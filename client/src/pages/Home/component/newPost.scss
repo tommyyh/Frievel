@@ -61,15 +61,13 @@
     & textarea {
       width: 83.7%;
       height: 3rem;
-      background: #3a3b3c;
+      background: none;
       border-radius: 5px;
       border: none;
-      padding: 0 5% 0 5%;
       font-size: 1.1rem;
       color: #909090;
       font-family: 'Hind Vadodara', sans-serif;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      padding: 0.5rem 0 0.5rem 0.5rem;
       overflow: hidden;
       resize: none;
 
@@ -105,4 +103,19 @@
 
 .newPost_emoji {
   margin-left: 0.4rem;
+}
+
+.file_input_div {
+  position: relative;
+
+  & input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
