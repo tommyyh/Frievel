@@ -1,0 +1,108 @@
+@import '../../../global_styles/variables.scss';
+
+.new_post_menu {
+  width: 100%;
+  height: 100vh;
+  background: #202122;
+  position: fixed;
+  top: -100%;
+  left: 0;
+  transition: ease 250ms;
+  padding: 0 3.3% 0 3.3%;
+}
+
+.new_post_menu_open {
+  top: 0;
+}
+
+.close_newPost {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 3.3%;
+    width: 1.65rem;
+    height: 0.18rem;
+    background: #5b6064;
+    border-radius: 5px;
+    transform: rotate(-45deg);
+    transition: ease 300ms;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 3.3%;
+    width: 1.65rem;
+    height: 0.18rem;
+    background: #5b6064;
+    border-radius: 5px;
+    transform: rotate(45deg);
+    transition: ease 300ms;
+  }
+}
+
+.new_post_form {
+  margin-top: 5.3rem;
+
+  & .new_post_form_top {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px #383a3a solid;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    & img {
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+    }
+
+    & textarea {
+      width: 83.7%;
+      height: 3rem;
+      background: #3a3b3c;
+      border-radius: 5px;
+      border: none;
+      padding: 0 5% 0 5%;
+      font-size: 1.1rem;
+      color: #909090;
+      font-family: 'Hind Vadodara', sans-serif;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      overflow: hidden;
+      resize: none;
+
+      &::placeholder {
+        color: #909090;
+        font-family: 'Hind Vadodara', sans-serif;
+      }
+    }
+  }
+}
+
+.new_post_form_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  & span {
+    display: flex;
+    align-items: baseline;
+  }
+
+  & button {
+    height: 2.5rem;
+    width: 6.5rem;
+    border-radius: 35px;
+    background: $accent-color;
+    font-size: 1rem;
+    color: #fff;
+    border: none;
+  }
+}
+
+.newPost_emoji {
+  margin-left: 0.4rem;
+}

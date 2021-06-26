@@ -1,2 +1,15 @@
 @import '../../global_styles/resets.scss';
 @import '../../global_styles/variables.scss';
+
+.new_post {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: $accent-color;
+  position: fixed;
+  bottom: 12%;
+  right: 6%;
+}
