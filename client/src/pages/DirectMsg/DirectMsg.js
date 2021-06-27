@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import './directMsg.scss';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Loading from '../../components/Loading/Loading';
-import Header from '../../components/Header/Header';
-import Messages from './components/Messages';
+import MsgMenu from './components/MsgMenu';
 
-const Inbox = () => {
+const DirectMsg = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,15 +17,13 @@ const Inbox = () => {
     <>
       <HelmetProvider>
         <Helmet>
-          <title>Inbox (3) • Frievel</title>
+          <title>Direct • Frievel</title>
         </Helmet>
       </HelmetProvider>
-      <Header />
-      <main>
-        <Messages />
-      </main>
+      <MsgMenu />
+      <main></main>
     </>
   );
 };
 
-export default Inbox;
+export default DirectMsg;

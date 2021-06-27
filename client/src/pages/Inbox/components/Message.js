@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './message.scss';
 import profilePic from '../../../assets/img/profile_pic.jpg';
 
 const Message = () => {
   return (
-    <div className='message'>
+    <Link className='message' to='/inbox/clement'>
       <span className='message_left'>
         <img src={profilePic} alt='User profile' />
         <span>
@@ -13,7 +14,7 @@ const Message = () => {
         </span>
       </span>
       <h4>20h</h4>
-    </div>
+    </Link>
   );
 };
 

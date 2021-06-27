@@ -1,0 +1,120 @@
+@import '../../../global_styles/variables.scss';
+
+.msg_menu_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 3.9rem;
+  background: $primary-color;
+  border-bottom: 1px #323434 solid;
+  padding-left: 2%;
+  padding-right: 3%;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  & span {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    & img {
+      border-radius: 50%;
+      height: 2.5rem;
+      width: 2.5rem;
+      margin-left: 0.9rem;
+    }
+
+    & a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    & svg {
+      position: relative;
+      transform: rotate(-90deg);
+    }
+  }
+}
+
+.message_receiver {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 0.6rem;
+
+  & h1 {
+    font-size: 1.13rem;
+    color: #e7e7e7;
+    font-weight: 500;
+    margin-bottom: -1px;
+  }
+
+  & h3 {
+    font-size: 0.79rem;
+    color: #b0b0b0;
+    font-weight: 200;
+  }
+}
+
+#msg_menu_input {
+  width: 95%;
+  height: 2.85rem;
+  background: #3a3b3c;
+  border-radius: 3px;
+  border: none;
+  color: #909090;
+  position: fixed;
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Hind Vadodara', sans-serif;
+  resize: none;
+  padding: 0.5rem 4.5rem 0.5rem 2.9rem;
+  overflow: hidden;
+  font-size: 1.1rem;
+
+  &::placeholder {
+    font-family: 'Hind Vadodara', sans-serif;
+  }
+}
+
+.msg_menu_file {
+  position: fixed;
+  left: 4.72%;
+  bottom: 2.35%;
+
+  & input {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.message_send {
+  font-size: 1rem;
+  font-weight: 500;
+  position: fixed;
+  right: 4.3%;
+  bottom: 2.8%;
+  background: $accent-color;
+  border-radius: 3px;
+  color: #fff;
+  height: 2.1rem;
+  border: none;
+  width: 3.8rem;
+  transition: ease 300ms;
+  transform: scale(1);
+}
+
+.message_send_hidden {
+  transform: scale(0);
+}

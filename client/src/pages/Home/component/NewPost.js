@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './newPost.scss';
 import profilePic from '../../../assets/img/profile_pic.jpg';
 
 const NewPost = ({ newPost, setNewPost }) => {
   const [inputValue, setInputValue] = useState('');
+  const inputRef = useRef();
 
   const publishPost = () => {
     setInputValue('');
     setNewPost(false);
+    inputRef.current.style.height = '3rem';
   };
 
   const inputResize = (e) => {
@@ -36,6 +38,7 @@ const NewPost = ({ newPost, setNewPost }) => {
             value={inputValue}
             autoCorrect='true'
             spellCheck='true'
+            ref={inputRef}
           ></textarea>
         </span>
         <div className='new_post_form_bottom'>
