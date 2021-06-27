@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './header.scss';
 import profilePic from '../../assets/img/profile_pic.jpg';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import ProfileMenu from './components/ProfileMenu';
 
 const Header = () => {
   const pathName = window.location.pathname;
   const { push } = useHistory();
+  const { username } = useParams();
+  const [profileMenu, setProfileMenu] = useState(false);
 
   return (
     <header>
@@ -65,7 +68,21 @@ const Header = () => {
               fill={pathName === '/saved' ? '#1E82DF' : '#B0B3B8'}
             />
           </svg>
-          <img src={profilePic} alt='User profile' />
+          {profileMenu && <ProfileMenu />}
+          {pathName === `/profile/${username}` ? (
+            <img
+              src={profilePic}
+              alt='User profile'
+              style={{ border: '2px #1E82DF solid' }}
+              onClick={() => setProfileMenu(!profileMenu)}
+            />
+          ) : (
+            <img
+              src={profilePic}
+              alt='User profile'
+              onClick={() => setProfileMenu(!profileMenu)}
+            />
+          )}
         </div>
       </nav>
     </header>

@@ -13,7 +13,21 @@ const NewPost = ({ newPost, setNewPost }) => {
   };
 
   const inputResize = (e) => {
+    // Always end at the bottom of the element
+    e.scrollTop = e.scrollHeight - e.clientHeight;
+
+    // If height > 176 - add scrollbar instead of increasing the height
+    if (e.scrollHeight > 176) {
+      e.style.height = '';
+      e.style.height = '11rem';
+      e.style.overflow = 'initial';
+
+      return;
+    }
+
+    // Increase height
     e.style.height = '';
+    e.style.overflow = 'hidden';
     e.style.height = e.scrollHeight / 16 + 'rem';
   };
 
