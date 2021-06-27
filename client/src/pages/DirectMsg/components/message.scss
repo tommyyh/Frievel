@@ -1,0 +1,46 @@
+.direct_message {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 2rem;
+
+  & img {
+    border-radius: 50%;
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-top: 0.16rem;
+  }
+
+  &:first-child {
+    margin-top: 5.3rem;
+  }
+
+  & span {
+    margin-left: 0.9rem;
+
+    & p {
+      font-size: 1rem;
+      color: #acacac;
+      font-weight: 300;
+      margin-top: 0.1rem;
+    }
+  }
+}
+
+.direct_message_top {
+  display: flex;
+  align-items: center;
+
+  & h3 {
+    font-size: 1rem;
+    color: #f0f0f0;
+    font-weight: 500;
+  }
+
+  & h5 {
+    font-size: 0.87rem;
+    color: #707070;
+    font-weight: 100;
+    margin-left: 0.45rem;
+  }
+}

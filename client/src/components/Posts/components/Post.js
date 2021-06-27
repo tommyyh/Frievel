@@ -1,16 +1,15 @@
 import React from 'react';
-import profilePic from '../../../assets/img/profile_pic.jpg';
 import './post.scss';
 
-const Post = () => {
+const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
   return (
     <div className='post'>
       <img src={profilePic} alt='User profile' />
       <div className='post_content'>
         <div className='post_content_top'>
           <span>
-            <h2>Clement Mihailescu</h2>
-            <h3>@clemmihai</h3>
+            <h2>{name}</h2>
+            <h3>@{userTag}</h3>
           </span>
           <svg
             width='1.5rem'
@@ -33,12 +32,8 @@ const Post = () => {
             />
           </svg>
         </div>
-        <h4>June 19 at 10:05</h4>
-        <p>
-          The current state of our education system is being radically changed,
-          FOR THE BETTER. The old ways are done. Students will be teaching each
-          other faster than a college professor can prepare a lecture.
-        </p>
+        <h4>{posetedAt}</h4>
+        <p>{content}</p>
         <div className='post_icons'>
           <svg
             width='1.5rem'
@@ -89,7 +84,7 @@ const Post = () => {
             </defs>
           </svg>
         </div>
-        <h5>2,950 likes</h5>
+        <h5>{likes} likes</h5>
       </div>
     </div>
   );

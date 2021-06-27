@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './message.scss';
-import profilePic from '../../../assets/img/profile_pic.jpg';
 
-const Message = () => {
+const Message = ({ name, profilePic, username, lastMessage, lastMessaged }) => {
   return (
-    <Link className='message' to='/inbox/clement'>
+    <Link className='message' to={`/inbox/${username}`}>
       <span className='message_left'>
         <img src={profilePic} alt='User profile' />
         <span>
-          <h2>Clement Mihailescu</h2>
-          <p>The current state of our...</p>
+          <h2>{name}</h2>
+          <p>{lastMessage}</p>
         </span>
       </span>
-      <h4>20h</h4>
+      <h4>{lastMessaged}</h4>
     </Link>
   );
 };

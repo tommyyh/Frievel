@@ -3,6 +3,7 @@ import './directMsg.scss';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Loading from '../../components/Loading/Loading';
 import MsgMenu from './components/MsgMenu';
+import Messages from './components/Messages';
 
 const DirectMsg = () => {
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,9 @@ const DirectMsg = () => {
         </Helmet>
       </HelmetProvider>
       <MsgMenu />
-      <main></main>
+      <main>
+        <Messages />
+      </main>
     </>
   );
 };
