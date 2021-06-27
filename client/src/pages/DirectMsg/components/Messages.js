@@ -5,7 +5,7 @@ import profilePic from '../../../assets/img/profile_pic.jpg';
 
 const Messages = () => {
   return (
-    <div className='direct_messages'>
+    <main className='direct_messages'>
       <Message
         name='Clement Mihailescu'
         messageContent='Lorem ipsum dolar amet!'
@@ -54,7 +54,7 @@ const Messages = () => {
         profilePic={profilePic}
         sentAt='06/25/2021 - 9:14'
       />
-    </div>
+    </main>
   );
 };
 

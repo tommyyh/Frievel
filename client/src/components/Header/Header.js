@@ -23,7 +23,7 @@ const Header = () => {
             <rect x='12' y='13' width='8' height='21' rx='3' fill='#1400FF' />
             <rect x='24' y='9' width='8' height='21' rx='3' fill='white' />
           </svg>
-          <input type='text' name='nav_search' placeholder='Search' />
+          <input type='text' name='nav_search' placeholder='Search...' />
         </div>
         <div className='bottom_header'>
           <svg

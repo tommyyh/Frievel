@@ -1,0 +1,55 @@
+.profile_info {
+  margin-top: 23vh;
+  padding-left: 6%;
+  border-bottom: 1px #4b4e4e solid;
+  padding-bottom: 2rem;
+
+  & img {
+    border-radius: 1rem;
+    border: 1px #313333 solid;
+  }
+
+  & h1 {
+    font-size: 1.7rem;
+    color: #dddddd;
+    margin-top: 0.5rem;
+  }
+
+  & h2 {
+    font-size: 1.1rem;
+    color: #9d9d9d;
+    font-weight: 500;
+  }
+}
+
+.profile_info_geo {
+  margin-top: 1.6rem;
+
+  & h4 {
+    font-size: 1.02rem;
+    color: #9d9d9d;
+    font-weight: 500;
+    margin-top: 0.1rem;
+  }
+}
+
+.profile_info_stats {
+  display: flex;
+  align-items: center;
+  margin-top: 1.6rem;
+
+  & h4 {
+    font-size: 1.18rem;
+    color: #aaaaaa;
+    font-weight: 500;
+    margin-top: 0.1rem;
+
+    &:nth-child(2) {
+      margin-left: 1.4rem;
+    }
+
+    & span {
+      color: #ffffff;
+    }
+  }
+}
