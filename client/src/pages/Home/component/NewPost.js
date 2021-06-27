@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './newPost.scss';
 import profilePic from '../../../assets/img/profile_pic.jpg';
 

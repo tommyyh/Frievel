@@ -1,0 +1,50 @@
+.message {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 4rem;
+  border-bottom: 1px #333536 solid;
+  padding-bottom: 1.5rem;
+  margin-top: 1.5rem;
+
+  & h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #b0b0b0;
+    margin-top: 0.3rem;
+    margin-right: 0.8rem;
+  }
+
+  &:first-child {
+    margin-top: 5rem;
+  }
+}
+
+.message_left {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  & img {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 0.8rem;
+  }
+
+  & h2 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #e7e7e7;
+  }
+
+  & p {
+    font-size: 0.98rem;
+    color: #a8a8a8;
+    font-weight: 300;
+  }
+
+  & span {
+    margin-left: 0.8rem;
+  }
+}
