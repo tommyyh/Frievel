@@ -2,17 +2,19 @@ import React from 'react';
 import './profileMenu.scss';
 import { Link } from 'react-router-dom';
 
-const ProfileMenu = () => {
+const ProfileMenu = ({ setProfileMenu }) => {
   return (
     <div className='profile_menu'>
       <ul>
-        <Link to='/profile/clemmihai'>
+        <Link to='/profile/clemmihai' onClick={() => setProfileMenu(false)}>
           <li>Profile</li>
         </Link>
-        <Link to='/saved'>
+        <Link to='/saved' onClick={() => setProfileMenu(false)}>
           <li>Saved</li>
         </Link>
-        <li className='menu_logout'>Logout</li>
+        <li className='menu_logout' onClick={() => setProfileMenu(false)}>
+          Logout
+        </li>
       </ul>
       <svg
         stroke='currentColor'

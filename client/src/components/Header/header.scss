@@ -29,6 +29,10 @@
   }
 }
 
+.logo_icon {
+  cursor: pointer;
+}
+
 .bottom_header {
   bottom: 0;
   top: initial;
@@ -36,5 +40,72 @@
   & img {
     border-radius: 50%;
     width: 2.2rem;
+  }
+}
+
+@media all and (min-width: 1025px) {
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 3.7rem;
+    background: #212324;
+    border-bottom: 1px #323434 solid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 15% 0 15%;
+    z-index: 5;
+  }
+
+  .logo_icon {
+    cursor: pointer;
+  }
+
+  .nav_left,
+  .nav_right {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav_left {
+    width: 36%;
+
+    & input {
+      border: none;
+      border-radius: 3px;
+      background: #3a3b3c;
+      width: 83%;
+      height: 2.3rem;
+      font-size: 1.07rem;
+      padding: 0 0.7rem 0 0.7rem;
+      color: #909090;
+      margin-left: 0.5rem;
+
+      &::placeholder {
+        color: #909090;
+      }
+    }
+  }
+
+  .nav_right {
+    & img {
+      border-radius: 50%;
+      width: 2.3rem;
+      height: 2.3rem;
+      border: 1px #595b5b solid;
+    }
+  }
+
+  .saved_icon,
+  .messages_icon,
+  .home_icon {
+    margin-right: 2.3rem;
+    cursor: pointer;
+  }
+
+  .profile_icon {
+    cursor: pointer;
   }
 }
