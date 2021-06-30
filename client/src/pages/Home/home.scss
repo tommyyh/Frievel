@@ -13,3 +13,13 @@
   bottom: 12%;
   right: 6%;
 }
+
+@media all and (min-width: 1025px) {
+  .home {
+    padding: 5rem 13% 0 13%;
+  }
+
+  .new_post {
+    display: none;
+  }
+}

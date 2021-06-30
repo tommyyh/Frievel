@@ -1,0 +1,19 @@
+.suggestion {
+  display: flex;
+  align-items: center;
+  padding: 0 7% 0 7%;
+  margin-top: 1.2rem;
+
+  & img {
+    border-radius: 50%;
+    width: 2.45rem;
+    height: 2.45rem;
+  }
+
+  & h4 {
+    font-size: 1.15rem;
+    color: #cacaca;
+    font-weight: 500;
+    margin-left: 5%;
+  }
+}

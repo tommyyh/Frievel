@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from './components/Post';
 import profilePic from '../../assets/img/profile_pic.jpg';
+import './posts.scss';
 
 const Posts = () => {
   return (
