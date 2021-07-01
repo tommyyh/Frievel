@@ -1,7 +1,7 @@
 .post {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 16% 84%;
+  grid-template-columns: 13% 84%;
   border-bottom: 1px #4b4e4e solid;
   padding: 0 4% 0 4%;
   margin-top: 1.6rem;
@@ -85,9 +85,9 @@
   .post {
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 16% 84%;
+    grid-template-columns: 12% 88%;
     border-bottom: 1px #4b4e4e solid;
-    padding: 0 4% 0 4%;
+    padding: 0 5% 0 5%;
     margin-top: 1.6rem;
 
     &:first-child {
@@ -111,6 +111,18 @@
     width: 100%;
     justify-content: space-between;
 
+    & svg {
+      cursor: pointer;
+
+      & path {
+        transition: ease 300ms;
+      }
+
+      &:hover > path {
+        fill: #85898d;
+      }
+    }
+
     & h2 {
       font-size: 1rem;
       color: #e3e3e3;
@@ -123,9 +135,14 @@
       margin-left: 0.5rem;
     }
 
-    & span {
+    & a {
       display: flex;
       align-items: center;
+      text-decoration: none;
+
+      &:hover > h2 {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -141,7 +158,7 @@
       font-size: 1rem;
       color: #9d9d9d;
       font-weight: 500;
-      margin: 0.31rem 0 1.15rem 0;
+      margin: 0.31rem 0 1.35rem 0;
     }
 
     & p {
@@ -156,12 +173,39 @@
     align-items: center;
     margin-top: 1.25rem;
 
+    & svg {
+      cursor: pointer;
+      transition: ease 300ms;
+
+      & path {
+        transition: ease 300ms;
+      }
+    }
+
     & .post_comment_icon {
       margin-left: 0.8rem;
     }
 
     & .post_share_icon {
       margin-left: 0.97rem;
+    }
+  }
+
+  .post_icons_like {
+    &:hover > path {
+      stroke: #cc1b50;
+    }
+  }
+
+  .post_share_icon {
+    &:hover > g > path {
+      fill: #15bd60;
+    }
+  }
+
+  .post_comment_icon {
+    &:hover > path {
+      fill: #00aeff;
     }
   }
 }
