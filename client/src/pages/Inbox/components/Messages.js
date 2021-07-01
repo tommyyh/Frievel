@@ -6,6 +6,9 @@ import profilePic from '../../../assets/img/profile_pic.jpg';
 const Messages = () => {
   return (
     <div className='messages'>
+      <div className='messages_title'>
+        <h2>My Messages</h2>
+      </div>
       <Message
         name='Clement Mihailescu'
         profilePic={profilePic}

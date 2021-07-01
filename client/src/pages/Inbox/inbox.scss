@@ -1,0 +1,48 @@
+.inbox_right {
+  display: none;
+}
+
+@media all and (min-width: 1025px) {
+  .inbox_parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90vh;
+    margin-top: 10vh;
+  }
+
+  .inbox_right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+
+    & h1 {
+      font-size: 1.5rem;
+      color: #d4d4d4;
+    }
+
+    & p {
+      color: 1.1rem;
+      color: #bdbdbd;
+      margin-top: 0.15rem;
+    }
+  }
+
+  .inbox {
+    display: grid;
+    grid-template-columns: 34% 66%;
+    grid-row: 1fr;
+    background: #282a2c;
+    width: 74%;
+    height: 83vh;
+    border-radius: 3px;
+  }
+
+  .messages {
+    border-right: 1px #4b4e4e solid;
+  }
+}

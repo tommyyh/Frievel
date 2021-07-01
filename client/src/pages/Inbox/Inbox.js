@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './inbox.scss';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header';
@@ -21,8 +22,14 @@ const Inbox = () => {
         </Helmet>
       </HelmetProvider>
       <Header />
-      <main>
-        <Messages />
+      <main className='inbox_parent'>
+        <div className='inbox'>
+          <Messages />
+          <div className='inbox_right'>
+            <h1>My messages</h1>
+            <p>Select a chat to send messages and photos</p>
+          </div>
+        </div>
       </main>
     </>
   );

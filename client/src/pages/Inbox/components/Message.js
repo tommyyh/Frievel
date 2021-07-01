@@ -12,7 +12,9 @@ const Message = ({ name, profilePic, username, lastMessage, lastMessaged }) => {
           <p>{lastMessage}</p>
         </span>
       </span>
-      <h4>{lastMessaged}</h4>
+      <div className='message_right'>
+        <h4>{lastMessaged}</h4>
+      </div>
     </Link>
   );
 };
