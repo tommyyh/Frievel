@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './suggestion.scss';
 
-const Suggestion = ({ name, profilePic }) => {
+const Suggestion = ({ name, profilePic, userTag }) => {
   return (
-    <div className='suggestion'>
+    <Link to={`/profile/${userTag}`} className='suggestion'>
       <img src={profilePic} alt='User profile' />
       <h4>{name}</h4>
-    </div>
+    </Link>
   );
 };
 

@@ -10,3 +10,21 @@
     font-weight: 500;
   }
 }
+
+@media all and (min-width: 1025px) {
+  .saved {
+    padding: 5rem 13% 0 13%;
+  }
+
+  .saved_posts {
+    margin-top: initial;
+
+    & h1 {
+      margin: 1% 0 1rem 2%;
+      position: absolute;
+      color: #ebebeb;
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
+  }
+}

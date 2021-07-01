@@ -4,7 +4,7 @@ import './post.scss';
 
 const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
   return (
-    <div className='post'>
+    <div className={window.location.pathname === '/' ? 'post' : 'saved_post'}>
       <Link to={`/profile/${userTag}`}>
         <img src={profilePic} alt='User profile' />
       </Link>

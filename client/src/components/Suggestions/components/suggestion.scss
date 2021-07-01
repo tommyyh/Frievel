@@ -2,17 +2,18 @@
   display: flex;
   align-items: center;
   padding: 0 7% 0 7%;
-  margin-top: 1.2rem;
+  margin-top: 1.38rem;
+  text-decoration: none;
 
   & img {
     border-radius: 50%;
-    width: 2.45rem;
-    height: 2.45rem;
+    width: 2.2rem;
+    height: 2.2rem;
   }
 
   & h4 {
-    font-size: 1.15rem;
-    color: #cacaca;
+    font-size: 1.11rem;
+    color: #b1b1b1;
     font-weight: 500;
     margin-left: 5%;
   }
