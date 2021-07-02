@@ -21,6 +21,13 @@ const MsgMenu = () => {
       return;
     }
 
+    if (window.innerWidth > 1025 && e.scrollHeight === 45) {
+      e.style.height = '';
+      e.style.height = '2.6rem';
+
+      return;
+    }
+
     // Increase height
     e.style.height = '';
     e.style.overflow = 'hidden';

@@ -2,3 +2,10 @@
   padding: 0 3% 0 3%;
   overflow-y: scroll;
 }
+
+@media all and (min-width: 1025px) {
+  .direct_messages {
+    padding: 0 3% 0 3%;
+    overflow-y: initial;
+  }
+}

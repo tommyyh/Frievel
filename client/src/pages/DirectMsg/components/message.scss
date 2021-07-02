@@ -44,3 +44,56 @@
     margin-left: 0.45rem;
   }
 }
+
+@media all and (min-width: 1025px) {
+  .direct_message {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 2rem;
+
+    & img {
+      border-radius: 50%;
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-top: 0.16rem;
+    }
+
+    &:first-child {
+      margin-top: 5rem;
+    }
+
+    &:last-child {
+      margin-bottom: 4.3rem;
+    }
+
+    & span {
+      margin-left: 0.9rem;
+
+      & p {
+        font-size: 0.9rem;
+        color: #acacac;
+        font-weight: 300;
+        margin-top: 0.1rem;
+      }
+    }
+  }
+
+  .direct_message_top {
+    display: flex;
+    align-items: center;
+
+    & h3 {
+      font-size: 0.98rem;
+      color: #f0f0f0;
+      font-weight: 500;
+    }
+
+    & h5 {
+      font-size: 0.82rem;
+      color: #707070;
+      font-weight: 100;
+      margin-left: 0.45rem;
+    }
+  }
+}

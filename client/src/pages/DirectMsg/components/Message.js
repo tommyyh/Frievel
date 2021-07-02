@@ -3,7 +3,7 @@ import './message.scss';
 
 const Message = ({ name, messageContent, profilePic, sentAt }) => {
   return (
-    <div className='direct_message' onMouseOver={() => console.log('nigga')}>
+    <div className='direct_message'>
       <img src={profilePic} alt='User profile' />
       <span>
         <div className='direct_message_top'>

@@ -20,7 +20,7 @@
     align-items: center;
     justify-content: center;
 
-    & h1 {
+    & h2 {
       font-size: 1.5rem;
       color: #d4d4d4;
     }
@@ -32,8 +32,35 @@
     }
   }
 
+  .inbox_scroll_right {
+    display: flex;
+    background: #282a2c;
+    position: absolute;
+    flex-direction: column;
+    justify-content: center;
+    height: 13%;
+    width: 66%;
+    border-bottom: 1px #4b4e4e solid;
+    margin-bottom: 0rem;
+    padding-left: 4.2%;
+
+    & h1 {
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: #e2e2e2;
+    }
+
+    & p {
+      font-size: 0.83rem;
+      margin-top: -0.1rem;
+      color: #b0b0b0;
+      font-weight: 100;
+    }
+  }
+
   .inbox {
     display: grid;
+    position: relative;
     grid-template-columns: 34% 66%;
     grid-row: 1fr;
     background: #282a2c;
@@ -44,5 +71,22 @@
 
   .messages {
     border-right: 1px #4b4e4e solid;
+  }
+
+  .inbox_scroll {
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.7rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #37383a;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #545657;
+      border-radius: 10px;
+    }
   }
 }
