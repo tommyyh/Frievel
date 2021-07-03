@@ -120,3 +120,10 @@
     height: 100%;
   }
 }
+
+@media all and (min-width: 1025px) {
+  .new_post_menu,
+  .new_post_menu_open {
+    display: none;
+  }
+}

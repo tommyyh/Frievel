@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './inbox.scss';
+import { useParams } from 'react-router-dom';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header';
@@ -10,6 +11,7 @@ import MsgMenu from '../DirectMsg/components/MsgMenu';
 const Inbox = () => {
   const [loading, setLoading] = useState(true);
   const pathName = window.location.pathname;
+  const { username } = useParams();
 
   useEffect(() => {
     setLoading(false);
@@ -27,7 +29,7 @@ const Inbox = () => {
       <Header />
       <main className='inbox_parent'>
         <div className='inbox'>
-          <Messages />
+          <Messages currentlySelected={username} />
           {pathName === '/inbox' ? (
             <>
               <div className='inbox_right'>

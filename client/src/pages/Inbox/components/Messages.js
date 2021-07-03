@@ -3,7 +3,7 @@ import './messages.scss';
 import Message from './Message';
 import profilePic from '../../../assets/img/profile_pic.jpg';
 
-const Messages = () => {
+const Messages = ({ currentlySelected }) => {
   return (
     <div className='messages'>
       <div className='messages_title'>
@@ -15,13 +15,31 @@ const Messages = () => {
         username='clement'
         lastMessage='The current state of our...'
         lastMessaged='20h'
+        currentlySelected={currentlySelected}
       />
       <Message
-        name='Clement Mihailescu'
+        name='Clement Mihailescu 2'
         profilePic={profilePic}
-        username='clement'
+        username='clement2'
         lastMessage='The current state of our...'
         lastMessaged='20h'
+        currentlySelected={currentlySelected}
+      />
+      <Message
+        name='Clement Mihailescu 3'
+        profilePic={profilePic}
+        username='clement3'
+        lastMessage='The current state of our...'
+        lastMessaged='20h'
+        currentlySelected={currentlySelected}
+      />
+      <Message
+        name='Clement Mihailescu 4'
+        profilePic={profilePic}
+        username='clement4'
+        lastMessage='The current state of our...'
+        lastMessaged='20h'
+        currentlySelected={currentlySelected}
       />
     </div>
   );

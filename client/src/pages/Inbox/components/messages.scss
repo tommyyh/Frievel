@@ -9,13 +9,35 @@
 @media all and (min-width: 1025px) {
   .messages {
     margin-top: 0rem;
+    overflow-y: scroll;
+
+    &:first-child {
+      margin-top: 3.9rem;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #37383a;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #545657;
+    }
   }
 
   .messages_title {
     display: flex;
     align-items: center;
+    position: absolute;
     height: 13%;
+    width: 34%;
+    top: 0;
+    background: #282a2c;
     border-bottom: 1px #4b4e4e solid;
+    border-right: 1px #4b4e4e solid;
     margin-bottom: 0rem;
 
     & h2 {

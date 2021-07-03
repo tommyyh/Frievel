@@ -53,3 +53,63 @@
     }
   }
 }
+
+@media all and (min-width: 1025px) {
+  .profile_info {
+    margin-top: 0vh;
+    padding-left: 6%;
+    border-bottom: 1px #4b4e4e solid;
+    padding-bottom: 2rem;
+
+    & img {
+      border-radius: 1rem;
+      width: 6rem;
+      height: 6rem;
+      border: 1px #313333 solid;
+    }
+
+    & h1 {
+      font-size: 1.6rem;
+      color: #dddddd;
+      margin-top: 0.7rem;
+    }
+
+    & h2 {
+      font-size: 1.03rem;
+      color: #9d9d9d;
+      font-weight: 500;
+    }
+  }
+
+  .profile_info_geo {
+    margin-top: 1.6rem;
+
+    & h4 {
+      font-size: 0.89rem;
+      color: #9d9d9d;
+      font-weight: 500;
+      margin-top: 0.1rem;
+    }
+  }
+
+  .profile_info_stats {
+    display: flex;
+    align-items: center;
+    margin-top: 1.6rem;
+
+    & h4 {
+      font-size: 1rem;
+      color: #aaaaaa;
+      font-weight: 500;
+      margin-top: 0.1rem;
+
+      &:nth-child(2) {
+        margin-left: 1.4rem;
+      }
+
+      & span {
+        color: #ffffff;
+      }
+    }
+  }
+}

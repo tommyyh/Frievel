@@ -1,11 +1,20 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Post from './components/Post';
 import profilePic from '../../assets/img/profile_pic.jpg';
 import './posts.scss';
 
 const Posts = () => {
+  const { username } = useParams();
+
   return (
-    <div className='posts'>
+    <div
+      className={
+        window.location.pathname === `/profile/${username}`
+          ? 'profile_posts'
+          : 'posts'
+      }
+    >
       <Post
         name='Clement Mihailescu'
         profilePic={profilePic}

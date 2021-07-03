@@ -7,11 +7,7 @@ const Suggestions = () => {
   const pathName = window.location.pathname;
 
   return (
-    <section
-      className={
-        pathName === '/' ? 'suggestions' : 'suggestions saved_suggestions'
-      }
-    >
+    <section className='suggestions'>
       <h2>You may know</h2>
       <Suggestion
         name='Clement Mihailescu'

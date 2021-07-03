@@ -21,7 +21,7 @@ const MsgMenu = () => {
       return;
     }
 
-    if (window.innerWidth > 1025 && e.scrollHeight === 45) {
+    if (window.innerWidth > 1025 && e.scrollHeight < 49) {
       e.style.height = '';
       e.style.height = '2.6rem';
 
