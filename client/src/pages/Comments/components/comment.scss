@@ -1,7 +1,7 @@
 .comment {
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 13% 84%;
+  grid-template-columns: 7.5% 92.5%;
   border-bottom: 1px #4b4e4e solid;
   margin-top: 1.3rem;
 
@@ -70,7 +70,17 @@
   & p {
     color: #d3d3d3;
     margin-top: 0.3rem;
-    font-size: 0.89rem;
+    font-size: 0.82rem;
+  }
+}
+
+.comment_icons_like {
+  & path {
+    transition: ease 300ms;
+  }
+
+  &:hover > path {
+    stroke: #cc1b50;
   }
 }
 
@@ -90,5 +100,6 @@
   & svg {
     margin-top: -0.9rem;
     margin-left: -0.15rem;
+    cursor: pointer;
   }
 }
