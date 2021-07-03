@@ -1,8 +1,12 @@
 import React from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './post.scss';
 
 const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
+  const { push } = useHistory();
+  const { id } = useParams();
+
   return (
     <div
       className={window.location.pathname === '/saved' ? 'saved_post' : 'post'}
@@ -61,12 +65,17 @@ const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
             className='post_comment_icon'
+            onClick={() => push('/post/123')}
           >
             <path
               fillRule='evenodd'
               clipRule='evenodd'
               d='M18.8021 18.2479L17.6938 13.8938C18.4063 12.5875 18.8021 11.0833 18.8021 9.5C18.8021 4.35417 14.6459 0.197922 9.50002 0.197922C4.35419 0.197922 0.197937 4.35417 0.197937 9.5C0.197937 14.6458 4.35419 18.8021 9.50002 18.8021C11.0834 18.8021 12.5875 18.4063 13.8938 17.6938L18.2479 18.8021C18.5646 18.8813 18.8813 18.5646 18.8021 18.2479ZM17.6146 9.5C17.6146 11.0833 17.2188 12.2708 16.5854 13.4583C16.5063 13.6167 16.4667 13.8146 16.5063 14.0125L17.3375 17.3375L14.0521 16.5063C13.8542 16.4667 13.6563 16.4667 13.4979 16.5854C12.7854 16.9813 11.4396 17.6146 9.5396 17.6146C5.0271 17.6146 1.38544 13.9729 1.38544 9.5C1.38544 5.02709 5.0271 1.38542 9.50002 1.38542C13.9729 1.38542 17.6146 5.02709 17.6146 9.5Z'
-              fill='#6F767C'
+              fill={
+                window.location.pathname === `/post/${id}`
+                  ? '#1E82DF'
+                  : '#6F767C'
+              }
             />
           </svg>
           <svg

@@ -17,4 +17,8 @@
     font-weight: 500;
     margin-left: 5%;
   }
+
+  &:hover > h4 {
+    text-decoration: underline;
+  }
 }
