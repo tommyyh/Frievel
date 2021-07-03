@@ -1,0 +1,84 @@
+@import '../../global_styles/variables.scss';
+
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  padding: 0 0 0 5%;
+
+  & h1 {
+    color: #e3e3e3;
+    font-size: 2rem;
+    margin-top: -3rem;
+
+    & span {
+      display: block;
+    }
+  }
+}
+
+.goBack_link {
+  display: flex;
+  align-items: center;
+  margin-top: 2.8rem;
+  transition: ease 300ms;
+
+  & a {
+    position: relative;
+    color: $accent-color;
+    font-size: 1.2rem;
+    text-decoration: none;
+    left: 4%;
+    transition: ease 300ms;
+  }
+
+  & svg {
+    margin-top: 0.1rem;
+  }
+}
+
+@media all and (min-width: 1025px) {
+  .notFound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+    margin-top: 10vh;
+    padding: 0 0 0 13%;
+
+    & h1 {
+      color: #e3e3e3;
+      font-size: 2.5rem;
+      margin-top: -3rem;
+
+      & span {
+        display: block;
+      }
+    }
+  }
+
+  .goBack_link {
+    display: flex;
+    align-items: center;
+    margin-top: 2.8rem;
+    transition: ease 300ms;
+
+    &:hover > a {
+      left: 1.95%;
+    }
+
+    & a {
+      position: relative;
+      color: $accent-color;
+      font-size: 1.1rem;
+      text-decoration: none;
+      left: 1.5%;
+      transition: ease 300ms;
+    }
+
+    & svg {
+      margin-top: 0.13rem;
+    }
+  }
+}
