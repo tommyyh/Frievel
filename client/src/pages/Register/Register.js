@@ -16,6 +16,7 @@ const Register = () => {
     password: '',
     username: '',
   });
+  const [errorMsg, setErrorMsg] = useState('');
   const userInfoValues =
     userInfo.fullName &&
     userInfo.email &&
@@ -40,6 +41,8 @@ const Register = () => {
       });
 
       push('/login');
+    } else {
+      setErrorMsg(res.data.message);
     }
   };
 
@@ -62,7 +65,10 @@ const Register = () => {
             <Logo />
           </div>
           <div className='register_cont'>
-            <h1>Sign Up</h1>
+            <div className='register_title'>
+              <h1>Sign Up</h1>
+              {errorMsg && <p>{errorMsg}</p>}
+            </div>
             <div className='register_form'>
               <form onSubmit={(e) => createUser(e)}>
                 <div>
@@ -71,7 +77,10 @@ const Register = () => {
                     id='register_name'
                     name='fullName'
                     placeholder='Full name'
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => {
+                      onChange(e);
+                      setErrorMsg('');
+                    }}
                     value={userInfo.fullName}
                   />
                 </div>
@@ -81,7 +90,10 @@ const Register = () => {
                     id='register_username'
                     name='username'
                     placeholder='Username'
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => {
+                      onChange(e);
+                      setErrorMsg('');
+                    }}
                     value={userInfo.username}
                   />
                 </div>
@@ -91,7 +103,10 @@ const Register = () => {
                     id='register_email'
                     name='email'
                     placeholder='Email Address'
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => {
+                      onChange(e);
+                      setErrorMsg('');
+                    }}
                     value={userInfo.email}
                   />
                 </div>
@@ -101,7 +116,10 @@ const Register = () => {
                     name='password'
                     id='register_password'
                     placeholder='Password'
-                    onChange={(e) => onChange(e)}
+                    onChange={(e) => {
+                      onChange(e);
+                      setErrorMsg('');
+                    }}
                     value={userInfo.password}
                   />
                 </div>
@@ -118,7 +136,7 @@ const Register = () => {
                 </button>
               </form>
             </div>
-            <p>
+            <p className='sign_in_redirect'>
               Already have an account?{' '}
               <span>
                 <Link to='/login'>Sign in</Link>

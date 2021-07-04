@@ -63,12 +63,18 @@
     height: 100vh;
     padding-left: 0%;
 
+    & p {
+      color: #b2b2b2;
+      font-size: 0.935rem;
+      margin-top: 0rem;
+    }
+
     & h1 {
       margin: -0.75rem 0 0.61rem 0;
       color: $secondary-color;
     }
 
-    & p {
+    & .sign_in_redirect {
       color: #b2b2b2;
       font-size: 0.935rem;
       margin-top: 3.2rem;
@@ -81,7 +87,7 @@
 
   .register_parent {
     width: 30%;
-    height: 78%;
+    height: 83%;
   }
 
   .register_logo {
@@ -129,6 +135,13 @@
       font-weight: 500;
       color: #fff;
       cursor: pointer;
+    }
+  }
+
+  .register_title {
+    & p {
+      color: #e94d4d;
+      font-weight: 300;
     }
   }
 }

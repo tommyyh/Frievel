@@ -19,5 +19,6 @@ def register(request):
 
     return Response({ 'status': 201 })
   else:
-    print(serializer.errors)
-    return Response({ 'status': 403 })
+    return Response({ 
+      'status': 403, 'message': 'There was an error creating your account' 
+    })
