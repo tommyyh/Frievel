@@ -71,6 +71,12 @@
     & p {
       color: #b2b2b2;
       font-size: 0.935rem;
+      margin-top: 0rem;
+    }
+
+    & .signup_link {
+      color: #b2b2b2;
+      font-size: 0.935rem;
       margin-top: 4.4rem;
 
       & span > a {
@@ -129,6 +135,14 @@
       font-size: 1.13rem;
       font-weight: 500;
       color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  .login_title {
+    & p {
+      color: #e94d4d;
+      font-weight: 300;
     }
   }
 }

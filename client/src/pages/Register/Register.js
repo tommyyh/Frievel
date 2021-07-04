@@ -42,7 +42,7 @@ const Register = () => {
 
       push('/login');
     } else {
-      setErrorMsg(res.data.message);
+      !res.data.msg ? setErrorMsg('') : setErrorMsg(res.data.msg);
     }
   };
 
@@ -82,6 +82,7 @@ const Register = () => {
                       setErrorMsg('');
                     }}
                     value={userInfo.fullName}
+                    maxLength='150'
                   />
                 </div>
                 <div>
@@ -94,6 +95,7 @@ const Register = () => {
                       onChange(e);
                       setErrorMsg('');
                     }}
+                    maxLength='100'
                     value={userInfo.username}
                   />
                 </div>
@@ -103,6 +105,7 @@ const Register = () => {
                     id='register_email'
                     name='email'
                     placeholder='Email Address'
+                    maxLength='180'
                     onChange={(e) => {
                       onChange(e);
                       setErrorMsg('');
@@ -116,6 +119,7 @@ const Register = () => {
                     name='password'
                     id='register_password'
                     placeholder='Password'
+                    maxLength='180'
                     onChange={(e) => {
                       onChange(e);
                       setErrorMsg('');
