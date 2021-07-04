@@ -28,24 +28,22 @@ def register(request):
       'status': 400, 'msg': 'Password must be at least 6 characters long' 
     })
 
-  return Response('nigga?')
-
   # Save user to the database
-  # serializer = AccountSerializer(data = {
-  #   'name': request.data['fullName'],
-  #   'email': request.data['email'],
-  #   'password': hashedPassword.decode('utf-8'),
-  #   'username': request.data['username'],
-  # })
+  serializer = AccountSerializer(data = {
+    'name': request.data['fullName'],
+    'email': request.data['email'],
+    'password': hashedPassword.decode('utf-8'),
+    'username': request.data['username'],
+  })
   
-  # if serializer.is_valid():
-  #   serializer.save()
+  if serializer.is_valid():
+    serializer.save()
 
-  #   return Response({ 'status': 201 })
-  # else:
-  #   return Response({ 
-  #     'status': 403, 'msg': 'There was an error creating your account' 
-  #   })
+    return Response({ 'status': 201 })
+  else:
+    return Response({ 
+      'status': 403, 'msg': 'There was an error creating your account' 
+    })
 
 @api_view(['POST'])
 def login(request):
