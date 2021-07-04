@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
@@ -15,18 +17,40 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 function App() {
+  const ProtectedRoute = ({ component, path, exact }) => {
+    const isLogged = useSelector((state) => state.isLogged);
+
+    return (
+      <>
+        {isLogged ? (
+          <Route component={component} path={path} exact={exact} />
+        ) : (
+          <Redirect to='/login' />
+        )}
+      </>
+    );
+  };
+
   return (
     <Router>
       <Switch>
-        <Route component={Home} path='/' exact />
+        <ProtectedRoute exact={true} component={Home} path='/' />
+        <ProtectedRoute exact={true} component={Saved} path='/saved' />
+        <ProtectedRoute exact={true} component={Inbox} path='/inbox' />
+        <ProtectedRoute
+          exact={true}
+          component={DirectMsg}
+          path='/inbox/:username'
+        />
+        <ProtectedRoute
+          exact={true}
+          component={Profile}
+          path='/profile/:username'
+        />
+        <ProtectedRoute exact={true} component={Comments} path='/post/:id' />
         <Route component={Login} path='/login' exact />
         <Route component={Register} path='/register' exact />
-        <Route component={Saved} path='/saved' exact />
-        <Route component={Inbox} path='/inbox' exact />
-        <Route component={DirectMsg} path='/inbox/:username' exact />
-        <Route component={Profile} path='/profile/:username' exact />
-        <Route component={Comments} path='/post/:id' exact />
-        <Route component={NotFound} path='*' exact />
+        <Route component={NotFound} path='*' />
       </Switch>
     </Router>
   );
