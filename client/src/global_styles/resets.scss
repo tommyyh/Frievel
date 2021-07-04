@@ -22,6 +22,15 @@ textarea {
   outline: none;
 }
 
+button {
+  transition: ease 300ms;
+
+  &:hover {
+    border-radius: 28px;
+    background: #0e78db;
+  }
+}
+
 @media all and (min-width: 1025px) {
   html {
     font-size: 17px;

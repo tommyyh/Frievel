@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import './register.scss';
 import Logo from '../../components/logo/Logo';
@@ -7,10 +9,43 @@ import Loading from '../../components/Loading/Loading';
 
 const Register = () => {
   const [loading, setLoading] = useState(true);
+  const { push } = useHistory();
+  const [userInfo, setUserInfo] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    username: '',
+  });
+  const userInfoValues =
+    userInfo.fullName &&
+    userInfo.email &&
+    userInfo.password &&
+    userInfo.username;
 
   useEffect(() => {
     setLoading(false);
   }, []);
+
+  const createUser = async (e) => {
+    e.preventDefault();
+
+    const res = await axios.post('/user/register/', userInfo);
+
+    if (res.data.status === 201) {
+      setUserInfo({
+        fullName: '',
+        email: '',
+        password: '',
+        username: '',
+      });
+
+      push('/login');
+    }
+  };
+
+  const onChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
 
   if (loading) return <Loading />;
 
@@ -29,29 +64,58 @@ const Register = () => {
           <div className='register_cont'>
             <h1>Sign Up</h1>
             <div className='register_form'>
-              <form>
+              <form onSubmit={(e) => createUser(e)}>
                 <div>
                   <input
                     type='text'
                     id='register_name'
+                    name='fullName'
                     placeholder='Full name'
+                    onChange={(e) => onChange(e)}
+                    value={userInfo.fullName}
+                  />
+                </div>
+                <div>
+                  <input
+                    type='text'
+                    id='register_username'
+                    name='username'
+                    placeholder='Username'
+                    onChange={(e) => onChange(e)}
+                    value={userInfo.username}
                   />
                 </div>
                 <div>
                   <input
                     type='text'
                     id='register_email'
+                    name='email'
                     placeholder='Email Address'
+                    onChange={(e) => onChange(e)}
+                    value={userInfo.email}
                   />
                 </div>
                 <div>
                   <input
                     type='password'
+                    name='password'
                     id='register_password'
                     placeholder='Password'
+                    onChange={(e) => onChange(e)}
+                    value={userInfo.password}
                   />
                 </div>
-                <button type='submit'>Sign Up</button>
+                <button
+                  type='submit'
+                  disabled={!userInfoValues ? true : false}
+                  style={
+                    !userInfoValues
+                      ? { cursor: 'not-allowed' }
+                      : { border: 'none' }
+                  }
+                >
+                  Sign Up
+                </button>
               </form>
             </div>
             <p>

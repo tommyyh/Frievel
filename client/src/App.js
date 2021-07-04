@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
@@ -8,6 +9,10 @@ import Profile from './pages/Profile/Profile';
 import NotFound from './pages/NotFound/NotFound';
 import Comments from './pages/Comments/Comments';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+// Append CSRF token on every request
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 function App() {
   return (
