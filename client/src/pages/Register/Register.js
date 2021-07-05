@@ -10,6 +10,7 @@ import Loading from '../../components/Loading/Loading';
 const Register = () => {
   const [loading, setLoading] = useState(true);
   const { push } = useHistory();
+  const [processing, setProcessing] = useState(false);
   const [userInfo, setUserInfo] = useState({
     fullName: '',
     email: '',
@@ -29,6 +30,7 @@ const Register = () => {
 
   const createUser = async (e) => {
     e.preventDefault();
+    setProcessing(true);
 
     const res = await axios.post('/user/register/', userInfo);
 
@@ -43,6 +45,7 @@ const Register = () => {
       push('/login');
     } else {
       !res.data.msg ? setErrorMsg('') : setErrorMsg(res.data.msg);
+      setProcessing(false);
     }
   };
 
@@ -127,17 +130,31 @@ const Register = () => {
                     value={userInfo.password}
                   />
                 </div>
-                <button
-                  type='submit'
-                  disabled={!userInfoValues ? true : false}
-                  style={
-                    !userInfoValues
-                      ? { cursor: 'not-allowed' }
-                      : { border: 'none' }
-                  }
-                >
-                  Sign Up
-                </button>
+                {!processing ? (
+                  <button
+                    type='submit'
+                    disabled={!userInfoValues ? true : false}
+                    style={
+                      !userInfoValues
+                        ? { cursor: 'not-allowed' }
+                        : { border: 'none' }
+                    }
+                  >
+                    {!processing ? 'Sign Up' : 'Processing...'}
+                  </button>
+                ) : (
+                  <button
+                    type='submit'
+                    disabled={true}
+                    style={
+                      !userInfoValues
+                        ? { cursor: 'not-allowed' }
+                        : { border: 'none' }
+                    }
+                  >
+                    {!processing ? 'Sign Up' : 'Processing...'}
+                  </button>
+                )}
               </form>
             </div>
             <p className='sign_in_redirect'>

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './header.scss';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import profilePic from '../../assets/img/profile_pic.jpg';
 import { useHistory, useParams } from 'react-router-dom';
 import ProfileMenu from './components/ProfileMenu';
 import { useMediaQuery } from 'react-responsive';
+import { SIGN_IN } from '../../actions/isLogged';
 
 const Header = () => {
   const pathName = window.location.pathname;
@@ -14,6 +17,20 @@ const Header = () => {
     query: '(min-device-width: 1025px)',
   });
   const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const authenticate = async () => {
+      const res = await axios.get('/user/authenticate/');
+      console.log(res.data.status);
+
+      if (res.data.status === 201) {
+        dispatch(SIGN_IN());
+      }
+    };
+
+    authenticate();
+  }, []);
 
   return (
     <>

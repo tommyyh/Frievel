@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
+import { useHistory } from 'react-router-dom';
 import './login.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
+import { SIGN_IN } from '../../actions/isLogged';
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
@@ -14,6 +17,8 @@ const Login = () => {
   });
   const [errorMsg, setErrorMsg] = useState('');
   const userInfoValues = userInfo.email && userInfo.password;
+  const dispatch = useDispatch();
+  const { push } = useHistory();
 
   useEffect(() => {
     setLoading(false);
@@ -29,6 +34,14 @@ const Login = () => {
     e.preventDefault();
 
     const res = await axios.post('/user/login/', userInfo);
+
+    if (res.data.status === 200) {
+      // Successfull login -> set isLogged to true (redux)
+      dispatch(SIGN_IN());
+      push('/');
+    } else {
+      setErrorMsg(res.data.msg);
+    }
   };
 
   return (

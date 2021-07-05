@@ -31,6 +31,20 @@ function App() {
     );
   };
 
+  const PublicRoute = ({ component, path, exact }) => {
+    const isLogged = useSelector((state) => state.isLogged);
+
+    return (
+      <>
+        {isLogged ? (
+          <Redirect to='/' />
+        ) : (
+          <Route component={component} path={path} exact={exact} />
+        )}
+      </>
+    );
+  };
+
   return (
     <Router>
       <Switch>
@@ -48,8 +62,8 @@ function App() {
           path='/profile/:username'
         />
         <ProtectedRoute exact={true} component={Comments} path='/post/:id' />
-        <Route component={Login} path='/login' exact />
-        <Route component={Register} path='/register' exact />
+        <PublicRoute component={Login} path='/login' exact={true} />
+        <PublicRoute component={Register} path='/register' exact={true} />
         <Route component={NotFound} path='*' />
       </Switch>
     </Router>

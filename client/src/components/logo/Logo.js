@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import './logo.scss';
+import { SIGN_IN } from '../../actions/isLogged';
 
 const Logo = () => {
+  const dispatch = useDispatch();
+  const { push } = useHistory();
+
+  useEffect(() => {
+    const authenticate = async () => {
+      const res = await axios.get('/user/authenticate/');
+
+      if (res.data.status === 201) {
+        dispatch(SIGN_IN());
+        push('/');
+      }
+    };
+
+    authenticate();
+  }, []);
+
   return (
     <div className='logo' to='/'>
       <svg
