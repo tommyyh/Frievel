@@ -7,6 +7,12 @@ import { useHistory, useParams } from 'react-router-dom';
 import ProfileMenu from './components/ProfileMenu';
 import { useMediaQuery } from 'react-responsive';
 import { SIGN_IN } from '../../actions/isLogged';
+import {
+  SET_NAME,
+  SET_EMAIL,
+  SET_USERNAME,
+  SET_PROFILE_PIC,
+} from '../../actions/user';
 
 const Header = () => {
   const pathName = window.location.pathname;
@@ -22,10 +28,14 @@ const Header = () => {
   useEffect(() => {
     const authenticate = async () => {
       const res = await axios.get('/user/authenticate/');
-      console.log(res.data.status);
+      const { name, username, email, profile_pic } = res.data;
 
       if (res.data.status === 201) {
         dispatch(SIGN_IN());
+        dispatch(SET_NAME(name));
+        dispatch(SET_USERNAME(username));
+        dispatch(SET_EMAIL(email));
+        dispatch(SET_PROFILE_PIC(profile_pic));
       }
     };
 

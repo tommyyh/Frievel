@@ -64,6 +64,7 @@ def login(request):
       'name': account.name,
       'username': account.username,
       'email': account.email,
+      'profile_pic': account.profilePic,
     }
 
     encoded_jwt = jwt.encode(payload, 'secret', algorithm='HS256')
@@ -94,11 +95,10 @@ def authenticate(request):
         'name': token['name'],
         'username': token['username'],
         'email': token['email'],
+        'profile_pic': token['profile_pic'],
       })
 
-    except Exception as e:
-      print(e)
-
+    except:
       return Response({
         'status': 401,
       })

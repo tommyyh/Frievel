@@ -36,8 +36,8 @@ const Login = () => {
     const res = await axios.post('/user/login/', userInfo);
 
     if (res.data.status === 200) {
-      // Successfull login -> set isLogged to true (redux)
       dispatch(SIGN_IN());
+
       push('/');
     } else {
       setErrorMsg(res.data.msg);
