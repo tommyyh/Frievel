@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
@@ -53,7 +52,7 @@ function App() {
         {isLogged ? (
           <Route component={component} path={path} exact={exact} />
         ) : (
-          <Redirect to='/login' />
+          <Login />
         )}
       </>
     );
@@ -82,7 +81,7 @@ function App() {
     return (
       <>
         {isLogged ? (
-          <Redirect to='/' />
+          <Home />
         ) : (
           <Route component={component} path={path} exact={exact} />
         )}

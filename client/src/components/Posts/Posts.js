@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Post from './components/Post';
 import profilePic from '../../assets/img/profile_pic.jpg';
@@ -6,6 +7,20 @@ import './posts.scss';
 
 const Posts = () => {
   const { username } = useParams();
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const res = await axios.get('/post/posts/');
+      const { status, posts } = res.data;
+
+      if (status === 200) {
+        setPosts(posts);
+      }
+    };
+
+    getPosts();
+  }, []);
 
   return (
     <div
@@ -15,30 +30,17 @@ const Posts = () => {
           : 'posts'
       }
     >
-      <Post
-        name='Clement Mihailescu'
-        profilePic={profilePic}
-        userTag='clemmihai'
-        posetedAt='June 19 at 10:05'
-        content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
-        likes={'2,950'}
-      />
-      <Post
-        name='Clement Mihailescu'
-        profilePic={profilePic}
-        userTag='clemmihai'
-        posetedAt='June 19 at 10:05'
-        content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
-        likes={'2,950'}
-      />
-      <Post
-        name='Clement Mihailescu'
-        profilePic={profilePic}
-        userTag='clemmihai'
-        posetedAt='June 19 at 10:05'
-        content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
-        likes={'2,950'}
-      />
+      {posts.map((post) => (
+        <Post
+          key={post.id}
+          name={post.author_name}
+          profilePic={profilePic}
+          userTag={post.author_username}
+          posetedAt={post.published_at}
+          content={post.content}
+          likes={post.likes}
+        />
+      ))}
     </div>
   );
 };
