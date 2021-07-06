@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
-import { useHistory } from 'react-router-dom';
 import './login.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import { SIGN_IN } from '../../actions/isLogged';
+import {
+  SET_NAME,
+  SET_EMAIL,
+  SET_USERNAME,
+  SET_PROFILE_PIC,
+} from '../../actions/user';
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
@@ -34,9 +40,14 @@ const Login = () => {
     e.preventDefault();
 
     const res = await axios.post('/user/login/', userInfo);
+    const { name, username, email, profile_pic } = res.data;
 
-    if (res.data.status === 200) {
+    if (res.data.status === 201) {
       dispatch(SIGN_IN());
+      dispatch(SET_NAME(name));
+      dispatch(SET_USERNAME(username));
+      dispatch(SET_EMAIL(email));
+      dispatch(SET_PROFILE_PIC(profile_pic));
 
       push('/');
     } else {

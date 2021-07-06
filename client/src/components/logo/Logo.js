@@ -1,40 +1,7 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import './logo.scss';
-import { SIGN_IN } from '../../actions/isLogged';
-import {
-  SET_NAME,
-  SET_EMAIL,
-  SET_USERNAME,
-  SET_PROFILE_PIC,
-} from '../../actions/user';
 
 const Logo = () => {
-  const dispatch = useDispatch();
-  const { push } = useHistory();
-
-  useEffect(() => {
-    const authenticate = async () => {
-      const res = await axios.get('/user/authenticate/');
-      const { name, username, email, profile_pic } = res.data;
-
-      if (res.data.status === 201) {
-        dispatch(SIGN_IN());
-        dispatch(SIGN_IN());
-        dispatch(SET_NAME(name));
-        dispatch(SET_USERNAME(username));
-        dispatch(SET_EMAIL(email));
-        dispatch(SET_PROFILE_PIC(profile_pic));
-
-        push('/');
-      }
-    };
-
-    authenticate();
-  }, []);
-
   return (
     <div className='logo' to='/'>
       <svg

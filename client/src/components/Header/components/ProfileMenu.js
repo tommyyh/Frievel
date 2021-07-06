@@ -1,8 +1,35 @@
 import React from 'react';
+import axios from 'axios';
 import './profileMenu.scss';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import {
+  SET_NAME,
+  SET_EMAIL,
+  SET_USERNAME,
+  SET_PROFILE_PIC,
+} from '../../../actions/user';
+import { LOGOUT } from '../../../actions/isLogged';
 
 const ProfileMenu = ({ setProfileMenu }) => {
+  const dispatch = useDispatch();
+  const { push } = useHistory();
+
+  const logout = async () => {
+    const res = await axios.delete('/user/logout/');
+
+    if (res.data.status === 200) {
+      dispatch(LOGOUT());
+      dispatch(SET_EMAIL(''));
+      dispatch(SET_USERNAME(''));
+      dispatch(SET_PROFILE_PIC(''));
+      dispatch(SET_NAME(''));
+
+      push('/login');
+    }
+  };
+
   return (
     <div className='profile_menu'>
       <ul>
@@ -12,7 +39,13 @@ const ProfileMenu = ({ setProfileMenu }) => {
         <Link to='/saved' onClick={() => setProfileMenu(false)}>
           <li>Saved</li>
         </Link>
-        <li className='menu_logout' onClick={() => setProfileMenu(false)}>
+        <li
+          className='menu_logout'
+          onClick={() => {
+            setProfileMenu(false);
+            logout();
+          }}
+        >
           Logout
         </li>
       </ul>

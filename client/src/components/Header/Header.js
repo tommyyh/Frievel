@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './header.scss';
-import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import profilePic from '../../assets/img/profile_pic.jpg';
 import { useHistory, useParams } from 'react-router-dom';
 import ProfileMenu from './components/ProfileMenu';
 import { useMediaQuery } from 'react-responsive';
-import { SIGN_IN } from '../../actions/isLogged';
-import {
-  SET_NAME,
-  SET_EMAIL,
-  SET_USERNAME,
-  SET_PROFILE_PIC,
-} from '../../actions/user';
 
 const Header = () => {
   const pathName = window.location.pathname;
@@ -23,25 +14,6 @@ const Header = () => {
     query: '(min-device-width: 1025px)',
   });
   const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const authenticate = async () => {
-      const res = await axios.get('/user/authenticate/');
-      const { name, username, email, profile_pic } = res.data;
-
-      if (res.data.status === 201) {
-        dispatch(SIGN_IN());
-        dispatch(SET_NAME(name));
-        dispatch(SET_USERNAME(username));
-        dispatch(SET_EMAIL(email));
-        dispatch(SET_PROFILE_PIC(profile_pic));
-      }
-    };
-
-    authenticate();
-  }, []);
-
   return (
     <>
       {mobileScreen && (

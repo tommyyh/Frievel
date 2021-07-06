@@ -70,7 +70,13 @@ def login(request):
     encoded_jwt = jwt.encode(payload, 'secret', algorithm='HS256')
 
     # Send token to cookies
-    response = Response({ 'status': 200 })
+    response = Response({
+        'status': 201,
+        'name': account.name,
+        'username': account.username,
+        'email': account.email,
+        'profile_pic': account.profilePic,
+      })
     response.set_cookie('token', encoded_jwt, max_age=None, httponly=True)
 
     # Save user to session
@@ -79,6 +85,13 @@ def login(request):
     return response
   else:
     return Response({ 'status': 400, 'msg': 'Incorrect password' })
+
+@api_view(['DELETE'])
+def logout(request):
+  response = Response({ 'status': 200 })
+  response.set_cookie('token', '', max_age=1, httponly=True)
+
+  return response
 
 @api_view(['GET'])
 def authenticate(request):

@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Login from './pages/Login/Login';
@@ -11,14 +13,40 @@ import Profile from './pages/Profile/Profile';
 import NotFound from './pages/NotFound/NotFound';
 import Comments from './pages/Comments/Comments';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { SIGN_IN } from './actions/isLogged';
+import {
+  SET_NAME,
+  SET_EMAIL,
+  SET_PROFILE_PIC,
+  SET_USERNAME,
+} from './actions/user';
 
 // Append CSRF token on every request
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 function App() {
+  const dispatch = useDispatch();
+
   const ProtectedRoute = ({ component, path, exact }) => {
     const isLogged = useSelector((state) => state.isLogged);
+
+    useEffect(() => {
+      const authenticate = async () => {
+        const res = await axios.get('/user/authenticate/');
+        const { name, username, email, profile_pic } = res.data;
+
+        if (res.data.status === 201) {
+          dispatch(SIGN_IN());
+          dispatch(SET_NAME(name));
+          dispatch(SET_USERNAME(username));
+          dispatch(SET_EMAIL(email));
+          dispatch(SET_PROFILE_PIC(profile_pic));
+        }
+      };
+
+      authenticate();
+    }, []);
 
     return (
       <>
@@ -33,6 +61,23 @@ function App() {
 
   const PublicRoute = ({ component, path, exact }) => {
     const isLogged = useSelector((state) => state.isLogged);
+
+    useEffect(() => {
+      const authenticate = async () => {
+        const res = await axios.get('/user/authenticate/');
+        const { name, username, email, profile_pic } = res.data;
+
+        if (res.data.status === 201) {
+          dispatch(SIGN_IN());
+          dispatch(SET_NAME(name));
+          dispatch(SET_USERNAME(username));
+          dispatch(SET_EMAIL(email));
+          dispatch(SET_PROFILE_PIC(profile_pic));
+        }
+      };
+
+      authenticate();
+    }, []);
 
     return (
       <>
