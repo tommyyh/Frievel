@@ -16,6 +16,7 @@
   .post_form_file {
     position: relative;
     width: 100%;
+    margin-left: -0.5%;
 
     & input[type='file'] {
       opacity: 0;

@@ -2,9 +2,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import AccountSerializer
 from .models import Account
-from validate_email import validate_email
 import bcrypt
 import jwt
+import random
 import os
 
 @api_view(['POST'])
@@ -19,10 +19,6 @@ def register(request):
   # Check if email is taken
   if Account.objects.filter(email = request.data['email']):
     return Response({ 'status': 400, 'msg': 'Email is already taken' })
-
-  # Check if email exists
-  if not validate_email(request.data['email'], verify=True):
-    return Response({ 'status': 400, 'msg': 'Please enter a valid email' })
 
   # Check if password is at least 6 letters
   if not len(request.data['password']) > 5:
@@ -54,7 +50,7 @@ def login(request):
   account = Account.objects.filter(email = email).first()
 
   # Check if account exists
-  if not account:
+  if not account or email == os.environ.get('EMAIL'):
     return Response({ 'status': 404, 'msg': 'Please enter a valid email' })
 
   # Check if password matches
@@ -94,6 +90,16 @@ def logout(request):
   return response
 
 @api_view(['GET'])
+def suggestions(request):
+  # Send random suggestions
+  last = Account.objects.count() + 1
+  random_list = random.sample(range(1, last), 7)
+  accounts = Account.objects.filter(pk__in = random_list)
+  serializer = AccountSerializer(accounts, many=True) 
+
+  return Response({ 'suggestions': serializer.data })
+
+@api_view(['GET'])
 def authenticate(request):
   if 'token' in request.COOKIES:
     encoded_token = request.COOKIES['token']
@@ -120,3 +126,9 @@ def authenticate(request):
     return Response({
       'status': 401,
     })
+
+@api_view(['POST'])
+def follow(request):
+  username = request.data['username']
+
+  return Response('ok nigga')

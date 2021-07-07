@@ -40,8 +40,8 @@ class Account(AbstractBaseUser):
   username = models.CharField(max_length=200, unique=True)
   lives_in = models.CharField(max_length=200, blank=True)
   born_in = models.CharField(max_length=200, blank=True)
-  followers = models.IntegerField(default=0)
-  following = models.IntegerField(default=0)
+  follower_count = models.IntegerField(default=0)
+  following_count = models.IntegerField(default=0)
   profilePic = models.TextField(blank=True)
   date_joined = models.DateTimeField(auto_now_add=True)
   last_login = models.DateTimeField(auto_now=True)
@@ -63,3 +63,12 @@ class Account(AbstractBaseUser):
 
   def has_module_perms(self, app_label):
     return True
+
+class Following(models.Model):
+  name = models.CharField(max_length=200, unique=True)
+  username = models.CharField(max_length=200, unique=True)
+  profilePic = models.TextField(blank=True)
+  account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True)
+
+  def __str__(self):
+    return self.name

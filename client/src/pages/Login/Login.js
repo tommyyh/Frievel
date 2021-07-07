@@ -17,6 +17,7 @@ import {
 
 const Login = () => {
   const [loading, setLoading] = useState(true);
+  const [progress, setProgress] = useState(false);
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
@@ -38,6 +39,7 @@ const Login = () => {
 
   const signIn = async (e) => {
     e.preventDefault();
+    setProgress(true);
 
     const res = await axios.post('/user/login/', userInfo);
     const { name, username, email, profile_pic } = res.data;
@@ -49,6 +51,7 @@ const Login = () => {
       dispatch(SET_EMAIL(email));
       dispatch(SET_PROFILE_PIC(profile_pic));
 
+      setProgress(false);
       push('/');
     } else {
       setErrorMsg(res.data.msg);
@@ -109,7 +112,7 @@ const Login = () => {
                       : { border: 'none' }
                   }
                 >
-                  Sign In
+                  {!progress ? 'Sign In' : 'Processing...'}
                 </button>
               </form>
             </div>

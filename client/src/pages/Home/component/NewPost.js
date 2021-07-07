@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import './newPost.scss';
-import profilePic from '../../../assets/img/profile_pic.jpg';
+import defaultPic from '../../../assets/img/default_profile.jpg';
 
 const NewPost = ({ newPost, setNewPost }) => {
   const [inputValue, setInputValue] = useState('');
@@ -40,7 +40,7 @@ const NewPost = ({ newPost, setNewPost }) => {
       <div className='close_newPost' onClick={() => setNewPost(!newPost)}></div>
       <div className='new_post_form'>
         <span className='new_post_form_top'>
-          <img src={profilePic} alt='User profile' />
+          <img src={defaultPic} alt='User profile' />
           <textarea
             type='text'
             name='new_post_input'

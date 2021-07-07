@@ -1,21 +1,34 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './profileInfo.scss';
 
 const ProfileInfo = ({
   profilePic,
   name,
-  username,
+  userTag,
   joinedAt,
   livesIn,
   bornIn,
   following,
   followers,
 }) => {
+  const { username } = useParams();
+
+  const follow = async () => {
+    const res = await axios.post('/user/follow/', {
+      username,
+    });
+  };
+
   return (
     <div className='profile_info'>
       <img src={profilePic} alt='User profile' />
+      <button className='follow_btn' onClick={follow}>
+        Follow
+      </button>
       <h1>{name}</h1>
-      <h2>{username}</h2>
+      <h2>{userTag}</h2>
       <div className='profile_info_geo'>
         <h4>{joinedAt}</h4>
         <h4>{livesIn}</h4>

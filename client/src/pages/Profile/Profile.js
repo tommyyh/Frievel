@@ -5,7 +5,7 @@ import './profile.scss';
 import Header from '../../components/Header/Header';
 import Loading from '../../components/Loading/Loading';
 import ProfileInfo from './components/ProfileInfo';
-import profilePic from '../../assets/img/profile_pic2.png';
+import defaultPic from '../../assets/img/default_profile.jpg';
 import Posts from '../../components/Posts/Posts';
 import Suggestions from '../../components/Suggestions/Suggestions';
 
@@ -33,7 +33,7 @@ const Profile = () => {
         <main>
           <div className='profile_background'></div>
           <ProfileInfo
-            profilePic={profilePic}
+            profilePic={defaultPic}
             name='Clement Mihailescu'
             username='@clemmihai'
             joinedAt='Joined at August 2021'

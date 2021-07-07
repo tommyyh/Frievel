@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header';
 import Post from '../../components/Posts/components/Post';
-import profilePic from '../../assets/img/profile_pic.jpg';
+import defaultPic from '../../assets/img/default_profile.jpg';
 import Comment from './components/Comment';
 import Suggestions from '../../components/Suggestions/Suggestions';
 
@@ -62,7 +62,7 @@ const Comments = () => {
         <main>
           <Post
             name='Clement Mihailescu'
-            profilePic={profilePic}
+            profilePic={defaultPic}
             userTag='clemmihai'
             posetedAt='June 19 at 10:05'
             content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
@@ -95,7 +95,7 @@ const Comments = () => {
           </button>
           <Comment
             name='Clement Mihailescu'
-            profilePic={profilePic}
+            profilePic={defaultPic}
             username='clemmihai'
             posetedAt='June 19 at 10:05'
             content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
@@ -103,7 +103,7 @@ const Comments = () => {
           />
           <Comment
             name='Clement Mihailescu'
-            profilePic={profilePic}
+            profilePic={defaultPic}
             username='clemmihai'
             posetedAt='June 19 at 10:05'
             content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'

@@ -1,3 +1,5 @@
+@import '../../../global_styles/variables.scss';
+
 .profile_info {
   margin-top: 23vh;
   padding-left: 6%;
@@ -66,6 +68,26 @@
       width: 6rem;
       height: 6rem;
       border: 1px #313333 solid;
+    }
+
+    & .follow_btn {
+      position: absolute;
+      right: 2%;
+      top: 21%;
+      width: 6rem;
+      height: 2.5rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border-radius: 2rem;
+      color: $accent-color;
+      transition: ease 300ms;
+      background: transparent;
+      border: 0.1rem $accent-color solid;
+
+      &:hover {
+        background: $accent-color;
+        color: #fff;
+      }
     }
 
     & h1 {

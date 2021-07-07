@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Post from './components/Post';
-import profilePic from '../../assets/img/profile_pic.jpg';
+import defaultPic from '../../assets/img/default_profile.jpg';
 import './posts.scss';
 
 const Posts = () => {
@@ -34,7 +34,9 @@ const Posts = () => {
         <Post
           key={post.id}
           name={post.author_name}
-          profilePic={profilePic}
+          profilePic={
+            !post.author_profile_pic ? defaultPic : post.author_profile_pic
+          }
           userTag={post.author_username}
           posetedAt={post.published_at}
           content={post.content}

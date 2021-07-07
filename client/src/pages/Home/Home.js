@@ -3,7 +3,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 import { useMediaQuery } from 'react-responsive';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import './home.scss';
-import profilePic from '../../assets/img/profile_pic.jpg';
+import defaultPic from '../../assets/img/default_profile.jpg';
 import Header from '../../components/Header/Header';
 import Posts from '../../components/Posts/Posts';
 import NewPost from './component/NewPost';
@@ -40,7 +40,7 @@ const Home = () => {
       <Header />
       <div className='home'>
         <main>
-          {desktopScreen && <PostForm profilePic={profilePic} />}
+          {desktopScreen && <PostForm profilePic={defaultPic} />}
           <Posts />
           <div className='new_post'>
             <FaPencilAlt size='1.5rem' onClick={() => setNewPost(!newPost)} />

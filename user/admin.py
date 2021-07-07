@@ -13,8 +13,8 @@ class AccountAdmin(UserAdmin):
     'username',
     'lives_in',
     'born_in',
-    'followers',
-    'following'
+    'follower_count',
+    'following_count'
   )
   search_fields = ('email', 'username')
   readonly_fields = ('date_joined', 'last_login')

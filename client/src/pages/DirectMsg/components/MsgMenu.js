@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './msgMenu.scss';
 import { Link } from 'react-router-dom';
-import profilePic from '../../../assets/img/profile_pic.jpg';
+import defaultPic from '../../../assets/img/default_profile.jpg';
 
 const MsgMenu = () => {
   const [messageContent, setMessageContent] = useState('');
@@ -59,7 +59,7 @@ const MsgMenu = () => {
                   <path d='M40 33.5c-.4 0-.8-.1-1.1-.4L24 18.1l-14.9 15c-.6.6-1.5.6-2.1 0s-.6-1.5 0-2.1l16-16c.6-.6 1.5-.6 2.1 0l16 16c.6.6.6 1.5 0 2.1-.3.3-.7.4-1.1.4z' />
                 </svg>
               </Link>
-              <img src={profilePic} alt='User profile' />
+              <img src={defaultPic} alt='User profile' />
               <div className='message_receiver'>
                 <h1>Clement Mihailescu</h1>
                 <h3>@clemmihai</h3>
