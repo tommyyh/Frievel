@@ -42,7 +42,7 @@ class Account(AbstractBaseUser):
   born_in = models.CharField(max_length=200, blank=True)
   follower_count = models.IntegerField(default=0)
   following_count = models.IntegerField(default=0)
-  profilePic = models.TextField(blank=True)
+  profilePic = models.FileField(upload_to='media/profile/', blank=True)
   date_joined = models.DateTimeField(auto_now_add=True)
   last_login = models.DateTimeField(auto_now=True)
   is_admin = models.BooleanField(default=False)
