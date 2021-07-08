@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -15,22 +15,65 @@ const ProfileInfo = ({
   followers,
 }) => {
   const { username } = useParams();
+  const [followed, setFollowed] = useState(false);
+  const [followedHover, setFollowedHover] = useState(false);
   const loggedUserUsername = useSelector((state) => state.username);
+
+  useEffect(() => {
+    const checkIfFollowing = async () => {
+      const res = await axios.get(`/user/following/${username}/`);
+
+      if (res.data.account_followed === 'true') {
+        setFollowed(true);
+      } else {
+        setFollowed(false);
+      }
+    };
+
+    checkIfFollowing();
+  }, [username]);
 
   const follow = async () => {
     const res = await axios.post('/user/follow/', {
       username,
     });
+
+    if (res.data.status === 200) {
+      setFollowed(true);
+    }
+  };
+
+  const unfollow = async () => {
+    const res = await axios.post('/user/unfollow/', {
+      username,
+    });
+
+    if (res.data.status === 200) {
+      setFollowed(false);
+    }
   };
 
   return (
     <div className='profile_info'>
       <img src={profilePic} alt='User profile' />
-      {username != loggedUserUsername && (
-        <button className='follow_btn' onClick={follow}>
-          Follow
-        </button>
-      )}
+      {username !== loggedUserUsername &&
+        (!followed ? (
+          <button
+            className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
+            onClick={follow}
+          >
+            Follow
+          </button>
+        ) : (
+          <button
+            className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
+            onClick={unfollow}
+            onMouseLeave={() => setFollowedHover(false)}
+            onMouseEnter={() => setFollowedHover(true)}
+          >
+            {!followedHover ? 'Following' : 'Unfollow'}
+          </button>
+        ))}
       <h1>{name}</h1>
       <h2>{userTag}</h2>
       <div className='profile_info_geo'>

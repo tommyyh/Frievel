@@ -89,7 +89,7 @@
     & .follow_btn {
       position: absolute;
       right: 2%;
-      top: 29.4%;
+      top: 28%;
       width: 6rem;
       height: 2.5rem;
       font-size: 0.95rem;
@@ -103,6 +103,17 @@
       &:hover {
         background: $accent-color;
         color: #fff;
+      }
+    }
+
+    .following_btn {
+      background: $accent-color;
+      color: #fff;
+
+      &:hover {
+        background: #ca2055;
+        color: #fff;
+        border: 1px #ca2055 solid;
       }
     }
 

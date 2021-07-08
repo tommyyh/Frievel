@@ -58,13 +58,11 @@ const Profile = () => {
                 }
                 name={profile.name}
                 userTag={`@${profile.username}`}
-                joinedAt={`Joined at ${profile.date_joined}`}
+                joinedAt={`Joined at ${profile.date_joined.split('T')[0]}`}
                 livesIn={`Lives in ${
                   !profile.lives_in ? '-' : profile.lives_in
                 }`}
-                bornIn={`Born in ${
-                  !profile.born_in ? '-' : profile.born_in.split('T')[0]
-                }`}
+                bornIn={`Born in ${!profile.born_in ? '-' : profile.born_in}`}
                 following={profile.following_count}
                 followers={profile.follower_count}
               />

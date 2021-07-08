@@ -156,6 +156,25 @@ def follow(request):
 
   return Response({ 'status': 200 })
 
+@api_view(['POST'])
+def unfollow(request):
+  username = request.data['username']
+  user = request.session['user']
+  followed_account = Account.objects.get(username = username)
+  user_account = Account.objects.get(id = user['id'])
+
+  # Remove account from followed
+  Following.objects.filter(username = username).delete()
+
+  # Adjust follower & following count
+  user_account.following_count -= 1
+  user_account.save()
+
+  followed_account.follower_count -= 1
+  followed_account.save()
+
+  return Response({ 'status': 200 })
+
 @api_view(['GET'])
 def profile(request, username):
   account = Account.objects.filter(username = username).first()
@@ -170,3 +189,13 @@ def profile(request, username):
   return Response({
     'status': 200, 'profile': serializer.data, 'profilePosts': post_serializer.data
   })
+
+@api_view(['GET'])
+def following(request, username):
+  account_id = request.session['user']['id'] if 'user' in request.session else None
+  currently_following = Following.objects.filter(
+    account_id = account_id, username = username
+  )
+  account_followed = 'false' if not currently_following else 'true'
+
+  return Response({ 'account_followed': account_followed })
