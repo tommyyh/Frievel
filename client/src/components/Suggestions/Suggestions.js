@@ -22,6 +22,7 @@ const Suggestions = () => {
       <h2>You may know</h2>
       {suggestions.map((suggestion) => (
         <Suggestion
+          key={suggestion.id}
           name={suggestion.name}
           profilePic={
             !suggestion.profilePic ? defaultPic : suggestion.profilePic

@@ -7,8 +7,24 @@
   padding-bottom: 2rem;
 
   & img {
+    width: 6.25rem;
+    height: 6.25rem;
     border-radius: 1rem;
     border: 1px #313333 solid;
+  }
+
+  & .follow_btn {
+    position: absolute;
+    right: 3%;
+    top: 32.4%;
+    width: 6rem;
+    height: 2.5rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 2rem;
+    color: $accent-color;
+    background: transparent;
+    border: 0.1rem $accent-color solid;
   }
 
   & h1 {
@@ -73,7 +89,7 @@
     & .follow_btn {
       position: absolute;
       right: 2%;
-      top: 21%;
+      top: 29.4%;
       width: 6rem;
       height: 2.5rem;
       font-size: 0.95rem;

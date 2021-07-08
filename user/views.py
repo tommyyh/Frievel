@@ -1,7 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import AccountSerializer
-from .models import Account
+from .models import Account, Following
+from post.models import Post
+from post.serializers import PostsSerializer
 import bcrypt
 import jwt
 import random
@@ -130,5 +132,23 @@ def authenticate(request):
 @api_view(['POST'])
 def follow(request):
   username = request.data['username']
+  user = request.session['user']
+  followed_account = Account.objects.filter(username = username).first()
+  user_account = Account.objects.filter(id = user['id']).first()
 
-  return Response('ok nigga')
+  return Response('')
+
+@api_view(['GET'])
+def profile(request, username):
+  account = Account.objects.filter(username = username).first()
+
+  if not account:
+    return Response({ 'status': 404, 'profile': {}, 'profilePosts': [] })
+
+  posts = Post.objects.filter(author_id = account.id)
+  serializer = AccountSerializer(account)
+  post_serializer = PostsSerializer(posts, many=True)
+
+  return Response({
+    'status': 200, 'profile': serializer.data, 'profilePosts': post_serializer.data
+  })

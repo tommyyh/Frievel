@@ -8,4 +8,5 @@ urlpatterns = [
   path('suggestions/', views.suggestions, name='user-suggestions'),
   path('authenticate/', views.authenticate, name='user-authenticate'),
   path('follow/', views.follow, name='user-follow'),
+  path('profile/<str:username>', views.profile, name='user-profile'),
 ]
