@@ -1,5 +1,5 @@
 from django.contrib import admin
-from user.models import Account
+from user.models import Account, Following
 from django.contrib.auth.admin import UserAdmin
 
 class AccountAdmin(UserAdmin):
@@ -24,3 +24,4 @@ class AccountAdmin(UserAdmin):
   list_filter = ()
 
 admin.site.register(Account, AccountAdmin)
+admin.site.register(Following)

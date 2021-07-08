@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import AccountSerializer
+from .serializers import AccountSerializer, FollowingSerializer
 from .models import Account, Following
 from post.models import Post
 from post.serializers import PostsSerializer
@@ -133,17 +133,35 @@ def authenticate(request):
 def follow(request):
   username = request.data['username']
   user = request.session['user']
-  followed_account = Account.objects.filter(username = username).first()
-  user_account = Account.objects.filter(id = user['id']).first()
+  followed_account = Account.objects.get(username = username)
+  user_account = Account.objects.get(id = user['id'])
 
-  return Response('')
+  # Add followed user
+  serializer = FollowingSerializer(data = {
+    'name': followed_account.name,
+    'username': followed_account.username,
+    'profilePic': followed_account.profilePic,
+    'account': user_account.id,
+  })
+
+  # Adjust follower & following count
+  user_account.following_count += 1
+  user_account.save()
+
+  followed_account.follower_count += 1
+  followed_account.save()
+
+  if serializer.is_valid():
+    serializer.save()
+
+  return Response({ 'status': 200 })
 
 @api_view(['GET'])
 def profile(request, username):
   account = Account.objects.filter(username = username).first()
 
   if not account:
-    return Response({ 'status': 404, 'profile': {}, 'profilePosts': [] })
+    return Response({ 'status': 404 })
 
   posts = Post.objects.filter(author_id = account.id)
   serializer = AccountSerializer(account)

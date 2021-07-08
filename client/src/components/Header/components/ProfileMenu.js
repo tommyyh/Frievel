@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './profileMenu.scss';
 import { useDispatch } from 'react-redux';
@@ -15,6 +16,7 @@ import { LOGOUT } from '../../../actions/isLogged';
 const ProfileMenu = ({ setProfileMenu }) => {
   const dispatch = useDispatch();
   const { push } = useHistory();
+  const username = useSelector((state) => state.username);
 
   const logout = async () => {
     const res = await axios.delete('/user/logout/');
@@ -33,7 +35,7 @@ const ProfileMenu = ({ setProfileMenu }) => {
   return (
     <div className='profile_menu'>
       <ul>
-        <Link to='/profile/clemmihai' onClick={() => setProfileMenu(false)}>
+        <Link to={`/profile/${username}`} onClick={() => setProfileMenu(false)}>
           <li>Profile</li>
         </Link>
         <Link to='/saved' onClick={() => setProfileMenu(false)}>

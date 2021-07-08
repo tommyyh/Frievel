@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './profileInfo.scss';
@@ -14,6 +15,7 @@ const ProfileInfo = ({
   followers,
 }) => {
   const { username } = useParams();
+  const loggedUserUsername = useSelector((state) => state.username);
 
   const follow = async () => {
     const res = await axios.post('/user/follow/', {
@@ -24,9 +26,11 @@ const ProfileInfo = ({
   return (
     <div className='profile_info'>
       <img src={profilePic} alt='User profile' />
-      <button className='follow_btn' onClick={follow}>
-        Follow
-      </button>
+      {username != loggedUserUsername && (
+        <button className='follow_btn' onClick={follow}>
+          Follow
+        </button>
+      )}
       <h1>{name}</h1>
       <h2>{userTag}</h2>
       <div className='profile_info_geo'>

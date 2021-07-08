@@ -62,7 +62,9 @@ const Profile = () => {
                 livesIn={`Lives in ${
                   !profile.lives_in ? '-' : profile.lives_in
                 }`}
-                bornIn={`Born in ${!profile.born_in ? '-' : profile.born_in}`}
+                bornIn={`Born in ${
+                  !profile.born_in ? '-' : profile.born_in.split('T')[0]
+                }`}
                 following={profile.following_count}
                 followers={profile.follower_count}
               />

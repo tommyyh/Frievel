@@ -11,9 +11,11 @@ const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
     <div
       className={window.location.pathname === '/saved' ? 'saved_post' : 'post'}
     >
-      <Link to={`/profile/${userTag}`}>
-        <img src={profilePic} alt='User profile' />
-      </Link>
+      <img
+        src={profilePic}
+        alt='User profile'
+        onClick={() => push(`/profile/${userTag}`)}
+      />
       <div className='post_content'>
         <div className='post_content_top'>
           <Link to={`/profile/${userTag}`}>
