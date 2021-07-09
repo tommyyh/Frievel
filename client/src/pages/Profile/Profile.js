@@ -15,10 +15,16 @@ import NotFound from '../NotFound/NotFound';
 
 const Profile = () => {
   const [loading, setLoading] = useState(true);
+  const [bio, setBio] = useState({
+    profilePicture: '',
+    livesIn: '',
+    bornIn: '',
+  });
   const [profile, setProfile] = useState({});
   const [updateOpen, setUpdateOpen] = useState(false);
   const [inputType, setInputType] = useState('text');
   const [posts, setPosts] = useState([]);
+  const [preview, setPreview] = useState();
   const { username } = useParams();
   const desktopScreen = useMediaQuery({
     query: '(min-device-width: 1025px)',
@@ -32,11 +38,28 @@ const Profile = () => {
         setPosts(res.data.profilePosts);
         setProfile(res.data.profile);
       }
+
+      setLoading(false);
     };
 
     getProfileInfo();
-    setLoading(false);
   }, [username]);
+
+  // Show preview of an image when the image state changes
+  useEffect(() => {
+    const image = bio.profilePicture;
+
+    if (image) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(image);
+    } else {
+      setPreview(null);
+    }
+  }, [bio.profilePicture]);
 
   if (!updateOpen) {
     document.body.style.overflowY = 'initial';
@@ -49,6 +72,10 @@ const Profile = () => {
     });
   }
 
+  const onChange = (e) => {
+    setBio({ ...bio, [e.target.name]: e.target.value });
+  };
+
   if (loading) return <Loading />;
 
   return (
@@ -59,7 +86,9 @@ const Profile = () => {
         <>
           <HelmetProvider>
             <Helmet>
-              <title>Clement (@clemmihai) • Frievel</title>
+              <title>
+                {profile.name} {`(${profile.username})`} • Frievel
+              </title>
             </Helmet>
           </HelmetProvider>
           <Header />
@@ -124,26 +153,48 @@ const Profile = () => {
                   }}
                 >
                   <div style={{ position: 'relative' }}>
-                    <img src={defaultPic} alt='User profile' />
+                    <img
+                      src={!preview ? defaultPic : preview}
+                      alt='User profile'
+                    />
                     <input
                       type='file'
                       accept='image/*'
                       id='profile_picture'
                       name='profilePicture'
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+
+                        if (file && file.type.substr(0, 5) === 'image') {
+                          setBio({ ...bio, profilePicture: file });
+                        } else {
+                          setBio({ ...bio, profilePicture: null });
+                        }
+                      }}
                     />
                   </div>
-                  <div
-                    className='update_photo_plus'
-                    style={{ borderRadius: '50%' }}
-                  >
-                    <FaTimes size='2rem' />
-                  </div>
+                  {!preview ? (
+                    <div
+                      className='update_photo_plus'
+                      style={{ borderRadius: '50%' }}
+                    >
+                      <FaTimes size='2rem' />
+                    </div>
+                  ) : (
+                    <div
+                      className='update_photo_plus'
+                      style={{ display: 'none' }}
+                    >
+                      <FaTimes size='2rem' />
+                    </div>
+                  )}
                 </div>
                 <input
                   type='text'
                   name='livesIn'
                   id='lives_in'
                   placeholder='Current City'
+                  onChange={(e) => onChange(e)}
                 />
                 <input
                   type={inputType}
@@ -151,6 +202,7 @@ const Profile = () => {
                   name='bornIn'
                   placeholder='Born in'
                   id='born_in'
+                  onChange={(e) => onChange(e)}
                 />
                 <button>Update</button>
               </div>
