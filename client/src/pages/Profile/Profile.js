@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaTimes } from 'react-icons/fa';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useMediaQuery } from 'react-responsive';
 import { useParams } from 'react-router-dom';
@@ -15,6 +16,8 @@ import NotFound from '../NotFound/NotFound';
 const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState({});
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [inputType, setInputType] = useState('text');
   const [posts, setPosts] = useState([]);
   const { username } = useParams();
   const desktopScreen = useMediaQuery({
@@ -34,6 +37,17 @@ const Profile = () => {
     getProfileInfo();
     setLoading(false);
   }, [username]);
+
+  if (!updateOpen) {
+    document.body.style.overflowY = 'initial';
+  } else {
+    document.body.style.overflowY = 'hidden';
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }
 
   if (loading) return <Loading />;
 
@@ -65,6 +79,7 @@ const Profile = () => {
                 bornIn={`Born in ${!profile.born_in ? '-' : profile.born_in}`}
                 following={profile.following_count}
                 followers={profile.follower_count}
+                setUpdateOpen={setUpdateOpen}
               />
             </main>
             <section>
@@ -92,6 +107,56 @@ const Profile = () => {
               )}
             </section>
           </div>
+          <section
+            className={
+              updateOpen
+                ? 'setup_background'
+                : 'setup_background setup_background_hidden'
+            }
+          >
+            <span>
+              <div>
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '12rem',
+                    height: '12rem',
+                  }}
+                >
+                  <div style={{ position: 'relative' }}>
+                    <img src={defaultPic} alt='User profile' />
+                    <input
+                      type='file'
+                      accept='image/*'
+                      id='profile_picture'
+                      name='profilePicture'
+                    />
+                  </div>
+                  <div
+                    className='update_photo_plus'
+                    style={{ borderRadius: '50%' }}
+                  >
+                    <FaTimes size='2rem' />
+                  </div>
+                </div>
+                <input
+                  type='text'
+                  name='livesIn'
+                  id='lives_in'
+                  placeholder='Current City'
+                />
+                <input
+                  type={inputType}
+                  onFocus={() => setInputType('date')}
+                  name='bornIn'
+                  placeholder='Born in'
+                  id='born_in'
+                />
+                <button>Update</button>
+              </div>
+              <h4 onClick={() => setUpdateOpen(false)}>Skip for now</h4>
+            </span>
+          </section>
           {desktopScreen && <Suggestions />}
         </>
       )}

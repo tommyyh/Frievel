@@ -13,6 +13,7 @@ const ProfileInfo = ({
   bornIn,
   following,
   followers,
+  setUpdateOpen,
 }) => {
   const { username } = useParams();
   const [followed, setFollowed] = useState(false);
@@ -56,8 +57,8 @@ const ProfileInfo = ({
   return (
     <div className='profile_info'>
       <img src={profilePic} alt='User profile' />
-      {username !== loggedUserUsername &&
-        (!followed ? (
+      {username !== loggedUserUsername ? (
+        !followed ? (
           <button
             className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
             onClick={follow}
@@ -73,7 +74,12 @@ const ProfileInfo = ({
           >
             {!followedHover ? 'Following' : 'Unfollow'}
           </button>
-        ))}
+        )
+      ) : (
+        <button className='bio_btn' onClick={() => setUpdateOpen(true)}>
+          Add Bio
+        </button>
+      )}
       <h1>{name}</h1>
       <h2>{userTag}</h2>
       <div className='profile_info_geo'>

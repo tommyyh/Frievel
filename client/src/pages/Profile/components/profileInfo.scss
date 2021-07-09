@@ -13,7 +13,8 @@
     border: 1px #313333 solid;
   }
 
-  & .follow_btn {
+  & .follow_btn,
+  .bio_btn {
     position: absolute;
     right: 3%;
     top: 32.4%;
@@ -37,6 +38,11 @@
     font-size: 1.1rem;
     color: #9d9d9d;
     font-weight: 500;
+  }
+
+  .following_btn {
+    background: $accent-color;
+    color: #fff;
   }
 }
 
@@ -86,7 +92,8 @@
       border: 1px #313333 solid;
     }
 
-    & .follow_btn {
+    & .follow_btn,
+    .bio_btn {
       position: absolute;
       right: 2%;
       top: 28%;
@@ -104,6 +111,10 @@
         background: $accent-color;
         color: #fff;
       }
+    }
+
+    .bio_btn {
+      top: 21.35%;
     }
 
     .following_btn {
@@ -160,5 +171,37 @@
         color: #ffffff;
       }
     }
+  }
+
+  .profile_photo {
+    position: relative;
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .update_photo_plus {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    background: #282a2c;
+    opacity: 77%;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border-radius: 1rem;
+    top: 0;
+    cursor: pointer;
+    transition: ease 225ms;
+    transform: scale(1);
+
+    & svg {
+      position: relative;
+      transform: rotate(45deg);
+    }
+  }
+
+  .update_photo_plus_hidden {
+    transform: scale(0);
   }
 }
