@@ -62,7 +62,7 @@ const Comments = () => {
         <main>
           <Post
             name='Clement Mihailescu'
-            profilePic={defaultPic}
+            profilePic=''
             userTag='clemmihai'
             posetedAt='June 19 at 10:05'
             content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'

@@ -6,6 +6,7 @@ import './register.scss';
 import Logo from '../../components/logo/Logo';
 import { Link } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
+import defaultPic from '../../assets/img/default_profile.jpg';
 
 const Register = () => {
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,32 @@ const Register = () => {
     e.preventDefault();
     setProcessing(true);
 
-    const res = await axios.post('/user/register/', userInfo);
+    // Convert Base64 to file -> send to server as default pic after registering
+    const dataURLtoFile = (dataurl, filename) => {
+      let arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+
+      return new File([u8arr], filename, { type: mime });
+    };
+
+    const file = dataURLtoFile(defaultPic, 'default_profile.jpg');
+
+    const data = new FormData();
+
+    data.append('profilePic', file);
+    data.append('fullName', userInfo.fullName);
+    data.append('email', userInfo.email);
+    data.append('password', userInfo.password);
+    data.append('username', userInfo.username);
+
+    const res = await axios.post('/user/register/', data);
 
     if (res.data.status === 201) {
       setUserInfo({

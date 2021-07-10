@@ -50,8 +50,8 @@ const Login = () => {
       dispatch(SET_USERNAME(username));
       dispatch(SET_EMAIL(email));
       dispatch(SET_PROFILE_PIC(profile_pic));
-
       setProgress(false);
+
       push('/');
     } else {
       setErrorMsg(res.data.msg);

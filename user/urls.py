@@ -11,4 +11,5 @@ urlpatterns = [
   path('unfollow/', views.unfollow, name='user-unfollow'),
   path('profile/<str:username>', views.profile, name='user-profile'),
   path('following/<str:username>/', views.following, name='user-following'),
+  path('update/<str:username>/', views.updateProfile, name='user-update'),
 ]

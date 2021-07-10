@@ -34,6 +34,7 @@ def register(request):
     'email': request.data['email'],
     'password': hashedPassword.decode('utf-8'),
     'username': request.data['username'],
+    'profilePic': request.data['profilePic'],
   })
   
   if serializer.is_valid():
@@ -41,6 +42,8 @@ def register(request):
 
     return Response({ 'status': 201 })
   else:
+    print(serializer.errors)
+
     return Response({ 
       'status': 403, 'msg': 'There was an error creating your account' 
     })
@@ -57,12 +60,13 @@ def login(request):
 
   # Check if password matches
   if bcrypt.checkpw(password, bytes(account.password, encoding='utf-8')):
+    profile_pic = '' if not account.profilePic else account.profilePic.url
     payload = {
       'id': account.id,
       'name': account.name,
       'username': account.username,
       'email': account.email,
-      'profile_pic': account.profilePic,
+      'profile_pic': profile_pic,
     }
 
     encoded_jwt = jwt.encode(payload, 'secret', algorithm='HS256')
@@ -73,7 +77,7 @@ def login(request):
         'name': account.name,
         'username': account.username,
         'email': account.email,
-        'profile_pic': account.profilePic,
+        'profile_pic': profile_pic,
       })
     response.set_cookie('token', encoded_jwt, max_age=None, httponly=True)
 
@@ -94,9 +98,10 @@ def logout(request):
 @api_view(['GET'])
 def suggestions(request):
   # Send random suggestions
-  last = Account.objects.count() + 1
-  random_list = random.sample(range(1, last), 7)
-  accounts = Account.objects.filter(pk__in = random_list)
+  # last = Account.objects.count() + 1
+  # random_list = random.sample(range(1, last), 7)
+  # accounts = Account.objects.filter(pk__in = random_list)
+  accounts = Account.objects.all()[:7]
   serializer = AccountSerializer(accounts, many=True) 
 
   return Response({ 'suggestions': serializer.data })
@@ -177,7 +182,7 @@ def unfollow(request):
 
 @api_view(['GET'])
 def profile(request, username):
-  account = Account.objects.filter(username = username).first()
+  account = Account.objects.get(username = username)
 
   if not account:
     return Response({ 'status': 404 })
@@ -199,3 +204,27 @@ def following(request, username):
   account_followed = 'false' if not currently_following else 'true'
 
   return Response({ 'account_followed': account_followed })
+
+@api_view(['POST'])
+def updateProfile(request, username):
+  lives_in = request.data['livesIn'] if request.data['livesIn'] else ''
+  born_in = request.data['bornIn'] if request.data['bornIn'] else ''
+  profile_img = '' if not request.data['profileImg'] else request.data['profileImg']
+  account = Account.objects.get(username = username)
+
+  # Update profile
+  account.lives_in = lives_in
+  account.born_in = born_in
+  account.save()
+
+  if not profile_img:
+    account.profilePic.delete()
+  else:
+    account.profilePic = profile_img
+    account.save()
+
+  # Send back the updated data
+  updated_account = Account.objects.get(username = username)
+  serializer = AccountSerializer(updated_account)
+
+  return Response({ 'status': 200, 'profile': serializer.data })

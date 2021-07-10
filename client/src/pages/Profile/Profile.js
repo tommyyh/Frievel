@@ -76,6 +76,41 @@ const Profile = () => {
     setBio({ ...bio, [e.target.name]: e.target.value });
   };
 
+  const updateProfile = async () => {
+    const data = new FormData();
+
+    data.append('profileImg', bio.profilePicture);
+    data.append('livesIn', bio.livesIn);
+    data.append('bornIn', bio.bornIn);
+
+    const res = await axios.post(`/user/update/${username}/`, data);
+    const { status, profile } = res.data;
+
+    if (status === 200) {
+      setProfile({
+        ...profile,
+        born_in: profile.born_in,
+        lives_in: profile.lives_in,
+        profilePic: profile.profilePic,
+      });
+
+      setPosts(
+        posts.map((post) =>
+          true
+            ? { ...post, profilePic: profile.profilePic }
+            : { ...post, profilePic: profile.profilePic }
+        )
+      );
+
+      setBio({
+        profilePicture: '',
+        livesIn: '',
+        bornIn: '',
+      });
+      setUpdateOpen(false);
+    }
+  };
+
   if (loading) return <Loading />;
 
   return (
@@ -195,6 +230,7 @@ const Profile = () => {
                   id='lives_in'
                   placeholder='Current City'
                   onChange={(e) => onChange(e)}
+                  value={profile.lives_in}
                 />
                 <input
                   type={inputType}
@@ -203,8 +239,9 @@ const Profile = () => {
                   placeholder='Born in'
                   id='born_in'
                   onChange={(e) => onChange(e)}
+                  value={profile.born_in}
                 />
-                <button>Update</button>
+                <button onClick={updateProfile}>Update</button>
               </div>
               <h4 onClick={() => setUpdateOpen(false)}>Skip for now</h4>
             </span>
