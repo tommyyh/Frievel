@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './header.scss';
-import defaultPic from '../../assets/img/default_profile.jpg';
+import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import ProfileMenu from './components/ProfileMenu';
 import { useMediaQuery } from 'react-responsive';
@@ -14,6 +14,8 @@ const Header = () => {
     query: '(min-device-width: 1025px)',
   });
   const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
+  const profilePic = useSelector((state) => state.profilePic);
+
   return (
     <>
       {mobileScreen && (
@@ -85,14 +87,14 @@ const Header = () => {
               {profileMenu && <ProfileMenu setProfileMenu={setProfileMenu} />}
               {pathName === `/profile/${username}` ? (
                 <img
-                  src={defaultPic}
+                  src={profilePic}
                   alt='User profile'
                   style={{ border: '2px #1E82DF solid' }}
                   onClick={() => setProfileMenu(!profileMenu)}
                 />
               ) : (
                 <img
-                  src={defaultPic}
+                  src={profilePic}
                   alt='User profile'
                   onClick={() => setProfileMenu(!profileMenu)}
                 />
@@ -182,7 +184,7 @@ const Header = () => {
               {profileMenu && <ProfileMenu setProfileMenu={setProfileMenu} />}
               {pathName === `/profile/${username}` ? (
                 <img
-                  src={defaultPic}
+                  src={profilePic}
                   alt='User profile'
                   style={{ border: '2px #1E82DF solid' }}
                   onClick={() => setProfileMenu(!profileMenu)}
@@ -190,7 +192,7 @@ const Header = () => {
                 />
               ) : (
                 <img
-                  src={defaultPic}
+                  src={profilePic}
                   alt='User profile'
                   onClick={() => setProfileMenu(!profileMenu)}
                   className='profile_icon'

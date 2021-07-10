@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { FaTimes } from 'react-icons/fa';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useMediaQuery } from 'react-responsive';
@@ -12,6 +13,7 @@ import defaultPic from '../../assets/img/default_profile.jpg';
 import Post from '../../components/Posts/components/Post';
 import Suggestions from '../../components/Suggestions/Suggestions';
 import NotFound from '../NotFound/NotFound';
+import { SET_PROFILE_PIC } from '../../actions/user';
 
 const Profile = () => {
   const [loading, setLoading] = useState(true);
@@ -20,9 +22,11 @@ const Profile = () => {
     livesIn: '',
     bornIn: '',
   });
+  const dispatch = useDispatch();
   const [profile, setProfile] = useState({});
   const [updateOpen, setUpdateOpen] = useState(false);
   const [inputType, setInputType] = useState('text');
+  const [processing, setProcessing] = useState(false);
   const [posts, setPosts] = useState([]);
   const [preview, setPreview] = useState();
   const { username } = useParams();
@@ -37,12 +41,17 @@ const Profile = () => {
       if (res.data.status === 200) {
         setPosts(res.data.profilePosts);
         setProfile(res.data.profile);
+        setBio({
+          ...bio,
+          livesIn: res.data.profile.lives_in,
+          bornIn: res.data.profile.born_in,
+        });
       }
 
       setLoading(false);
     };
 
-    getProfileInfo();
+    getProfileInfo(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   // Show preview of an image when the image state changes
@@ -77,9 +86,28 @@ const Profile = () => {
   };
 
   const updateProfile = async () => {
+    setProcessing(true);
     const data = new FormData();
 
-    data.append('profileImg', bio.profilePicture);
+    // Convert Base64 to file -> send to server as default pic after registering
+    const dataURLtoFile = (dataurl, filename) => {
+      let arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+
+      return new File([u8arr], filename, { type: mime });
+    };
+
+    const file = dataURLtoFile(defaultPic, 'default_profile.jpg');
+    const profilePic = !bio.profilePicture ? file : bio.profilePicture;
+
+    data.append('profileImg', profilePic);
     data.append('livesIn', bio.livesIn);
     data.append('bornIn', bio.bornIn);
 
@@ -107,6 +135,9 @@ const Profile = () => {
         livesIn: '',
         bornIn: '',
       });
+
+      dispatch(SET_PROFILE_PIC(profile.profilePic));
+      setProcessing(false);
       setUpdateOpen(false);
     }
   };
@@ -131,9 +162,7 @@ const Profile = () => {
             <main>
               <div className='profile_background'></div>
               <ProfileInfo
-                profilePic={
-                  !profile.profilePic ? defaultPic : profile.profilePic
-                }
+                profilePic={profile.profilePic}
                 name={profile.name}
                 userTag={`@${profile.username}`}
                 joinedAt={`Joined at ${profile.date_joined.split('T')[0]}`}
@@ -157,11 +186,7 @@ const Profile = () => {
                   <Post
                     key={post.id}
                     name={post.author_name}
-                    profilePic={
-                      !post.author_profile_pic
-                        ? defaultPic
-                        : post.author_profile_pic
-                    }
+                    profilePic={post.author_profile_pic}
                     userTag={post.author_username}
                     posetedAt={post.published_at}
                     content={post.content}
@@ -230,7 +255,7 @@ const Profile = () => {
                   id='lives_in'
                   placeholder='Current City'
                   onChange={(e) => onChange(e)}
-                  value={profile.lives_in}
+                  value={bio.livesIn}
                 />
                 <input
                   type={inputType}
@@ -239,9 +264,14 @@ const Profile = () => {
                   placeholder='Born in'
                   id='born_in'
                   onChange={(e) => onChange(e)}
-                  value={profile.born_in}
+                  value={bio.bornIn}
                 />
-                <button onClick={updateProfile}>Update</button>
+                <button
+                  onClick={updateProfile}
+                  disabled={!processing ? false : true}
+                >
+                  {!processing ? 'Update' : 'Processing...'}
+                </button>
               </div>
               <h4 onClick={() => setUpdateOpen(false)}>Skip for now</h4>
             </span>

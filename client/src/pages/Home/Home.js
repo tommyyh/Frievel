@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FaPencilAlt } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import './home.scss';
-import defaultPic from '../../assets/img/default_profile.jpg';
 import Header from '../../components/Header/Header';
 import Posts from '../../components/Posts/Posts';
 import NewPost from './component/NewPost';
@@ -17,6 +17,7 @@ const Home = () => {
   const desktopScreen = useMediaQuery({
     query: '(min-device-width: 1025px)',
   });
+  const profilePic = useSelector((state) => state.profilePic);
 
   useEffect(() => {
     setLoading(false);
@@ -40,7 +41,7 @@ const Home = () => {
       <Header />
       <div className='home'>
         <main>
-          {desktopScreen && <PostForm profilePic={defaultPic} />}
+          {desktopScreen && <PostForm profilePic={profilePic} />}
           <Posts />
           <div className='new_post'>
             <FaPencilAlt size='1.5rem' onClick={() => setNewPost(!newPost)} />

@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import './newPost.scss';
-import defaultPic from '../../../assets/img/default_profile.jpg';
 
 const NewPost = ({ newPost, setNewPost }) => {
   const [inputValue, setInputValue] = useState('');
   const inputRef = useRef();
+  const profilePic = useSelector((state) => state.profilePic);
 
   const publishPost = () => {
     setInputValue('');
@@ -40,7 +41,7 @@ const NewPost = ({ newPost, setNewPost }) => {
       <div className='close_newPost' onClick={() => setNewPost(!newPost)}></div>
       <div className='new_post_form'>
         <span className='new_post_form_top'>
-          <img src={defaultPic} alt='User profile' />
+          <img src={profilePic} alt='User profile' />
           <textarea
             type='text'
             name='new_post_input'

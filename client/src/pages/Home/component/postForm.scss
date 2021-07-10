@@ -11,6 +11,7 @@
     border-radius: 3px;
     margin-bottom: 2.5%;
     padding: 1.3rem 2.3% 1rem 2.3%;
+    height: 22vh;
   }
 
   .post_form_file {
@@ -76,6 +77,7 @@
       border-radius: 50%;
       height: 2.8rem;
       width: 2.8rem;
+      object-fit: cover;
     }
   }
 

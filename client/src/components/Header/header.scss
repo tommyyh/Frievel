@@ -40,6 +40,7 @@
   & img {
     border-radius: 50%;
     width: 2.2rem;
+    object-fit: cover;
   }
 }
 
@@ -95,6 +96,7 @@
       width: 2.3rem;
       height: 2.3rem;
       border: 1px #595b5b solid;
+      object-fit: cover;
     }
   }
 

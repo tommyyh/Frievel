@@ -86,6 +86,10 @@ DATABASES = {
         'PORT': config('DB_PORT'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASS'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'use_unicode': True
+        },
     }
 }
 

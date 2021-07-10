@@ -1,3 +1,11 @@
+.posts_none h1 {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #c7c7c7;
+  margin-left: 1rem;
+  margin-top: 4.5rem;
+}
+
 @media all and (min-width: 1025px) {
   .posts {
     width: 65%;
@@ -11,5 +19,9 @@
     background: #282a2c;
     border-radius: 3px;
     padding-top: 0.6%;
+  }
+
+  .posts_none {
+    height: 57vh;
   }
 }

@@ -103,17 +103,31 @@ const Login = () => {
                     value={userInfo.password}
                   />
                 </div>
-                <button
-                  type='submit'
-                  disabled={!userInfoValues ? true : false}
-                  style={
-                    !userInfoValues
-                      ? { cursor: 'not-allowed' }
-                      : { border: 'none' }
-                  }
-                >
-                  {!progress ? 'Sign In' : 'Processing...'}
-                </button>
+                {!progress ? (
+                  <button
+                    type='submit'
+                    disabled={!userInfoValues ? true : false}
+                    style={
+                      !userInfoValues
+                        ? { cursor: 'not-allowed' }
+                        : { border: 'none' }
+                    }
+                  >
+                    {!progress ? 'Sign In' : 'Processing...'}
+                  </button>
+                ) : (
+                  <button
+                    type='submit'
+                    disabled
+                    style={
+                      !userInfoValues
+                        ? { cursor: 'not-allowed' }
+                        : { border: 'none' }
+                    }
+                  >
+                    {!progress ? 'Sign In' : 'Processing...'}
+                  </button>
+                )}
               </form>
             </div>
             <p className='signup_link'>

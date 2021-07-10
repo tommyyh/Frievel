@@ -113,15 +113,16 @@ def authenticate(request):
 
     try:
       token = jwt.decode(encoded_token, 'secret', algorithms="HS256")
+      account = Account.objects.get(id = token['id'])
 
       request.session['user'] = token
 
       return Response({
         'status': 201,
-        'name': token['name'],
-        'username': token['username'],
-        'email': token['email'],
-        'profile_pic': token['profile_pic'],
+        'name': account.name,
+        'username': account.username,
+        'email': account.email,
+        'profile_pic': account.profilePic.url,
       })
 
     except:
@@ -145,7 +146,7 @@ def follow(request):
   serializer = FollowingSerializer(data = {
     'name': followed_account.name,
     'username': followed_account.username,
-    'profilePic': followed_account.profilePic,
+    'profilePic': followed_account.profilePic.url,
     'account': user_account.id,
   })
 
@@ -215,13 +216,12 @@ def updateProfile(request, username):
   # Update profile
   account.lives_in = lives_in
   account.born_in = born_in
-  account.save()
 
-  if not profile_img:
+  if account.profilePic.name != 'media/profile/default_profile.jpg':
     account.profilePic.delete()
-  else:
-    account.profilePic = profile_img
-    account.save()
+
+  account.profilePic = profile_img
+  account.save()
 
   # Send back the updated data
   updated_account = Account.objects.get(username = username)

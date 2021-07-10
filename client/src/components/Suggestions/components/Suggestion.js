@@ -6,7 +6,10 @@ const Suggestion = ({ name, profilePic, userTag }) => {
   return (
     <Link to={`/profile/${userTag}`} className='suggestion'>
       <img src={profilePic} alt='User profile' />
-      <h4>{name}</h4>
+      <span>
+        <h4>{name}</h4>
+        <h5>@{userTag}</h5>
+      </span>
     </Link>
   );
 };

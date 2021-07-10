@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './suggestions.scss';
 import Suggestion from './components/Suggestion';
-import defaultPic from '../../assets/img/default_profile.jpg';
 
 const Suggestions = () => {
   const [suggestions, setSuggestions] = useState([]);
@@ -24,9 +23,7 @@ const Suggestions = () => {
         <Suggestion
           key={suggestion.id}
           name={suggestion.name}
-          profilePic={
-            !suggestion.profilePic ? defaultPic : suggestion.profilePic
-          }
+          profilePic={suggestion.profilePic}
           userTag={suggestion.username}
         />
       ))}
