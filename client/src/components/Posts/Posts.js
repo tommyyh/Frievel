@@ -42,7 +42,9 @@ const Posts = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const res = await axios.get('/post/posts/');
+      const url =
+        window.location.pathname === '/saved' ? '/post/saved/' : '/post/posts/';
+      const res = await axios.get(url);
       const { status, posts } = res.data;
 
       if (status === 200) {
@@ -64,18 +66,35 @@ const Posts = () => {
       }
     >
       {posts[0] ? (
-        posts.map((post) => (
-          <Post
-            key={post.id}
-            name={post.author_name}
-            profilePic={post.author_profile_pic}
-            userTag={post.author_username}
-            posetedAt={post.published_at}
-            content={post.content}
-            likes={post.likes}
-            file={post.file}
-          />
-        ))
+        window.location.pathname === '/saved' ? (
+          posts.map((post) => (
+            <Post
+              key={post.id}
+              name={post.account_name}
+              profilePic={post.account_profile_pic}
+              userTag={post.account_username}
+              postedAt={post.post_published_at}
+              content={post.post_content}
+              likes={post.post_likes}
+              file={post.post_file}
+              postId={post.id}
+            />
+          ))
+        ) : (
+          posts.map((post) => (
+            <Post
+              key={post.id}
+              name={post.author_name}
+              profilePic={post.author_profile_pic}
+              userTag={post.author_username}
+              posetedAt={post.published_at}
+              content={post.content}
+              likes={post.likes}
+              file={post.file}
+              postId={post.id}
+            />
+          ))
+        )
       ) : (
         <h1
           style={

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
@@ -9,16 +10,23 @@ const Post = ({
   name,
   profilePic,
   userTag,
-  posetedAt,
+  postedAt,
   content,
   likes,
   file,
+  postId,
 }) => {
   const { push } = useHistory();
   const { id } = useParams();
   const [options, setOptions] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
   const loggedUsername = useSelector((state) => state.username);
+
+  const savePost = async () => {
+    const res = await axios.post('/post/save-post/', {
+      id: postId,
+    });
+  };
 
   return (
     <div
@@ -70,7 +78,7 @@ const Post = ({
                   </>
                 ) : (
                   <>
-                    <li>Save Post</li>
+                    <li onClick={savePost}>Save Post</li>
                     <li>Not interested</li>
                   </>
                 )}
@@ -78,7 +86,7 @@ const Post = ({
             </div>
           </span>
         </div>
-        <h4>{posetedAt}</h4>
+        <h4>{postedAt}</h4>
         <p>{content}</p>
         {file && (
           <img

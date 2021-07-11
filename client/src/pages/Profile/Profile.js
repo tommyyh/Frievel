@@ -191,6 +191,7 @@ const Profile = () => {
                     posetedAt={post.published_at}
                     content={post.content}
                     likes={post.likes}
+                    postId={post.id}
                   />
                 ))
               )}
