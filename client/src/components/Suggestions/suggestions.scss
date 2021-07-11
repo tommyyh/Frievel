@@ -1,16 +1,32 @@
 .suggestions {
-  width: 24%;
-  height: 82.89vh;
-  background: #282a2c;
+  width: 100%;
   border-radius: 3px;
-  position: fixed;
-  right: 13%;
-  top: 5rem;
+  margin-top: 20%;
 
   & h2 {
     color: #d6d6d6;
     font-size: 1.25rem;
     font-weight: 500;
     margin: 4.3% 0 1.2rem 7%;
+  }
+}
+
+@media all and (min-width: 1025px) {
+  .suggestions {
+    width: 24%;
+    height: 82.89vh;
+    background: #282a2c;
+    border-radius: 3px;
+    position: fixed;
+    right: 13%;
+    top: 5rem;
+    margin-top: initial;
+
+    & h2 {
+      color: #d6d6d6;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 4.3% 0 1.2rem 7%;
+    }
   }
 }

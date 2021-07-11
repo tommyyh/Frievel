@@ -14,6 +14,9 @@ def register(request):
   raw_password = bytes(request.data['password'], encoding='utf-8')
   hashedPassword = bcrypt.hashpw(raw_password, bcrypt.gensalt())
 
+  if not request.data['fullName'] and not request.data['email'] and not request.data['password'] and not request.data['username']:
+    return Response({ 'status': 400, 'msg': 'Please fill out all fields' })
+
   # Check if username is taken
   if Account.objects.filter(username = request.data['username']):
     return Response({ 'status': 400, 'msg': 'Username is already taken' })
@@ -53,6 +56,9 @@ def login(request):
   email = request.data['email']
   password = bytes(request.data['password'], encoding='utf-8')
   account = Account.objects.filter(email = email).first()
+
+  if not request.data['password'] and not request.data['email']:
+    return Response({ 'status': 400, 'msg': 'Please fill out all fields' })
 
   # Check if account exists
   if not account or email == os.environ.get('EMAIL'):
@@ -98,10 +104,9 @@ def logout(request):
 @api_view(['GET'])
 def suggestions(request):
   # Send random suggestions
-  # last = Account.objects.count() + 1
-  # random_list = random.sample(range(1, last), 7)
-  # accounts = Account.objects.filter(pk__in = random_list)
-  accounts = Account.objects.all()[:7]
+  last = Account.objects.count() + 1
+  random_list = random.sample(range(1, last), 7)
+  accounts = Account.objects.filter(pk__in = random_list)
   serializer = AccountSerializer(accounts, many=True) 
 
   return Response({ 'suggestions': serializer.data })

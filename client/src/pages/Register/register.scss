@@ -8,7 +8,7 @@
     color: $secondary-color;
   }
 
-  & p {
+  & .sign_in_redirect {
     color: #b2b2b2;
     font-size: 0.935rem;
     margin-top: 3.8rem;
@@ -16,6 +16,13 @@
     & span > a {
       color: $accent-color;
     }
+  }
+}
+
+.register_title {
+  & p {
+    color: #e94d4d;
+    font-weight: 300;
   }
 }
 

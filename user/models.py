@@ -65,9 +65,8 @@ class Account(AbstractBaseUser):
     return True
 
 class Following(models.Model):
-  name = models.CharField(max_length=200, unique=True)
-  username = models.CharField(max_length=200, unique=True)
-  profilePic = models.TextField(blank=True)
+  name = models.CharField(max_length=200, unique=False)
+  username = models.CharField(max_length=200, unique=False)
   account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True)
 
   def __str__(self):

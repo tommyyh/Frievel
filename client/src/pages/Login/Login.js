@@ -55,6 +55,7 @@ const Login = () => {
       push('/');
     } else {
       setErrorMsg(res.data.msg);
+      setProgress(false);
     }
   };
 
@@ -106,7 +107,6 @@ const Login = () => {
                 {!progress ? (
                   <button
                     type='submit'
-                    disabled={!userInfoValues ? true : false}
                     style={
                       !userInfoValues
                         ? { cursor: 'not-allowed' }

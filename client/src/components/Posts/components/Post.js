@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './post.scss';
@@ -15,7 +16,9 @@ const Post = ({
 }) => {
   const { push } = useHistory();
   const { id } = useParams();
+  const [options, setOptions] = useState(false);
   const [imageOpen, setImageOpen] = useState(false);
+  const loggedUsername = useSelector((state) => state.username);
 
   return (
     <div
@@ -33,33 +36,54 @@ const Post = ({
             <h2>{name}</h2>
             <h3>@{userTag}</h3>
           </Link>
-          <svg
-            width='1.5rem'
-            height='1.5rem'
-            viewBox='0 0 24 24'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <path
-              d='M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14Z'
-              fill='#6F767C'
-            />
-            <path
-              d='M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z'
-              fill='#6F767C'
-            />
-            <path
-              d='M19 14C20.1046 14 21 13.1046 21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14Z'
-              fill='#6F767C'
-            />
-          </svg>
+          <span className='post_content_options'>
+            <svg
+              width='1.5rem'
+              height='1.5rem'
+              viewBox='0 0 24 24'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+              onClick={() => setOptions(!options)}
+            >
+              <path
+                d='M5 14C6.10457 14 7 13.1046 7 12C7 10.8954 6.10457 10 5 10C3.89543 10 3 10.8954 3 12C3 13.1046 3.89543 14 5 14Z'
+                fill='#6F767C'
+              />
+              <path
+                d='M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z'
+                fill='#6F767C'
+              />
+              <path
+                d='M19 14C20.1046 14 21 13.1046 21 12C21 10.8954 20.1046 10 19 10C17.8954 10 17 10.8954 17 12C17 13.1046 17.8954 14 19 14Z'
+                fill='#6F767C'
+              />
+            </svg>
+            <div
+              className='post_options_dropdown'
+              style={!options ? { display: 'none' } : { display: 'initial' }}
+            >
+              <ul>
+                {loggedUsername === userTag ? (
+                  <>
+                    <li>Delete Post</li>
+                    <li>Edit Post</li>
+                  </>
+                ) : (
+                  <>
+                    <li>Save Post</li>
+                    <li>Not interested</li>
+                  </>
+                )}
+              </ul>
+            </div>
+          </span>
         </div>
         <h4>{posetedAt}</h4>
         <p>{content}</p>
         {file && (
           <img
             src={file}
-            alt='Post image'
+            alt='Post file'
             className={!imageOpen ? 'post_file' : 'post_file_open'}
             onClick={() => setImageOpen(!imageOpen)}
           />

@@ -159,7 +159,6 @@ const Register = () => {
                 {!processing ? (
                   <button
                     type='submit'
-                    disabled={!userInfoValues ? true : false}
                     style={
                       !userInfoValues
                         ? { cursor: 'not-allowed' }

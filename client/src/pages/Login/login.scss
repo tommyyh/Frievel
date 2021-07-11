@@ -8,7 +8,7 @@
     color: $secondary-color;
   }
 
-  & p {
+  & .signup_link {
     color: #b2b2b2;
     font-size: 0.935rem;
     margin-top: 3.8rem;
@@ -51,6 +51,13 @@
     font-size: 1.13rem;
     font-weight: 500;
     color: #fff;
+  }
+}
+
+.login_title {
+  & p {
+    color: #e94d4d;
+    font-weight: 300;
   }
 }
 

@@ -7,8 +7,9 @@ from .serializers import PostsSerializer
 @api_view(['GET'])
 def posts(request):
   account_id = request.session['user']['id']
-  following = Following.objects.filter(account = account_id).values_list('name')
-  posts = Post.objects.filter(author__name__in = following).order_by('published_at')
+  account = Account.objects.get(id = account_id)
+  following = Following.objects.filter(account = account_id).values_list('username')
+  posts = Post.objects.filter(author__username__in = [following, account.username])
   serializer = PostsSerializer(posts, many=True)
 
   return Response({ 'posts': serializer.data, 'status': 200 })

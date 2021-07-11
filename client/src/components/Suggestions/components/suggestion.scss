@@ -1,3 +1,42 @@
+.suggestion {
+  display: flex;
+  align-items: center;
+  padding: 0 7% 0 7%;
+  margin-top: 1.23rem;
+  text-decoration: none;
+
+  &:hover > span > h4 {
+    text-decoration: underline;
+  }
+
+  & span {
+    width: 100%;
+  }
+
+  & img {
+    border-radius: 50%;
+    width: 2.2rem;
+    height: 2.2rem;
+    object-fit: cover;
+  }
+
+  & h4 {
+    font-size: 1.11rem;
+    color: #c4c4c4;
+    font-weight: 500;
+    margin-left: 5%;
+    margin-top: -0.15rem;
+  }
+
+  & h5 {
+    font-size: 0.8rem;
+    color: #6d6d6d;
+    font-weight: 100;
+    margin-left: 5%;
+    margin-top: -0.2rem;
+  }
+}
+
 @media all and (min-width: 1025px) {
   .suggestion {
     display: flex;
