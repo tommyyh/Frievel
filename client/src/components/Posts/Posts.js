@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Post from './components/Post';
 import './posts.scss';
+import { SET_POSTS } from '../../actions/posts';
 
 const Posts = () => {
   const { username } = useParams();
-  const [posts, setPosts] = useState([]);
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts);
   const savedStyling = {
     fontSize: '0.9rem',
     fontWeight: '200',
@@ -26,7 +29,7 @@ const Posts = () => {
       const { status, posts } = res.data;
 
       if (status === 200) {
-        setPosts(posts);
+        dispatch(SET_POSTS(posts));
       }
     };
 

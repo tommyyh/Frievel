@@ -1,13 +1,17 @@
 import React, { useState, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import './newPost.scss';
+import { SET_POSTS } from '../../../actions/posts';
 
 const NewPost = ({ newPostOpen, setNewPostOpen }) => {
+  const posts = useSelector((state) => state.posts);
+  const dispatch = useDispatch();
   const [newPost, setNewPost] = useState({
     content: '',
     file: '',
   });
+  const [processing, setProcessing] = useState(false);
   const inputRef = useRef();
   const profilePic = useSelector((state) => state.profilePic);
 
@@ -31,12 +35,23 @@ const NewPost = ({ newPostOpen, setNewPostOpen }) => {
   };
 
   const publish = async () => {
+    setProcessing(true);
     const data = new FormData();
 
     data.append('content', newPost.content);
     data.append('file', newPost.file);
 
     const res = await axios.post('/post/new-post/', data);
+    setProcessing(false);
+
+    if (res.data.status === 201) {
+      setNewPost({ ...newPost, content: '', file: '' });
+      inputRef.current.style.height = '2.5rem';
+      inputRef.current.style.overflowY = 'hidden';
+
+      // Set new post to state
+      dispatch(SET_POSTS([res.data.new_post, ...posts]));
+    }
   };
 
   return (
@@ -128,7 +143,19 @@ const NewPost = ({ newPostOpen, setNewPostOpen }) => {
               />
             </svg>
           </span>
-          <button onClick={publish}>Publish</button>
+          {!newPost.content ? (
+            <button
+              onClick={publish}
+              disabled
+              style={{ cursor: 'not-allowed' }}
+            >
+              {!processing ? 'Publish' : 'Publishing...'}
+            </button>
+          ) : (
+            <button onClick={publish} disabled={!processing ? false : true}>
+              {!processing ? 'Publish' : 'Publishing...'}
+            </button>
+          )}
         </div>
       </div>
     </section>

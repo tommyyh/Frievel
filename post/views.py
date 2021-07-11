@@ -8,7 +8,7 @@ from .serializers import PostsSerializer
 def posts(request):
   account_id = request.session['user']['id']
   following = Following.objects.filter(account = account_id).values_list('name')
-  posts = Post.objects.filter(author__name__in = following)
+  posts = Post.objects.filter(author__name__in = following).order_by('published_at')
   serializer = PostsSerializer(posts, many=True)
 
   return Response({ 'posts': serializer.data, 'status': 200 })
@@ -20,18 +20,27 @@ def new_post(request):
   content = request.data['content']
   file = request.data['file']
   
-  serializer = PostsSerializer(data = {
-    'content': content,
-    'file': file,
-    'author': account_id,
-    'author_name': author.name,
-    'author_username': author.username,
-    'author_profile_pic': author.profilePic.url,
-  })
+  if not file:
+    serializer = PostsSerializer(data = {
+      'content': content,
+      'author': account_id,
+      'author_name': author.name,
+      'author_username': author.username,
+      'author_profile_pic': author.profilePic.url,
+    })
+  else:
+    serializer = PostsSerializer(data = {
+      'content': content,
+      'file': file,
+      'author': account_id,
+      'author_name': author.name,
+      'author_username': author.username,
+      'author_profile_pic': author.profilePic.url,
+    })
 
   if serializer.is_valid():
     serializer.save()
-  else:
-    print(serializer.errors)
 
-  return Response('nigga')
+    return Response({ 'status': 201, 'new_post': serializer.data })
+  else:
+    return Response({ 'status': 400 })
