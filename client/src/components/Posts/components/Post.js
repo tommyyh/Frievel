@@ -1,11 +1,21 @@
 import React from 'react';
+import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './post.scss';
 
-const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
+const Post = ({
+  name,
+  profilePic,
+  userTag,
+  posetedAt,
+  content,
+  likes,
+  file,
+}) => {
   const { push } = useHistory();
   const { id } = useParams();
+  const [imageOpen, setImageOpen] = useState(false);
 
   return (
     <div
@@ -15,6 +25,7 @@ const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
         src={profilePic}
         alt='User profile'
         onClick={() => push(`/profile/${userTag}`)}
+        className='post_user_img'
       />
       <div className='post_content'>
         <div className='post_content_top'>
@@ -45,6 +56,14 @@ const Post = ({ name, profilePic, userTag, posetedAt, content, likes }) => {
         </div>
         <h4>{posetedAt}</h4>
         <p>{content}</p>
+        {file && (
+          <img
+            src={file}
+            alt='Post image'
+            className={!imageOpen ? 'post_file' : 'post_file_open'}
+            onClick={() => setImageOpen(!imageOpen)}
+          />
+        )}
         <div className='post_icons'>
           <svg
             width='1.5rem'

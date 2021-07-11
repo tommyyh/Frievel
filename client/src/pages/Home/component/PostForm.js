@@ -1,8 +1,12 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import './postForm.scss';
 
 const PostForm = ({ profilePic }) => {
-  const [inputValue, setInputValue] = useState('');
+  const [newPost, setNewPost] = useState({
+    content: '',
+    file: '',
+  });
   const inputRef = useRef();
 
   const inputResize = (e) => {
@@ -24,6 +28,15 @@ const PostForm = ({ profilePic }) => {
     e.style.height = e.scrollHeight / 16 + 'rem';
   };
 
+  const publish = async () => {
+    const data = new FormData();
+
+    data.append('content', newPost.content);
+    data.append('file', newPost.file);
+
+    const res = await axios.post('/post/new-post/', data);
+  };
+
   return (
     <section className='post_form'>
       <div className='post_form_top'>
@@ -31,15 +44,16 @@ const PostForm = ({ profilePic }) => {
         <textarea
           type='text'
           name='new_post_input'
-          placeholder="What's new today?"
           onChange={(e) => {
-            setInputValue(e.target.value);
+            setNewPost({ ...newPost, content: e.target.value });
             inputResize(e.target);
           }}
           id='post_form_input'
-          value={inputValue}
+          value={newPost.content}
           autoCorrect='true'
           spellCheck='true'
+          placeholder="What's new today?"
+          maxLength='280'
           ref={inputRef}
         ></textarea>
       </div>
@@ -65,10 +79,24 @@ const PostForm = ({ profilePic }) => {
             type='file'
             alt='File input'
             id='file_input'
-            accept='image/png, image/jpeg'
+            accept='image/*'
+            onChange={(e) => {
+              const file = e.target.files[0];
+
+              if (file && file.type.substr(0, 5) === 'image') {
+                setNewPost({ ...newPost, file: file });
+              } else {
+                setNewPost({ ...newPost, file: null });
+              }
+            }}
           />
+          {newPost.file && (
+            <h4 onClick={() => setNewPost({ ...newPost, file: '' })}>
+              Remove file
+            </h4>
+          )}
         </div>
-        <button>Publish</button>
+        <button onClick={publish}>Publish</button>
       </div>
     </section>
   );

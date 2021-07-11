@@ -1,17 +1,15 @@
 import React, { useState, useRef } from 'react';
+import axios from 'axios';
 import { useSelector } from 'react-redux';
 import './newPost.scss';
 
-const NewPost = ({ newPost, setNewPost }) => {
-  const [inputValue, setInputValue] = useState('');
+const NewPost = ({ newPostOpen, setNewPostOpen }) => {
+  const [newPost, setNewPost] = useState({
+    content: '',
+    file: '',
+  });
   const inputRef = useRef();
   const profilePic = useSelector((state) => state.profilePic);
-
-  const publishPost = () => {
-    setInputValue('');
-    setNewPost(false);
-    inputRef.current.style.height = '3rem';
-  };
 
   const inputResize = (e) => {
     // Always end at the bottom of the element
@@ -32,13 +30,25 @@ const NewPost = ({ newPost, setNewPost }) => {
     e.style.height = e.scrollHeight / 16 + 'rem';
   };
 
+  const publish = async () => {
+    const data = new FormData();
+
+    data.append('content', newPost.content);
+    data.append('file', newPost.file);
+
+    const res = await axios.post('/post/new-post/', data);
+  };
+
   return (
     <section
       className={
-        !newPost ? 'new_post_menu' : 'new_post_menu new_post_menu_open'
+        !newPostOpen ? 'new_post_menu' : 'new_post_menu new_post_menu_open'
       }
     >
-      <div className='close_newPost' onClick={() => setNewPost(!newPost)}></div>
+      <div
+        className='close_newPost'
+        onClick={() => setNewPostOpen(!newPostOpen)}
+      ></div>
       <div className='new_post_form'>
         <span className='new_post_form_top'>
           <img src={profilePic} alt='User profile' />
@@ -47,12 +57,13 @@ const NewPost = ({ newPost, setNewPost }) => {
             name='new_post_input'
             placeholder="What's new today?"
             onChange={(e) => {
-              setInputValue(e.target.value);
+              setNewPost({ ...newPost, content: e.target.value });
               inputResize(e.target);
             }}
-            value={inputValue}
+            value={newPost.content}
             autoCorrect='true'
             spellCheck='true'
+            maxLength='280'
             ref={inputRef}
           ></textarea>
         </span>
@@ -79,7 +90,16 @@ const NewPost = ({ newPost, setNewPost }) => {
                 type='file'
                 alt='File input'
                 id='file_input'
-                accept='image/png, image/jpeg'
+                accept='image/*'
+                onChange={(e) => {
+                  const file = e.target.files[0];
+
+                  if (file && file.type.substr(0, 5) === 'image') {
+                    setNewPost({ ...newPost, file: file });
+                  } else {
+                    setNewPost({ ...newPost, file: null });
+                  }
+                }}
               />
             </div>
             <svg
@@ -108,7 +128,7 @@ const NewPost = ({ newPost, setNewPost }) => {
               />
             </svg>
           </span>
-          <button onClick={publishPost}>Publish</button>
+          <button onClick={publish}>Publish</button>
         </div>
       </div>
     </section>

@@ -11,13 +11,25 @@
     border-radius: 3px;
     margin-bottom: 2.5%;
     padding: 1.3rem 2.3% 1rem 2.3%;
-    height: 22vh;
   }
 
   .post_form_file {
+    display: flex;
+    align-items: center;
     position: relative;
     width: 100%;
     margin-left: -0.5%;
+
+    & h4 {
+      color: #bebebe;
+      font-weight: 200;
+      margin-left: 0.5rem;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
 
     & input[type='file'] {
       opacity: 0;
