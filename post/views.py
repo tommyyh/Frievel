@@ -14,6 +14,12 @@ def posts(request):
 
   return Response({ 'posts': serializer.data, 'status': 200 })
 
+@api_view(['GET'])
+def saved(request):
+  account = Account.objects.get(id = request.session['user']['id'])
+
+  return Response('')
+
 @api_view(['POST'])
 def new_post(request):
   account_id = request.session['user']['id']
