@@ -46,6 +46,7 @@ const Posts = () => {
         window.location.pathname === '/saved' ? '/post/saved/' : '/post/posts/';
       const res = await axios.get(url);
       const { status, posts } = res.data;
+      console.log(posts);
 
       if (status === 200) {
         dispatch(SET_POSTS(posts));

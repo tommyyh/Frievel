@@ -12,6 +12,7 @@ class PostsSerializer(serializers.ModelSerializer):
 
 class SavedSerializer(serializers.ModelSerializer):
   post_content = serializers.CharField(source='post.content')
+  post_file = serializers.ReadOnlyField()
   post_published_at = serializers.DateField(source='post.published_at')
   post_likes = serializers.IntegerField(source='post.likes')
   account_name = serializers.CharField(source='post.author.name')

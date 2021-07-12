@@ -14,7 +14,10 @@ class Post(models.Model):
 class Saved(models.Model):
   post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True)
   account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True)
-  post_file = models.TextField(blank=True)
 
   def __str__(self):
     return self.post.content
+
+  @property
+  def post_file(self):
+    return '' if not self.post.file else self.post.file.url
