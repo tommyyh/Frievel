@@ -18,8 +18,8 @@ class Post(models.Model):
     return self.like.count()
 
 class Saved(models.Model):
-  post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True)
-  account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True)
+  post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, related_name='saved')
+  account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, related_name='saved')
 
   def __str__(self):
     return self.post.content
@@ -27,6 +27,10 @@ class Saved(models.Model):
   @property
   def post_file(self):
     return '' if not self.post.file else self.post.file.url
+
+  @property
+  def post_likes(self):
+    return self.post.like.count()
 
 class Like(models.Model):
   post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='like', null=True)

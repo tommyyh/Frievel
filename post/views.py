@@ -35,7 +35,6 @@ def save_post(request):
     'post_content': post.content,
     'post_file': '' if not post.file else post.file.url,
     'post_published_at': post.published_at,
-    'post_likes': post.likes,
     'account_name': account.name,
     'account_username': account.username,
     'account_profile_pic': account.profilePic.url,
@@ -43,15 +42,15 @@ def save_post(request):
 
   if serializer.is_valid():
     serializer.save()
-  else:
-    print(serializer.errors)
 
-  return Response('')
+  return Response({ 'status': 200 })
 
 @api_view(['POST'])
 def unsave_post(request):
   id = request.data['id']
-  saved_post = Saved.objects.get(id = id)
+  post = Post.objects.get(id = id)
+  user_id = request.session['user']['id']
+  saved_post = Saved.objects.get(id = post.saved.first().id, account_id = user_id)
 
   # Unsave post
   saved_post.delete()
@@ -93,7 +92,8 @@ def new_post(request):
 @api_view(['POST'])
 def check_if_saved(request):
   id = request.data['id']
-  saved_posts = Saved.objects.filter(post_id = id)
+  user_id = request.session['user']['id']
+  saved_posts = Saved.objects.filter(post_id = id, account_id = user_id)
 
   if not saved_posts:
     return Response({ 'status': 404 })
@@ -141,3 +141,13 @@ def check_if_liked(request):
     return Response({ 'status': 404 })
   else:
     return Response({ 'status': 200 })
+
+@api_view(['POST'])
+def delete(request):
+  id = request.data['id']
+  post = Post.objects.filter(id = id)
+
+  # Delete post
+  post.delete()
+
+  return Response({ 'status': 200 })

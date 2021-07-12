@@ -84,9 +84,7 @@ const Posts = () => {
                     content={post.post_content}
                     likes={post.post_likes}
                     file={post.post_file}
-                    postId={post.id}
-                    postId2={post.post}
-                    setLoading={setLoading}
+                    postId={post.post}
                   />
                 ))
               ) : (
@@ -101,8 +99,6 @@ const Posts = () => {
                     likes={post.post_likes}
                     file={post.file}
                     postId={post.id}
-                    postId2={post.id}
-                    setLoading={setLoading}
                   />
                 ))
               )
