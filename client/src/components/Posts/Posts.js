@@ -96,9 +96,9 @@ const Posts = () => {
                     name={post.author_name}
                     profilePic={post.author_profile_pic}
                     userTag={post.author_username}
-                    posetedAt={post.published_at}
+                    postedAt={post.published_at}
                     content={post.content}
-                    likes={post.likes}
+                    likes={post.post_likes}
                     file={post.file}
                     postId={post.id}
                     postId2={post.id}

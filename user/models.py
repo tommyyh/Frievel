@@ -36,7 +36,7 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
   email = models.EmailField(max_length=200, unique=True)
-  name = models.CharField(max_length=200, unique=True)
+  name = models.CharField(max_length=200, unique=False)
   username = models.CharField(max_length=200, unique=True)
   lives_in = models.CharField(max_length=200, blank=True)
   born_in = models.CharField(max_length=200, blank=True)

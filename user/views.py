@@ -105,7 +105,7 @@ def logout(request):
 def suggestions(request):
   # Send random suggestions
   last = Account.objects.count() + 1
-  random_list = random.sample(range(1, last), 7)
+  random_list = random.sample(range(1, 8), 7)
   accounts = Account.objects.filter(pk__in = random_list)
   serializer = AccountSerializer(accounts, many=True) 
 
