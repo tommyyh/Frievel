@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './post.scss';
+import { SET_POSTS } from '../../../actions/posts';
 
 const Post = ({
   name,
@@ -15,17 +15,79 @@ const Post = ({
   likes,
   file,
   postId,
+  postId2,
+  setLoading,
 }) => {
   const { push } = useHistory();
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [options, setOptions] = useState(false);
+  const [isSaved, setIsSaved] = useState();
   const [imageOpen, setImageOpen] = useState(false);
   const loggedUsername = useSelector((state) => state.username);
 
+  useEffect(() => {
+    const checkIfSave = async () => {
+      const res = await axios.post('/post/check-if-saved/', {
+        id: postId2,
+      });
+
+      if (res.data.status === 404) {
+        setIsSaved(false);
+      } else {
+        setIsSaved(true);
+      }
+    };
+
+    checkIfSave();
+  }, []);
+
   const savePost = async () => {
-    const res = await axios.post('/post/save-post/', {
+    await axios.post('/post/save-post/', {
       id: postId,
     });
+
+    setOptions(false);
+  };
+
+  const unFollow = async () => {
+    const res = await axios.post('/user/unfollow/', {
+      username: userTag,
+    });
+
+    if (res.data.status === 200) {
+      setLoading(true);
+
+      const url =
+        window.location.pathname === '/saved' ? '/post/saved/' : '/post/posts/';
+      const res = await axios.get(url);
+      const { status, posts } = res.data;
+
+      if (status === 200) {
+        dispatch(SET_POSTS(posts));
+      }
+
+      setLoading(false);
+    }
+  };
+
+  const unSavePost = async () => {
+    const res = await axios.post('/post/unsave-post/', {
+      id: postId,
+    });
+
+    if (res.data.status === 200) {
+      setLoading(true);
+
+      const res = await axios.get('/post/saved/');
+      const { status, posts } = res.data;
+
+      if (status === 200) {
+        dispatch(SET_POSTS(posts));
+      }
+
+      setLoading(false);
+    }
   };
 
   return (
@@ -78,8 +140,10 @@ const Post = ({
                   </>
                 ) : (
                   <>
-                    <li onClick={savePost}>Save Post</li>
-                    <li>Not interested</li>
+                    <li onClick={!isSaved ? savePost : unSavePost}>
+                      {!isSaved ? 'Save Post' : 'Unsave'}
+                    </li>
+                    <li onClick={unFollow}>Unfollow</li>
                   </>
                 )}
               </ul>

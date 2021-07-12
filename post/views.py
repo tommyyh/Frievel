@@ -49,6 +49,16 @@ def save_post(request):
   return Response('')
 
 @api_view(['POST'])
+def unsave_post(request):
+  id = request.data['id']
+  saved_post = Saved.objects.get(id = id)
+
+  # Unsave post
+  saved_post.delete()
+
+  return Response({ 'status': 200 })
+
+@api_view(['POST'])
 def new_post(request):
   account_id = request.session['user']['id']
   author = Account.objects.get(id = account_id)
@@ -79,3 +89,13 @@ def new_post(request):
     return Response({ 'status': 201, 'new_post': serializer.data })
   else:
     return Response({ 'status': 400 })
+
+@api_view(['POST'])
+def check_if_saved(request):
+  id = request.data['id']
+  saved_posts = Saved.objects.filter(post_id = id)
+
+  if not saved_posts:
+    return Response({ 'status': 404 })
+  else:
+    return Response({ 'status': 200 })
