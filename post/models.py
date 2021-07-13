@@ -38,3 +38,27 @@ class Like(models.Model):
 
   def __str__(self):
     return self.post.content
+
+class Comment(models.Model):
+  content = models.TextField()
+  posted_at = models.DateField(auto_now_add=True)
+  post = models.ForeignKey(
+    Post, on_delete=models.CASCADE, related_name='comment', null=True
+  )
+  author = models.ForeignKey(
+    Account, on_delete=models.CASCADE, related_name='comment', null=True
+  )
+
+  def __str__(self):
+      return self.content
+    
+class Comment_like(models.Model):
+  comment = models.ForeignKey(
+    Comment, on_delete=models.CASCADE, related_name='comment_like', null=True
+  )
+  author = models.ForeignKey(
+    Account, on_delete=models.CASCADE, related_name='comment_like', null=True
+  )
+
+  def __str__(self):
+    return self.comment.content

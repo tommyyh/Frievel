@@ -15,6 +15,8 @@ const Post = ({
   likes,
   file,
   postId,
+  post,
+  setPost,
 }) => {
   const { push } = useHistory();
   const { id } = useParams();
@@ -122,6 +124,13 @@ const Post = ({
       return;
     }
 
+    if (window.location.pathname === `/post/${id}`) {
+      setPost({ ...post, post_likes: post.post_likes + 1 });
+      setIsLiked(true);
+
+      return;
+    }
+
     const updatedPosts = posts.map((post) =>
       post.id === postId
         ? {
@@ -156,6 +165,13 @@ const Post = ({
       return;
     }
 
+    if (window.location.pathname === `/post/${id}`) {
+      setPost({ ...post, post_likes: post.post_likes - 1 });
+      setIsLiked(false);
+
+      return;
+    }
+
     const updatedPosts = posts.map((post) =>
       post.id === postId
         ? {
@@ -175,6 +191,12 @@ const Post = ({
     });
 
     if (res.data.status === 200) {
+      if (window.location.pathname === `/post/${id}`) {
+        push('/');
+
+        return;
+      }
+
       if (window.location.pathname === '/saved') {
         const updatedPosts = posts.filter((post) => post.post !== postId);
 
@@ -302,7 +324,7 @@ const Post = ({
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
             className='post_comment_icon'
-            onClick={() => push('/post/123')}
+            onClick={() => push(`/post/${postId}`)}
           >
             <path
               fillRule='evenodd'

@@ -151,3 +151,10 @@ def delete(request):
   post.delete()
 
   return Response({ 'status': 200 })
+
+@api_view(['GET'])
+def info(request, id):
+  post = Post.objects.get(id = id)
+  serializer = PostsSerializer(post)
+
+  return Response({ 'post': serializer.data })

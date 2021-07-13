@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import './comments.scss';
+import axios from 'axios';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useMediaQuery } from 'react-responsive';
 import Loading from '../../components/Loading/Loading';
@@ -11,15 +13,24 @@ import Suggestions from '../../components/Suggestions/Suggestions';
 
 const Comments = () => {
   const [loading, setLoading] = useState(true);
+  const [post, setPost] = useState({});
   const [commentContent, setCommentContent] = useState('');
+  const { id } = useParams();
   const textareaRef = useRef();
   const desktopScreen = useMediaQuery({
     query: '(min-device-width: 1025px)',
   });
 
   useEffect(() => {
-    setLoading(false);
-  }, []);
+    const getData = async () => {
+      const res = await axios.get(`/post/info/${id}/`);
+
+      setPost(res.data.post);
+      setLoading(false);
+    };
+
+    getData();
+  }, [id]);
 
   if (loading) return <Loading />;
 
@@ -61,12 +72,17 @@ const Comments = () => {
       <div className='comment_page'>
         <main>
           <Post
-            name='Clement Mihailescu'
-            profilePic=''
-            userTag='clemmihai'
-            posetedAt='June 19 at 10:05'
-            content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
-            likes={'2,950'}
+            key={post.id}
+            name={post.author_name}
+            profilePic={post.author_profile_pic}
+            userTag={post.author_username}
+            postedAt={post.published_at}
+            content={post.content}
+            likes={post.post_likes}
+            file={post.file}
+            postId={post.id}
+            setPost={setPost}
+            post={post}
           />
         </main>
         <section className='post_comments'>
