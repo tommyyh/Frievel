@@ -188,18 +188,17 @@ def unfollow(request):
 
 @api_view(['GET'])
 def profile(request, username):
-  account = Account.objects.get(username = username)
+  try:
+    account = Account.objects.get(username = username)
+    posts = Post.objects.filter(author_id = account.id)
+    serializer = AccountSerializer(account)
+    post_serializer = PostsSerializer(posts, many=True)
 
-  if not account:
+    return Response({
+      'status': 200, 'profile': serializer.data, 'profilePosts': post_serializer.data
+    })
+  except:
     return Response({ 'status': 404 })
-
-  posts = Post.objects.filter(author_id = account.id)
-  serializer = AccountSerializer(account)
-  post_serializer = PostsSerializer(posts, many=True)
-
-  return Response({
-    'status': 200, 'profile': serializer.data, 'profilePosts': post_serializer.data
-  })
 
 @api_view(['GET'])
 def following(request, username):

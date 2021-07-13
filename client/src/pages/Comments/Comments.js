@@ -9,6 +9,7 @@ import Header from '../../components/Header/Header';
 import Post from '../../components/Posts/components/Post';
 import Comment from './components/Comment';
 import Suggestions from '../../components/Suggestions/Suggestions';
+import NotFound from '../NotFound/NotFound';
 
 const Comments = () => {
   const [loading, setLoading] = useState(true);
@@ -24,8 +25,12 @@ const Comments = () => {
     const getData = async () => {
       const res = await axios.get(`/post/info/${id}/`);
 
-      setPost(res.data.post);
-      setLoading(false);
+      if (res.data.status === 404) {
+        setLoading(false);
+      } else {
+        setPost(res.data.post);
+        setLoading(false);
+      }
     };
 
     getData();
@@ -73,67 +78,76 @@ const Comments = () => {
 
   return (
     <>
-      <HelmetProvider>
-        <Helmet>
-          <title>Clement Mihailescu's posts • Frievel</title>
-        </Helmet>
-      </HelmetProvider>
-      <Header />
-      <div className='comment_page'>
-        <main>
-          <Post
-            key={post.id}
-            name={post.author_name}
-            profilePic={post.author_profile_pic}
-            userTag={post.author_username}
-            postedAt={post.published_at}
-            content={post.content}
-            likes={post.post_likes}
-            file={post.file}
-            postId={post.id}
-            setPost={setPost}
-            post={post}
-          />
-        </main>
-        <section className='post_comments'>
-          <h1>Comments</h1>
-          <textarea
-            type='text'
-            name='msg_menu_input'
-            placeholder='Write a comment...'
-            id='comment_input'
-            onChange={(e) => {
-              inputResize(e.target);
-              setCommentContent(e.target.value);
-            }}
-            value={commentContent}
-            ref={textareaRef}
-          ></textarea>
-          <button
-            className={
-              !commentContent
-                ? 'send_comment send_comment_hidden'
-                : 'send_comment'
-            }
-            onClick={newComment}
-            disabled={!commentContent ? true : false}
-          >
-            Send
-          </button>
-          {post.post_comments.map((comment) => (
-            <Comment
-              key={comment.id}
-              name={comment.author_name}
-              profilePic={comment.author_profile_pic}
-              username={comment.author_username}
-              posetedAt={comment.posted_at}
-              content={comment.content}
-              likes={comment.comment_likes}
-            />
-          ))}
-        </section>
-      </div>
-      {desktopScreen && <Suggestions />}
+      {!post.author_name ? (
+        <NotFound />
+      ) : (
+        <>
+          <HelmetProvider>
+            <Helmet>
+              <title>{post.author_name}'s posts • Frievel</title>
+            </Helmet>
+          </HelmetProvider>
+          <Header />
+          <div className='comment_page'>
+            <main>
+              <Post
+                key={post.id}
+                name={post.author_name}
+                profilePic={post.author_profile_pic}
+                userTag={post.author_username}
+                postedAt={post.published_at}
+                content={post.content}
+                likes={post.post_likes}
+                file={post.file}
+                postId={post.id}
+                setPost={setPost}
+                post={post}
+              />
+            </main>
+            <section className='post_comments'>
+              <h1>Comments</h1>
+              <textarea
+                type='text'
+                name='msg_menu_input'
+                placeholder='Write a comment...'
+                id='comment_input'
+                onChange={(e) => {
+                  inputResize(e.target);
+                  setCommentContent(e.target.value);
+                }}
+                value={commentContent}
+                ref={textareaRef}
+              ></textarea>
+              <button
+                className={
+                  !commentContent
+                    ? 'send_comment send_comment_hidden'
+                    : 'send_comment'
+                }
+                onClick={newComment}
+                disabled={!commentContent ? true : false}
+              >
+                Send
+              </button>
+              {post.post_comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  name={comment.author_name}
+                  profilePic={comment.author_profile_pic}
+                  username={comment.author_username}
+                  posetedAt={comment.posted_at}
+                  content={comment.content}
+                  likes={comment.comment_likes}
+                  id={comment.id}
+                  post={post}
+                  setPost={setPost}
+                />
+              ))}
+            </section>
+          </div>
+          {desktopScreen && <Suggestions />}
+        </>
+      )}
     </>
   );
 };

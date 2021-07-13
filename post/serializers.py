@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Comment, Post, Saved, Like
+from .models import Comment, Comment_like, Post, Saved, Like
 
 class CommentSerializer(serializers.ModelSerializer):
   author_name = serializers.CharField(source='author.name')
@@ -41,4 +41,9 @@ class SavedSerializer(serializers.ModelSerializer):
 class LikeSerializer(serializers.ModelSerializer):
   class Meta:
     model = Like
+    fields = '__all__'
+
+class CommentLikeSerializer(serializers.ModelSerializer):
+  class Meta:
+    model = Comment_like
     fields = '__all__'

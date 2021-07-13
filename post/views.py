@@ -1,8 +1,8 @@
 from user.models import Account, Following
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Post, Saved, Like, Comment
-from .serializers import PostsSerializer, SavedSerializer, LikeSerializer, CommentSerializer
+from .models import Comment_like, Post, Saved, Like, Comment
+from .serializers import PostsSerializer, SavedSerializer, LikeSerializer, CommentSerializer, CommentLikeSerializer
 
 @api_view(['GET'])
 def posts(request):
@@ -130,11 +130,35 @@ def unlike_post(request):
   return Response({ 'status': 200 })
 
 @api_view(['POST'])
+def unlike_comment(request):
+  id = request.data['id']
+  user_id = request.session['user']['id']
+  like = Comment_like.objects.filter(comment_id = id, author_id = user_id).first()
+
+  # Remove like
+  like.delete()
+
+  return Response({ 'status': 200 })
+
+@api_view(['POST'])
 def check_if_liked(request):
   user_id = request.session['user']['id']
   id = request.data['id']
   post = Post.objects.get(id = id)
   post_likes = post.like.all().values_list('author_id')
+  user = Account.objects.filter(id = user_id, id__in = post_likes)
+
+  if not user:
+    return Response({ 'status': 404 })
+  else:
+    return Response({ 'status': 200 })
+
+@api_view(['POST'])
+def comment_check_if_liked(request):
+  user_id = request.session['user']['id']
+  id = request.data['id']
+  comment = Comment.objects.get(id = id)
+  post_likes = comment.comment_like.all().values_list('author_id')
   user = Account.objects.filter(id = user_id, id__in = post_likes)
 
   if not user:
@@ -154,10 +178,13 @@ def delete(request):
 
 @api_view(['GET'])
 def info(request, id):
-  post = Post.objects.get(id = id)
-  serializer = PostsSerializer(post)
+  try:
+    post = Post.objects.get(id = id)
+    serializer = PostsSerializer(post)
 
-  return Response({ 'post': serializer.data })
+    return Response({ 'status': 200, 'post': serializer.data })
+  except:
+    return Response({ 'status': 404 })
 
 @api_view(['POST'])
 def new_comment(request):
@@ -183,3 +210,21 @@ def new_comment(request):
   comment_serializer = CommentSerializer(comments, many=True)
 
   return Response({ 'status': 200, 'all_comments': comment_serializer.data })
+
+@api_view(['POST'])
+def like_comment(request):
+  id = request.data['id']
+  user_id = request.session['user']['id']
+  account = Account.objects.get(id = user_id)
+  comment = Comment.objects.get(id = id)
+
+  # Like post
+  serializer = CommentLikeSerializer(data = {
+    'author': account.id,
+    'comment': comment.id,
+  })
+
+  if serializer.is_valid():
+    serializer.save()
+
+  return Response({ 'status': 200 })
