@@ -7,7 +7,6 @@ import { useMediaQuery } from 'react-responsive';
 import Loading from '../../components/Loading/Loading';
 import Header from '../../components/Header/Header';
 import Post from '../../components/Posts/components/Post';
-import defaultPic from '../../assets/img/default_profile.jpg';
 import Comment from './components/Comment';
 import Suggestions from '../../components/Suggestions/Suggestions';
 
@@ -109,22 +108,17 @@ const Comments = () => {
           >
             Send
           </button>
-          <Comment
-            name='Clement Mihailescu'
-            profilePic={defaultPic}
-            username='clemmihai'
-            posetedAt='June 19 at 10:05'
-            content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
-            likes='2,950'
-          />
-          <Comment
-            name='Clement Mihailescu'
-            profilePic={defaultPic}
-            username='clemmihai'
-            posetedAt='June 19 at 10:05'
-            content='The current state of our education system is being radically changed, FOR THE BETTER. The old ways are done. Students will be teaching each other faster than a college professor can prepare a lecture.'
-            likes='2,950'
-          />
+          {post.post_comments.map((comment) => (
+            <Comment
+              key={comment.id}
+              name={comment.author_name}
+              profilePic={comment.author_profile_pic}
+              username={comment.author_username}
+              posetedAt={comment.posted_at}
+              content={comment.content}
+              likes={comment.comment_likes}
+            />
+          ))}
         </section>
       </div>
       {desktopScreen && <Suggestions />}

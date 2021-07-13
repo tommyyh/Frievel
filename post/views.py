@@ -1,8 +1,8 @@
 from user.models import Account, Following
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from .models import Post, Saved, Like
-from .serializers import PostsSerializer, SavedSerializer, LikeSerializer
+from .models import Post, Saved, Like, Comment
+from .serializers import PostsSerializer, SavedSerializer, LikeSerializer, CommentSerializer
 
 @api_view(['GET'])
 def posts(request):

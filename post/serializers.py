@@ -1,11 +1,22 @@
 from rest_framework import serializers
-from .models import Post, Saved, Like
+from .models import Comment, Post, Saved, Like
+
+class CommentSerializer(serializers.ModelSerializer):
+  author_name = serializers.CharField(source='author.name')
+  author_username = serializers.CharField(source='author.username')
+  author_profile_pic = serializers.CharField(source='author.profilePic.url')
+  comment_likes = serializers.ReadOnlyField()
+
+  class Meta:
+    model = Comment
+    fields = '__all__'
 
 class PostsSerializer(serializers.ModelSerializer):
   author_name = serializers.CharField(source='author.name')
   author_username = serializers.CharField(source='author.username')
   author_profile_pic = serializers.CharField(source='author.profilePic.url')
   post_likes = serializers.ReadOnlyField()
+  post_comments = CommentSerializer(many=True, read_only=True)
 
   class Meta:
     model = Post

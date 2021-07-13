@@ -17,6 +17,10 @@ class Post(models.Model):
   def post_likes(self):
     return self.like.count()
 
+  @property
+  def post_comments(self):
+    return self.comment.all()
+
 class Saved(models.Model):
   post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, related_name='saved')
   account = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, related_name='saved')
@@ -51,6 +55,10 @@ class Comment(models.Model):
 
   def __str__(self):
       return self.content
+
+  @property
+  def comment_likes(self):
+    return self.comment_like.count()
     
 class Comment_like(models.Model):
   comment = models.ForeignKey(
