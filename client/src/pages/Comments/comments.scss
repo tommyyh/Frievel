@@ -78,9 +78,9 @@
     color: #909090;
     font-family: 'Hind Vadodara', sans-serif;
     resize: none;
-    padding: 0.31rem 3% 0.31rem 3%;
+    padding: 0.45rem 3% 0.45rem 3%;
     overflow: hidden;
-    font-size: 1.1rem;
+    font-size: 0.97rem;
     margin-top: 0.5rem;
 
     &::placeholder {
@@ -105,7 +105,7 @@
 
   .send_comment {
     background: $accent-color;
-    width: 5.2rem;
+    width: 5.4rem;
     height: 2.5rem;
     border-radius: 3px;
     font-size: 1.15rem;
@@ -114,6 +114,7 @@
     margin-top: 0.4rem;
     transition: ease 300ms;
     margin-bottom: 2.5rem;
+    cursor: pointer;
   }
 
   .send_comment_hidden {

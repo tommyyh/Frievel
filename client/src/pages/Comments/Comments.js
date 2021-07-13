@@ -60,6 +60,17 @@ const Comments = () => {
     e.style.height = e.scrollHeight / 16 + 'rem';
   };
 
+  const newComment = async () => {
+    const res = await axios.post('/post/new-comment/', {
+      content: commentContent,
+      id: id,
+    });
+
+    if (res.data.status === 200) {
+      setPost({ ...post, post_comments: res.data.all_comments });
+    }
+  };
+
   return (
     <>
       <HelmetProvider>
@@ -104,6 +115,7 @@ const Comments = () => {
                 ? 'send_comment send_comment_hidden'
                 : 'send_comment'
             }
+            onClick={newComment}
             disabled={!commentContent ? true : false}
           >
             Send

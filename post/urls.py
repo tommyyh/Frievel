@@ -13,4 +13,5 @@ urlpatterns = [
   path('unlike-post/', views.unlike_post, name='post-unlike'),
   path('delete/', views.delete, name='post-delete'),
   path('info/<int:id>/', views.info, name='post-info'),
+  path('new-comment/', views.new_comment, name='post-new-comment'),
 ]

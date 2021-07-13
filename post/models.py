@@ -53,6 +53,9 @@ class Comment(models.Model):
     Account, on_delete=models.CASCADE, related_name='comment', null=True
   )
 
+  class Meta:
+    ordering = ['-posted_at']
+
   def __str__(self):
       return self.content
 

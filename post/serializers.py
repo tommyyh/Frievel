@@ -11,6 +11,9 @@ class CommentSerializer(serializers.ModelSerializer):
     model = Comment
     fields = '__all__'
 
+  def create(self, validated_data):
+    return Comment.objects.create(**validated_data)
+
 class PostsSerializer(serializers.ModelSerializer):
   author_name = serializers.CharField(source='author.name')
   author_username = serializers.CharField(source='author.username')

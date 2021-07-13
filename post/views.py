@@ -158,3 +158,28 @@ def info(request, id):
   serializer = PostsSerializer(post)
 
   return Response({ 'post': serializer.data })
+
+@api_view(['POST'])
+def new_comment(request):
+  # Save comment
+  content = request.data['content']
+  id = request.data['id']
+  user_id = request.session['user']['id']
+  account = Account.objects.get(id = user_id)
+  serializer = CommentSerializer(data = {
+    'author': account.id,
+    'post': id,
+    'content': content,
+    'author_name': account.name,
+    'author_username': account.username,
+    'author_profile_pic': account.profilePic.url,
+  })
+  
+  if serializer.is_valid():
+    serializer.save()
+
+  # Send back
+  comments = Comment.objects.all()
+  comment_serializer = CommentSerializer(comments, many=True)
+
+  return Response({ 'status': 200, 'all_comments': comment_serializer.data })
