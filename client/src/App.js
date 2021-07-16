@@ -32,7 +32,7 @@ function App() {
 
     useEffect(() => {
       const authenticate = async () => {
-        const res = await axios.get('/user/authenticate/');
+        const res = await axios.get('http://localhost:5000/user/authenticate/');
         const { name, username, email, profile_pic } = res.data;
 
         if (res.data.status === 201) {
@@ -63,7 +63,7 @@ function App() {
 
     useEffect(() => {
       const authenticate = async () => {
-        const res = await axios.get('/user/authenticate/');
+        const res = await axios.get('http://localhost:5000/user/authenticate/');
         const { name, username, email, profile_pic } = res.data;
 
         if (res.data.status === 201) {
@@ -92,22 +92,14 @@ function App() {
   return (
     <Router>
       <Switch>
-        <ProtectedRoute exact={true} component={Home} path='/' />
-        <ProtectedRoute exact={true} component={Saved} path='/saved' />
-        <ProtectedRoute exact={true} component={Inbox} path='/inbox' />
-        <ProtectedRoute
-          exact={true}
-          component={DirectMsg}
-          path='/inbox/:username'
-        />
-        <ProtectedRoute
-          exact={true}
-          component={Profile}
-          path='/profile/:username'
-        />
-        <ProtectedRoute exact={true} component={Comments} path='/post/:id' />
-        <PublicRoute component={Login} path='/login' exact={true} />
-        <PublicRoute component={Register} path='/register' exact={true} />
+        <Route exact={true} component={Home} path='/' />
+        <Route exact={true} component={Saved} path='/saved' />
+        <Route exact={true} component={Inbox} path='/inbox' />
+        <Route exact={true} component={DirectMsg} path='/inbox/:id' />
+        <Route exact={true} component={Profile} path='/profile/:username' />
+        <Route exact={true} component={Comments} path='/post/:id' />
+        <Route component={Login} path='/login' exact={true} />
+        <Route component={Register} path='/register' exact={true} />
         <Route component={NotFound} path='*' />
       </Switch>
     </Router>

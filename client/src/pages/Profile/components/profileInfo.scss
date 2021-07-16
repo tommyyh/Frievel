@@ -15,7 +15,8 @@
   }
 
   & .follow_btn,
-  .bio_btn {
+  .bio_btn,
+  .message_button {
     position: absolute;
     right: 3%;
     top: 32.4%;
@@ -27,6 +28,14 @@
     color: $accent-color;
     background: transparent;
     border: 0.1rem $accent-color solid;
+  }
+
+  .message_button {
+    right: 30.5%;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    padding-top: 0.2rem;
   }
 
   & h1 {
@@ -95,7 +104,8 @@
     }
 
     & .follow_btn,
-    .bio_btn {
+    .bio_btn,
+    .message_button {
       position: absolute;
       right: 2%;
       top: 9.9rem;
@@ -113,6 +123,14 @@
         background: $accent-color;
         color: #fff;
       }
+    }
+
+    .message_button {
+      right: 20%;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      padding-top: 0.2rem;
     }
 
     .following_btn {

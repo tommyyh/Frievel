@@ -30,9 +30,12 @@ const Post = ({
 
   useEffect(() => {
     const checkIfSave = async () => {
-      const res = await axios.post('/post/check-if-saved/', {
-        id: postId,
-      });
+      const res = await axios.post(
+        'http://localhost:5000/post/check-if-saved/',
+        {
+          id: postId,
+        }
+      );
 
       if (res.data.status === 404) {
         setIsSaved(false);
@@ -42,9 +45,12 @@ const Post = ({
     };
 
     const checkIfLiked = async () => {
-      const res = await axios.post('/post/check-if-liked/', {
-        id: postId,
-      });
+      const res = await axios.post(
+        'http://localhost:5000/post/check-if-liked/',
+        {
+          id: postId,
+        }
+      );
 
       if (res.data.status === 404) {
         setIsLiked(false);
@@ -58,7 +64,7 @@ const Post = ({
   }, []);
 
   const savePost = async () => {
-    const res = await axios.post('/post/save-post/', {
+    const res = await axios.post('http://localhost:5000/post/save-post/', {
       id: postId,
     });
 
@@ -69,7 +75,7 @@ const Post = ({
   };
 
   const unFollow = async () => {
-    const res = await axios.post('/user/unfollow/', {
+    const res = await axios.post('http://localhost:5000/user/unfollow/', {
       username: userTag,
     });
 
@@ -87,7 +93,7 @@ const Post = ({
   };
 
   const unSavePost = async () => {
-    const res = await axios.post('/post/unsave-post/', {
+    const res = await axios.post('http://localhost:5000/post/unsave-post/', {
       id: postId,
     });
 
@@ -104,7 +110,7 @@ const Post = ({
   };
 
   const likePost = async () => {
-    await axios.post('/post/like-post/', {
+    await axios.post('http://localhost:5000/post/like-post/', {
       id: postId,
     });
 
@@ -145,7 +151,7 @@ const Post = ({
   };
 
   const unLikePost = async () => {
-    await axios.post('/post/unlike-post/', {
+    await axios.post('http://localhost:5000/post/unlike-post/', {
       id: postId,
     });
 
@@ -186,7 +192,7 @@ const Post = ({
   };
 
   const deletePost = async () => {
-    const res = await axios.post('/post/delete/', {
+    const res = await axios.post('http://localhost:5000/post/delete/', {
       id: postId,
     });
 

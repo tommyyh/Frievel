@@ -11,7 +11,7 @@ import MsgMenu from '../DirectMsg/components/MsgMenu';
 const Inbox = () => {
   const [loading, setLoading] = useState(true);
   const pathName = window.location.pathname;
-  const { username } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     setLoading(false);
@@ -29,7 +29,7 @@ const Inbox = () => {
       <Header />
       <main className='inbox_parent'>
         <div className='inbox'>
-          <Messages currentlySelected={username} />
+          <Messages currentlySelected={id} />
           {pathName === '/inbox' ? (
             <>
               <div className='inbox_right'>

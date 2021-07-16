@@ -45,7 +45,9 @@ const Posts = () => {
   useEffect(() => {
     const getPosts = async () => {
       const url =
-        window.location.pathname === '/saved' ? '/post/saved/' : '/post/posts/';
+        window.location.pathname === '/saved'
+          ? 'http://localhost:5000/post/saved/'
+          : 'http://localhost:5000/post/posts/';
       const res = await axios.get(url);
       const { status, posts } = res.data;
 

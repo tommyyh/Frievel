@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { FaCommentDots } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -16,13 +18,16 @@ const ProfileInfo = ({
   setUpdateOpen,
 }) => {
   const { username } = useParams();
+  const { push } = useHistory();
   const [followed, setFollowed] = useState(false);
   const [followedHover, setFollowedHover] = useState(false);
   const loggedUserUsername = useSelector((state) => state.username);
 
   useEffect(() => {
     const checkIfFollowing = async () => {
-      const res = await axios.get(`/user/following/${username}/`);
+      const res = await axios.get(
+        `http://localhost:5000/user/following/${username}/`
+      );
 
       if (res.data.account_followed === 'true') {
         setFollowed(true);
@@ -35,7 +40,7 @@ const ProfileInfo = ({
   }, [username]);
 
   const follow = async () => {
-    const res = await axios.post('/user/follow/', {
+    const res = await axios.post('http://localhost:5000/user/follow/', {
       username,
     });
 
@@ -45,7 +50,7 @@ const ProfileInfo = ({
   };
 
   const unfollow = async () => {
-    const res = await axios.post('/user/unfollow/', {
+    const res = await axios.post('http://localhost:5000/user/unfollow/', {
       username,
     });
 
@@ -54,26 +59,44 @@ const ProfileInfo = ({
     }
   };
 
+  const messageUser = async () => {
+    const res = await axios.get(
+      `http://localhost:5000/room/message-user/${username}`
+    );
+
+    push(`/inbox/${res.data.direct_message.id}`);
+  };
+
   return (
     <div className='profile_info'>
       <img src={profilePic} alt='User profile' />
       {username !== loggedUserUsername ? (
         !followed ? (
-          <button
-            className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
-            onClick={follow}
-          >
-            Follow
-          </button>
+          <>
+            <button className='message_button' onClick={messageUser}>
+              <FaCommentDots size='1.18rem' />
+            </button>
+            <button
+              className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
+              onClick={follow}
+            >
+              Follow
+            </button>
+          </>
         ) : (
-          <button
-            className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
-            onClick={unfollow}
-            onMouseLeave={() => setFollowedHover(false)}
-            onMouseEnter={() => setFollowedHover(true)}
-          >
-            {!followedHover ? 'Following' : 'Unfollow'}
-          </button>
+          <>
+            <button className='message_button'>
+              <FaCommentDots size='1.18rem' />
+            </button>
+            <button
+              className={!followed ? 'follow_btn' : 'follow_btn following_btn'}
+              onClick={unfollow}
+              onMouseLeave={() => setFollowedHover(false)}
+              onMouseEnter={() => setFollowedHover(true)}
+            >
+              {!followedHover ? 'Following' : 'Unfollow'}
+            </button>
+          </>
         )
       ) : (
         <button className='bio_btn' onClick={() => setUpdateOpen(true)}>

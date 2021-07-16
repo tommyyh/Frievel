@@ -19,7 +19,7 @@ const ProfileMenu = ({ setProfileMenu }) => {
   const username = useSelector((state) => state.username);
 
   const logout = async () => {
-    const res = await axios.delete('/user/logout/');
+    const res = await axios.delete('http://localhost:5000/user/logout/');
 
     if (res.data.status === 200) {
       dispatch(LOGOUT());

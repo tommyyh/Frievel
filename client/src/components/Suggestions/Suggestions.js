@@ -8,7 +8,7 @@ const Suggestions = () => {
 
   useEffect(() => {
     const getSuggestions = async () => {
-      const res = await axios.get('/user/suggestions/');
+      const res = await axios.get('http://localhost:5000/user/suggestions/');
 
       setSuggestions(res.data.suggestions);
     };

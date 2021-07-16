@@ -41,7 +41,7 @@ const Login = () => {
     e.preventDefault();
     setProgress(true);
 
-    const res = await axios.post('/user/login/', userInfo);
+    const res = await axios.post('http://localhost:5000/user/login/', userInfo);
     const { name, username, email, profile_pic } = res.data;
 
     if (res.data.status === 201) {

@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # My apps
     'user',
     'post',
+    'chat_room',
 
     # Intsalled apps
     'django.contrib.admin',
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'storages',
+    'channels'
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -71,6 +73,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Frievel.wsgi.application'
+
+ASGI_APPLICATION = 'Frievel.asgi.application'
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [('localhost', 6379)],
+        },
+    },
+}
 
 AUTH_USER_MODEL = 'user.Account'
 

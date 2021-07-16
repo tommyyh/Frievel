@@ -17,9 +17,12 @@ const Comment = ({
 
   useEffect(() => {
     const checkIfLiked = async () => {
-      const res = await axios.post('/post/comment-check-if-liked/', {
-        id: id,
-      });
+      const res = await axios.post(
+        'http://localhost:5000/post/comment-check-if-liked/',
+        {
+          id: id,
+        }
+      );
 
       if (res.data.status === 404) {
         setIsLiked(false);
@@ -32,7 +35,7 @@ const Comment = ({
   }, []);
 
   const likeComment = async () => {
-    const res = await axios.post('/post/like-comment/', {
+    const res = await axios.post('http://localhost:5000/post/like-comment/', {
       id: id,
     });
 
@@ -51,7 +54,7 @@ const Comment = ({
   };
 
   const unlikeComment = async () => {
-    const res = await axios.post('/post/unlike-comment/', {
+    const res = await axios.post('http://localhost:5000/post/unlike-comment/', {
       id: id,
     });
 

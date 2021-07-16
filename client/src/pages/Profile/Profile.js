@@ -36,7 +36,9 @@ const Profile = () => {
 
   useEffect(() => {
     const getProfileInfo = async () => {
-      const res = await axios.get(`/user/profile/${username}`);
+      const res = await axios.get(
+        `http://localhost:5000/user/profile/${username}`
+      );
 
       if (res.data.status === 200) {
         setPosts(res.data.profilePosts);
@@ -111,7 +113,10 @@ const Profile = () => {
     data.append('livesIn', bio.livesIn);
     data.append('bornIn', bio.bornIn);
 
-    const res = await axios.post(`/user/update/${username}/`, data);
+    const res = await axios.post(
+      `http://localhost:5000/user/update/${username}/`,
+      data
+    );
     const { status, profile } = res.data;
 
     if (status === 200) {

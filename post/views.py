@@ -7,12 +7,12 @@ from .serializers import PostsSerializer, SavedSerializer, LikeSerializer, Comme
 @api_view(['GET'])
 def posts(request):
   # Get following user's posts
-  account_id = request.session['user']['id']
-  following = Following.objects.filter(account = account_id, ).values_list('username')
-  posts = Post.objects.filter(author__username__in = following)
-  serializer = PostsSerializer(posts, many=True)
+  # account_id = request.session['user']['id']
+  # following = Following.objects.filter(account = account_id, ).values_list('username')
+  # posts = Post.objects.filter(author__username__in = following)
+  # serializer = PostsSerializer(posts, many=True)
 
-  return Response({ 'posts': serializer.data, 'status': 200 })
+  return Response({ 'posts': [], 'status': 200 })
 
 @api_view(['GET'])
 def saved(request):

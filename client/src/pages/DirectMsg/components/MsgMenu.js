@@ -1,11 +1,16 @@
 import React, { useState, useRef } from 'react';
 import './msgMenu.scss';
+import { v4 as uuid } from 'uuid';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import defaultPic from '../../../assets/img/default_profile.jpg';
 
 const MsgMenu = () => {
   const [messageContent, setMessageContent] = useState('');
   const textareaRef = useRef();
+  const socket = useSelector((state) => state.socket);
+  const { id } = useParams();
 
   // Scale the input size according to the text size
   const inputResize = (e) => {
@@ -38,8 +43,16 @@ const MsgMenu = () => {
     textareaRef.current.style.height = '2.85rem';
   };
 
-  const sendMessage = () => {
-    setMessageContent('');
+  const sendMessage = (messageContent) => {
+    if (socket.readyState === 1) {
+      socket.send(
+        JSON.stringify({
+          message: messageContent,
+          username: uuid(),
+          room_id: id,
+        })
+      );
+    }
   };
 
   return (
@@ -132,7 +145,7 @@ const MsgMenu = () => {
                 : 'message_send'
             }
             onClick={() => {
-              sendMessage();
+              sendMessage(messageContent);
               sendMessageResize();
             }}
           >
