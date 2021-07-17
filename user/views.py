@@ -4,6 +4,8 @@ from .serializers import AccountSerializer, FollowingSerializer
 from .models import Account, Following
 from post.models import Post
 from post.serializers import PostsSerializer
+from chat_room.models import Direct_message
+from chat_room.serializers import Direct_message_serializer
 import bcrypt
 import jwt
 import random
@@ -89,6 +91,7 @@ def login(request):
 
     # Save user to session
     request.session['user'] = payload
+    request.session.modified = True
 
     return response
   else:
@@ -97,7 +100,7 @@ def login(request):
 @api_view(['DELETE'])
 def logout(request):
   response = Response({ 'status': 200 })
-  response.set_cookie('token', '', max_age=1, httponly=True)
+  response.delete_cookie('token')
 
   return response
 
@@ -232,3 +235,11 @@ def updateProfile(request, username):
   serializer = AccountSerializer(updated_account)
 
   return Response({ 'status': 200, 'profile': serializer.data })
+
+@api_view(['GET'])
+def my_messages(request):
+  user_id = request.session['user']['id']
+  direct_message = Direct_message.objects.filter(person_1_id = user_id)
+  serializer = Direct_message_serializer(direct_message, many=True)
+
+  return Response({ 'status': 200, 'messages': serializer.data })

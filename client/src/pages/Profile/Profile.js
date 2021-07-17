@@ -27,6 +27,7 @@ const Profile = () => {
   const [updateOpen, setUpdateOpen] = useState(false);
   const [inputType, setInputType] = useState('text');
   const [processing, setProcessing] = useState(false);
+  const [hasChat, setHasChat] = useState();
   const [posts, setPosts] = useState([]);
   const [preview, setPreview] = useState();
   const { username } = useParams();
@@ -36,9 +37,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getProfileInfo = async () => {
-      const res = await axios.get(
-        `http://localhost:5000/user/profile/${username}`
-      );
+      const res = await axios.get(`/user/profile/${username}`);
 
       if (res.data.status === 200) {
         setPosts(res.data.profilePosts);
@@ -53,6 +52,23 @@ const Profile = () => {
       setLoading(false);
     };
 
+    const roomCheck = async () => {
+      const res = await axios.get(`/room/room-check/${username}/`);
+
+      if (res.data.status === 200) {
+        setHasChat({
+          hasChat: true,
+          chat_id: res.data.chat_id,
+        });
+      } else {
+        setHasChat({
+          hasChat: false,
+          chat_id: '',
+        });
+      }
+    };
+
+    roomCheck(); // eslint-disable-next-line react-hooks/exhaustive-deps
     getProfileInfo(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
@@ -113,10 +129,7 @@ const Profile = () => {
     data.append('livesIn', bio.livesIn);
     data.append('bornIn', bio.bornIn);
 
-    const res = await axios.post(
-      `http://localhost:5000/user/update/${username}/`,
-      data
-    );
+    const res = await axios.post(`/user/update/${username}/`, data);
     const { status, profile } = res.data;
 
     if (status === 200) {
@@ -178,6 +191,7 @@ const Profile = () => {
                 following={profile.following_count}
                 followers={profile.follower_count}
                 setUpdateOpen={setUpdateOpen}
+                hasChat={hasChat}
               />
             </main>
             <section>

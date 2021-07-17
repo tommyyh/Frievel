@@ -29,6 +29,14 @@ const Login = () => {
 
   useEffect(() => {
     setLoading(false);
+
+    return () => {
+      setProgress(false);
+      setUserInfo({
+        email: '',
+        password: '',
+      });
+    };
   }, []);
 
   if (loading) return <Loading />;
@@ -41,8 +49,9 @@ const Login = () => {
     e.preventDefault();
     setProgress(true);
 
-    const res = await axios.post('http://localhost:5000/user/login/', userInfo);
+    const res = await axios.post('/user/login/', userInfo);
     const { name, username, email, profile_pic } = res.data;
+    console.log(res.data);
 
     if (res.data.status === 201) {
       dispatch(SIGN_IN());
@@ -52,7 +61,7 @@ const Login = () => {
       dispatch(SET_PROFILE_PIC(profile_pic));
       setProgress(false);
 
-      push('/');
+      return push('/');
     } else {
       setErrorMsg(res.data.msg);
       setProgress(false);

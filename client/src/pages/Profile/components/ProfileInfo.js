@@ -16,6 +16,7 @@ const ProfileInfo = ({
   following,
   followers,
   setUpdateOpen,
+  hasChat,
 }) => {
   const { username } = useParams();
   const { push } = useHistory();
@@ -25,9 +26,7 @@ const ProfileInfo = ({
 
   useEffect(() => {
     const checkIfFollowing = async () => {
-      const res = await axios.get(
-        `http://localhost:5000/user/following/${username}/`
-      );
+      const res = await axios.get(`/user/following/${username}/`);
 
       if (res.data.account_followed === 'true') {
         setFollowed(true);
@@ -40,7 +39,7 @@ const ProfileInfo = ({
   }, [username]);
 
   const follow = async () => {
-    const res = await axios.post('http://localhost:5000/user/follow/', {
+    const res = await axios.post('/user/follow/', {
       username,
     });
 
@@ -50,7 +49,7 @@ const ProfileInfo = ({
   };
 
   const unfollow = async () => {
-    const res = await axios.post('http://localhost:5000/user/unfollow/', {
+    const res = await axios.post('/user/unfollow/', {
       username,
     });
 
@@ -60,11 +59,9 @@ const ProfileInfo = ({
   };
 
   const messageUser = async () => {
-    const res = await axios.get(
-      `http://localhost:5000/room/message-user/${username}`
-    );
+    const res = await axios.get(`/room/message-user/${username}`);
 
-    push(`/inbox/${res.data.direct_message.id}`);
+    push(`/inbox/${res.data.direct_message.chat_id}`);
   };
 
   return (
@@ -73,7 +70,14 @@ const ProfileInfo = ({
       {username !== loggedUserUsername ? (
         !followed ? (
           <>
-            <button className='message_button' onClick={messageUser}>
+            <button
+              className='message_button'
+              onClick={
+                hasChat.hasChat
+                  ? () => push(`/inbox/${hasChat.chat_id}`)
+                  : messageUser
+              }
+            >
               <FaCommentDots size='1.18rem' />
             </button>
             <button

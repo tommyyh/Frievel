@@ -8,4 +8,26 @@
     padding: 0 3% 0 3%;
     overflow-y: initial;
   }
+
+  .inbox_scroll_right {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1rem;
+
+    & img {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+    }
+
+    & span {
+      margin-left: 0.8rem;
+    }
+
+    &:hover > span > h1 {
+      text-decoration: underline;
+    }
+  }
 }

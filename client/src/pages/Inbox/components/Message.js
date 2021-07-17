@@ -5,17 +5,17 @@ import './message.scss';
 const Message = ({
   name,
   profilePic,
-  username,
   lastMessage,
   lastMessaged,
   currentlySelected,
+  chat_id,
 }) => {
   return (
     <>
-      {currentlySelected === username ? (
+      {currentlySelected === chat_id ? (
         <Link
           className='message'
-          to={`/inbox/${username}`}
+          to={`/inbox/${chat_id}`}
           style={{ background: '#3e3f41' }}
         >
           <span className='message_left'>
@@ -30,7 +30,7 @@ const Message = ({
           </div>
         </Link>
       ) : (
-        <Link className='message' to={`/inbox/${username}`}>
+        <Link className='message' to={`/inbox/${chat_id}`}>
           <span className='message_left'>
             <img src={profilePic} alt='User profile' />
             <span>

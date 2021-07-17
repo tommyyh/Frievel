@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'storages',
-    'channels'
+    'channels',
 ]
 
 CORS_ALLOWED_ORIGINS = [

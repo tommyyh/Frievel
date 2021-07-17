@@ -1,60 +1,37 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 import './messages.scss';
 import Message from './Message';
-import defaultPic from '../../../assets/img/default_profile.jpg';
 
-const Messages = () => {
+const Messages = ({ messages, user }) => {
+  const { push } = useHistory();
+
   return (
-    <main className='direct_messages'>
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem ipsum dolar amet!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:11'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem ipsum dolar amet dolar amet Lorem ipsum dolar amet dolar amet! Lorem ipsum dolar amet dolar amet!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:13'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:14'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem ipsum dolar amet!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:11'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem ipsum dolar amet dolar amet Lorem ipsum dolar amet dolar amet! Lorem ipsum dolar amet dolar amet!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:13'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:14'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem ipsum dolar amet dolar amet Lorem ipsum dolar amet dolar amet! Lorem ipsum dolar amet dolar amet!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:13'
-      />
-      <Message
-        name='Clement Mihailescu'
-        messageContent='Lorem!'
-        profilePic={defaultPic}
-        sentAt='06/25/2021 - 9:14'
-      />
-    </main>
+    <>
+      <div
+        className='inbox_scroll_right'
+        style={{ cursor: 'pointer' }}
+        onClick={() => push(`/profile/${user.person2_username}`)}
+      >
+        <img src={user.person2_profilePic} alt='User profile' />
+        <span>
+          <h1>{user.person2_name}</h1>
+          <p>@{user.person2_username}</p>
+        </span>
+      </div>
+      <main className='direct_messages'>
+        {messages.map((message) => (
+          <Message
+            key={uuid()}
+            name={message.name}
+            messageContent={message.message}
+            profilePic={message.profilePic}
+            sentAt={message.sentAt}
+          />
+        ))}
+      </main>
+    </>
   );
 };
 

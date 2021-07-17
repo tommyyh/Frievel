@@ -12,4 +12,5 @@ urlpatterns = [
   path('profile/<str:username>', views.profile, name='user-profile'),
   path('following/<str:username>/', views.following, name='user-following'),
   path('update/<str:username>/', views.updateProfile, name='user-update'),
+  path('my-messages/', views.my_messages, name='user-my-messages'),
 ]

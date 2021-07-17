@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,12 @@ import DirectMsg from './pages/DirectMsg/DirectMsg';
 import Profile from './pages/Profile/Profile';
 import NotFound from './pages/NotFound/NotFound';
 import Comments from './pages/Comments/Comments';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 import { SIGN_IN } from './actions/isLogged';
 import {
   SET_NAME,
@@ -19,6 +24,7 @@ import {
   SET_PROFILE_PIC,
   SET_USERNAME,
 } from './actions/user';
+import Loading from './components/Loading/Loading';
 
 // Append CSRF token on every request
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -29,10 +35,11 @@ function App() {
 
   const ProtectedRoute = ({ component, path, exact }) => {
     const isLogged = useSelector((state) => state.isLogged);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       const authenticate = async () => {
-        const res = await axios.get('http://localhost:5000/user/authenticate/');
+        const res = await axios.get('/user/authenticate/');
         const { name, username, email, profile_pic } = res.data;
 
         if (res.data.status === 201) {
@@ -42,17 +49,21 @@ function App() {
           dispatch(SET_EMAIL(email));
           dispatch(SET_PROFILE_PIC(profile_pic));
         }
+
+        setLoading(false);
       };
 
       authenticate();
     }, []);
+
+    if (loading) return <Loading />;
 
     return (
       <>
         {isLogged ? (
           <Route component={component} path={path} exact={exact} />
         ) : (
-          <Login />
+          <Redirect to='/login' />
         )}
       </>
     );
@@ -60,10 +71,11 @@ function App() {
 
   const PublicRoute = ({ component, path, exact }) => {
     const isLogged = useSelector((state) => state.isLogged);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       const authenticate = async () => {
-        const res = await axios.get('http://localhost:5000/user/authenticate/');
+        const res = await axios.get('/user/authenticate/');
         const { name, username, email, profile_pic } = res.data;
 
         if (res.data.status === 201) {
@@ -73,15 +85,19 @@ function App() {
           dispatch(SET_EMAIL(email));
           dispatch(SET_PROFILE_PIC(profile_pic));
         }
+
+        setLoading(false);
       };
 
       authenticate();
     }, []);
 
+    if (loading) return <Loading />;
+
     return (
       <>
         {isLogged ? (
-          <Home />
+          <Redirect to='/' />
         ) : (
           <Route component={component} path={path} exact={exact} />
         )}
@@ -92,14 +108,18 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact={true} component={Home} path='/' />
-        <Route exact={true} component={Saved} path='/saved' />
-        <Route exact={true} component={Inbox} path='/inbox' />
-        <Route exact={true} component={DirectMsg} path='/inbox/:id' />
-        <Route exact={true} component={Profile} path='/profile/:username' />
-        <Route exact={true} component={Comments} path='/post/:id' />
-        <Route component={Login} path='/login' exact={true} />
-        <Route component={Register} path='/register' exact={true} />
+        <ProtectedRoute exact={true} component={Home} path='/' />
+        <ProtectedRoute exact={true} component={Saved} path='/saved' />
+        <ProtectedRoute exact={true} component={Inbox} path='/inbox' />
+        <ProtectedRoute exact={true} component={DirectMsg} path='/inbox/:id' />
+        <ProtectedRoute
+          exact={true}
+          component={Profile}
+          path='/profile/:username'
+        />
+        <ProtectedRoute exact={true} component={Comments} path='/post/:id' />
+        <PublicRoute component={Login} path='/login' exact={true} />
+        <PublicRoute component={Register} path='/register' exact={true} />
         <Route component={NotFound} path='*' />
       </Switch>
     </Router>

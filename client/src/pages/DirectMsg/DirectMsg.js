@@ -28,23 +28,32 @@ const DirectMsg = () => {
       // console.log(res.data);
     };
 
-    getDirectMessages();
+    getDirectMessages(); // eslint-disable-next-line react-hooks/exhaustive-deps
 
     // Make socket connection
     const socket = new WebSocket(`ws://localhost:5000/ws/${id}/`);
-    setSocket(socket);
-    dispatch(SET_SOCKET(socket));
-    setLoading(false);
-  }, []);
+    setSocket(socket); // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(SET_SOCKET(socket)); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(false); // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   if (loading) return <Loading />;
 
   // Handle socket events
   socket.onmessage = (e) => {
-    const message = JSON.parse(e.data);
+    const messageReceived = JSON.parse(e.data);
+    const { message, username, name, profilePic, sentAt } = messageReceived;
 
-    console.log(message);
-    setMsg([...msg, { message: message.message, username: message.username }]);
+    setMsg([
+      ...msg,
+      {
+        message: message,
+        username: username,
+        name: name,
+        profilePic: profilePic,
+        sentAt: sentAt,
+      },
+    ]);
   };
 
   socket.onclose = () => {
@@ -64,13 +73,13 @@ const DirectMsg = () => {
         <>
           <MsgMenu />
           <main>
-            <Messages />
+            <Messages messages={msg} />
           </main>
         </>
       )}
       {desktopScreen && (
         <main>
-          <Inbox />
+          <Inbox message={msg} />
         </main>
       )}
     </>

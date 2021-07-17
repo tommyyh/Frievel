@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import './msgMenu.scss';
-import { v4 as uuid } from 'uuid';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -10,6 +9,9 @@ const MsgMenu = () => {
   const [messageContent, setMessageContent] = useState('');
   const textareaRef = useRef();
   const socket = useSelector((state) => state.socket);
+  const username = useSelector((state) => state.username);
+  const name = useSelector((state) => state.name);
+  const profilePic = useSelector((state) => state.profilePic);
   const { id } = useParams();
 
   // Scale the input size according to the text size
@@ -26,21 +28,10 @@ const MsgMenu = () => {
       return;
     }
 
-    if (window.innerWidth > 1025 && e.scrollHeight < 49) {
-      e.style.height = '';
-      e.style.height = '2.6rem';
-
-      return;
-    }
-
     // Increase height
     e.style.height = '';
     e.style.overflow = 'hidden';
-    e.style.height = e.scrollHeight / 16 + 'rem';
-  };
-
-  const sendMessageResize = () => {
-    textareaRef.current.style.height = '2.85rem';
+    e.style.height = (e.scrollHeight - 3) / 16 + 'rem';
   };
 
   const sendMessage = (messageContent) => {
@@ -48,10 +39,16 @@ const MsgMenu = () => {
       socket.send(
         JSON.stringify({
           message: messageContent,
-          username: uuid(),
+          username: username,
+          name: name,
+          profilePic: profilePic,
+          sentAt: new Date(),
           room_id: id,
         })
       );
+
+      textareaRef.current.style.height = '2.6rem';
+      setMessageContent('');
     }
   };
 
@@ -136,7 +133,7 @@ const MsgMenu = () => {
             type='file'
             alt='File input'
             id='msg_menu_file_input'
-            accept='image/png, image/jpeg'
+            accept='image/*'
           />
           <button
             className={
@@ -146,7 +143,6 @@ const MsgMenu = () => {
             }
             onClick={() => {
               sendMessage(messageContent);
-              sendMessageResize();
             }}
           >
             Send

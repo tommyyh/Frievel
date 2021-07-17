@@ -23,7 +23,7 @@ const Comments = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get(`http://localhost:5000/post/info/${id}/`);
+      const res = await axios.get(`/post/info/${id}/`);
 
       if (res.data.status === 404) {
         setLoading(false);
@@ -66,7 +66,7 @@ const Comments = () => {
   };
 
   const newComment = async () => {
-    const res = await axios.post('http://localhost:5000/post/new-comment/', {
+    const res = await axios.post('/post/new-comment/', {
       content: commentContent,
       id: id,
     });

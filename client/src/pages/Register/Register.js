@@ -58,7 +58,7 @@ const Register = () => {
     data.append('password', userInfo.password);
     data.append('username', userInfo.username);
 
-    const res = await axios.post('http://localhost:5000/user/register/', data);
+    const res = await axios.post('/user/register/', data);
 
     if (res.data.status === 201) {
       setUserInfo({

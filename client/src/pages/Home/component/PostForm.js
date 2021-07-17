@@ -40,7 +40,7 @@ const PostForm = ({ profilePic }) => {
     data.append('content', newPost.content);
     data.append('file', newPost.file);
 
-    const res = await axios.post('http://localhost:5000/post/new-post/', data);
+    const res = await axios.post('/post/new-post/', data);
     setProcessing(false);
 
     if (res.data.status === 201) {
