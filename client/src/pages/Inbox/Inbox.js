@@ -105,7 +105,7 @@ const Inbox = () => {
               ref={messagesRef}
               onScroll={(e) => getMore(e.target)}
             >
-              <DirectMessages user={user} ammount={ammount} />
+              <DirectMessages user={user} />
               <MsgMenu messagesRef={messagesRef} />
             </div>
           )}

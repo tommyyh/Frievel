@@ -191,6 +191,7 @@ const Post = ({
     });
 
     if (res.data.status === 200) {
+      setOptions(false);
       if (window.location.pathname === `/post/${id}`) {
         push('/');
 

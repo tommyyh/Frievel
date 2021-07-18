@@ -100,9 +100,7 @@ const DirectMsg = () => {
       {mobileScreen && (
         <>
           <MsgMenu />
-          <main>
-            <Messages messages={msg} />
-          </main>
+          <Messages />
         </>
       )}
       {desktopScreen && (

@@ -206,7 +206,7 @@ def new_comment(request):
     serializer.save()
 
   # Send back
-  comments = Comment.objects.all()
+  comments = Comment.objects.filter(post_id = id)
   comment_serializer = CommentSerializer(comments, many=True)
 
   return Response({ 'status': 200, 'all_comments': comment_serializer.data })
