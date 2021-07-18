@@ -20,6 +20,7 @@ const Home = () => {
   const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
   const profilePic = useSelector((state) => state.profilePic);
   const posts = useSelector((state) => state.posts);
+  const condition = mobileScreen && !posts[0];
 
   useEffect(() => {
     setLoading(false);
@@ -44,7 +45,7 @@ const Home = () => {
       <div className='home'>
         <main>
           {desktopScreen && <PostForm profilePic={profilePic} />}
-          {mobileScreen && !posts[0] && <Suggestions />}
+          {condition && <Suggestions />}
           <Posts />
           <div className='new_post'>
             <FaPencilAlt size='1.5rem' onClick={() => setNewPost(!newPost)} />

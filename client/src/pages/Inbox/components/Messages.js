@@ -15,10 +15,13 @@ const Messages = ({ currentlySelected, myMessages }) => {
           name={myMessage.person2_name}
           profilePic={myMessage.person2_profilePic}
           username={myMessage.person2_username}
-          lastMessage='The current state of our...'
+          lastMessage={`${myMessage.message[
+            myMessage.message.length - 1
+          ].message.substring(0, 24)}...`}
           lastMessaged='20h'
           currentlySelected={currentlySelected}
           chat_id={myMessage.chat_id}
+          seen={myMessage.seen}
         />
       ))}
     </div>

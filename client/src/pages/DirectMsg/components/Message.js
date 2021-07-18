@@ -8,7 +8,7 @@ const Message = ({ name, messageContent, profilePic, sentAt }) => {
       <span>
         <div className='direct_message_top'>
           <h3>{name}</h3>
-          <h5>{sentAt}</h5>
+          <h5>{sentAt.split('T')[0]}</h5>
         </div>
         <p>{messageContent}</p>
       </span>

@@ -9,6 +9,7 @@ const Message = ({
   lastMessaged,
   currentlySelected,
   chat_id,
+  seen,
 }) => {
   return (
     <>
@@ -21,8 +22,8 @@ const Message = ({
           <span className='message_left'>
             <img src={profilePic} alt='User profile' />
             <span>
-              <h2>{name}</h2>
-              <p>{lastMessage}</p>
+              <h2 style={!seen ? { color: '#fff' } : {}}>{name}</h2>
+              <p style={!seen ? { color: '#fff' } : {}}>{lastMessage}</p>
             </span>
           </span>
           <div className='message_right'>
@@ -34,8 +35,8 @@ const Message = ({
           <span className='message_left'>
             <img src={profilePic} alt='User profile' />
             <span>
-              <h2>{name}</h2>
-              <p>{lastMessage}</p>
+              <h2 style={!seen ? { color: '#fff' } : {}}>{name}</h2>
+              <p style={!seen ? { color: '#fff' } : {}}>{lastMessage}</p>
             </span>
           </span>
           <div className='message_right'>

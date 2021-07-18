@@ -9,7 +9,7 @@ from chat_room.serializers import Direct_message_serializer
 import bcrypt
 import jwt
 import random
-import os
+from decouple import config
 
 @api_view(['POST'])
 def register(request):
@@ -63,7 +63,7 @@ def login(request):
     return Response({ 'status': 400, 'msg': 'Please fill out all fields' })
 
   # Check if account exists
-  if not account or email == os.environ.get('EMAIL'):
+  if not account or email == config('EMAIL'):
     return Response({ 'status': 404, 'msg': 'Please enter a valid email' })
 
   # Check if password matches
@@ -239,7 +239,7 @@ def updateProfile(request, username):
 @api_view(['GET'])
 def my_messages(request):
   user_id = request.session['user']['id']
-  direct_message = Direct_message.objects.filter(person_1_id = user_id)
+  direct_message = Direct_message.objects.filter(person_1_id = user_id).order_by('seen')
   serializer = Direct_message_serializer(direct_message, many=True)
 
   return Response({ 'status': 200, 'messages': serializer.data })

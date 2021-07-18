@@ -3,6 +3,8 @@ import { isLogged } from './isLogged';
 import { name, username, email, profilePic } from './user';
 import { posts } from './posts';
 import { socket } from './socket';
+import { unread } from './unread';
+import { msg } from './msg';
 
 // All reducers
 const reducers = combineReducers({
@@ -13,6 +15,8 @@ const reducers = combineReducers({
   profilePic,
   posts,
   socket,
+  unread,
+  msg,
 });
 
 export default reducers;

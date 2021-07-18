@@ -1,7 +1,8 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import sync_to_async
-# from .models import Messages
+from .models import Message, Direct_message
+from user.models import Account
 
 class ChatConsumer(AsyncWebsocketConsumer):
   async def connect(self):
@@ -33,7 +34,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     room = data['room_id']
 
     # Save message
-    # await self.store_message(username, room, message)
+    await self.store_message(username, room, message)
 
     await self.channel_layer.group_send(
       self.room_group_name, {
@@ -62,10 +63,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
       'sentAt': sentAt,
     }))
 
-  # @sync_to_async
-  # def store_message(self, username, room, message):
-  #   Messages.objects.create(
-  #     username = username,
-  #     room = room,
-  #     message = message
-  #   )
+  @sync_to_async
+  def store_message(self, username, room, message):
+    user = Account.objects.get(username = username)
+    direct_message = Direct_message.objects.filter(chat_id = room)
+    receiver_chat = Direct_message.objects.filter(
+      chat_id = room
+    ).exclude(person_1_id = user.id).first()
+
+    # Update seen value
+    receiver_chat.seen = False
+    receiver_chat.save()
+
+    # Save message
+    new_msg = Message(
+      message = message,
+      account = user,
+    )
+
+    new_msg.save()
+
+    # Add many to many filed
+    for x in direct_message:
+      new_msg.direct_message.add(x)

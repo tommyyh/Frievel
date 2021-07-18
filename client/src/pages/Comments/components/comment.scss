@@ -13,7 +13,9 @@
   & img {
     border-radius: 50%;
     width: 2.8rem;
+    height: 2.8rem;
     margin-top: 0.12rem;
+    object-fit: cover;
   }
 }
 

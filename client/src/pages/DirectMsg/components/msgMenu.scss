@@ -74,7 +74,7 @@
   transform: translateX(-50%);
   font-family: 'Hind Vadodara', sans-serif;
   resize: none;
-  padding: 0.5rem 4.5rem 0.5rem 2.9rem;
+  padding: 0.5rem 4.5rem 0.5rem 0.8rem;
   overflow: hidden;
   font-size: 1.1rem;
   z-index: 5;
@@ -119,10 +119,6 @@
   z-index: 5;
 }
 
-.message_send_hidden {
-  transform: scale(0);
-}
-
 .msg_menu_bottom_background {
   width: 100%;
   height: 4.5rem;
@@ -131,6 +127,10 @@
   bottom: 0;
   left: 0;
   z-index: 2;
+}
+
+.message_send_hidden {
+  cursor: not-allowed;
 }
 
 @media all and (min-width: 1025px) {
@@ -143,20 +143,20 @@
   }
 
   #msg_menu_input {
-    width: 62.5%;
+    width: 52%;
     height: 2.6rem;
     background: #3a3b3c;
     border-radius: 3px;
     border: none;
     color: #909090;
     position: absolute;
-    bottom: 2.5%;
+    bottom: 2%;
     left: initial;
-    right: 1.8%;
+    right: 12%;
     transform: initial;
     font-family: 'Hind Vadodara', sans-serif;
     resize: none;
-    padding: 0.37rem 4.8rem 0.5rem 2.9rem;
+    padding: 0.37rem 0.5rem 0.5rem 0.8rem;
     overflow: hidden;
     font-size: 1.1rem;
     z-index: 5;
@@ -166,7 +166,8 @@
     }
 
     &::-webkit-scrollbar {
-      width: 0.7rem;
+      width: 0.3rem;
+      cursor: pointer;
     }
 
     &::-webkit-scrollbar-track {
@@ -179,59 +180,45 @@
     }
   }
 
-  .msg_menu_file {
-    position: absolute;
-    left: initial;
-    right: 60%;
-    bottom: 2.35%;
-    z-index: 5;
-    cursor: pointer;
-
-    & input {
-      opacity: 0;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-    }
-
-    & svg {
-      cursor: pointer;
-    }
-  }
-
   .message_send {
     font-size: 1rem;
     font-weight: 500;
     position: absolute;
-    right: -1725%;
-    bottom: 17%;
+    right: 2.4%;
+    bottom: 2%;
     background: $accent-color;
     border-radius: 3px;
     color: #fff;
-    height: 1.9rem;
+    height: 2.55rem;
     border: none;
-    width: 3.8rem;
+    width: 9%;
     transition: ease 300ms;
     transform: scale(1);
     z-index: 5;
+    cursor: pointer;
+
+    &:hover {
+      border-radius: 3px;
+      background: #2b98ff;
+    }
   }
 
   .message_send_hidden {
-    transform: scale(0);
+    cursor: not-allowed;
+
+    &:hover {
+      border-radius: 3px;
+      background: $accent-color;
+    }
   }
 
   .msg_menu_bottom_background {
-    width: 66%;
+    width: 64.5%;
     height: 4rem;
     background: #282a2c;
     position: absolute;
     bottom: 0;
-    right: 0;
+    right: 1.32%;
     left: initial;
     z-index: 2;
   }

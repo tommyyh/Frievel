@@ -1,7 +1,7 @@
 from chat_room.models import Direct_message
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import Direct_message_serializer
+from .serializers import Direct_message_serializer, Message_serializer
 from user.models import Account
 import uuid
 
@@ -75,3 +75,43 @@ def room_check(request, username):
     return Response({ 'status': 200, 'chat_id': direct_message.chat_id })
   except:
     return Response({ 'status': 400 })
+
+@api_view(['POST'])
+def messages(request, id):
+  user_id = request.session['user']['id']
+  ammount = request.data['ammount']
+
+  try:
+    direct_message = Direct_message.objects.get(chat_id = id, person_1_id = user_id)
+    messages = direct_message.message.all().order_by('-sentAt')[:ammount]
+    serializer = Message_serializer(messages, many=True)
+
+    return Response({
+      'status': 200, 'messages': serializer.data, 'count': messages.count()
+    })
+  except:
+    return Response({ 'status': 401 })
+
+@api_view(['GET'])
+def get_unread(request):
+  user_id = request.session['user']['id']
+  unread = Direct_message.objects.filter(person_1_id = user_id, seen = False).count()
+
+  return Response({ 'status': 200, 'unread': unread })
+
+@api_view(['GET'])
+def seen(request, id):
+  user_id = request.session['user']['id']
+  
+  try:
+    direct_message = Direct_message.objects.get(person_1_id = user_id, chat_id = id)
+
+    # Update
+    direct_message.seen = True
+    direct_message.save()
+
+    unread = Direct_message.objects.filter(person_1_id = user_id, seen = False).count()
+
+    return Response({ 'status': 200, 'unread': unread })
+  except:
+    return Response({ 'status': 404 })
