@@ -43,11 +43,20 @@ const Inbox = () => {
     }; // eslint-disable-next-line react-hooks/exhaustive-deps
 
     getMyMessages();
+
     if (window.location.pathname === `/inbox/${id}`) {
       getUser();
     }
 
     setLoading(false); // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      setLoading(null);
+      setMyMessages(null);
+      setUser(null);
+      setStopScroll(null);
+      setAmmount(null);
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useEffectParams]);
 
   // End at the end of the div on msg change

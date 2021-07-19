@@ -22,6 +22,7 @@ const Profile = () => {
     livesIn: '',
     bornIn: '',
   });
+  const useEfffectCondition = bio && bio.profilePicture;
   const dispatch = useDispatch();
   const [profile, setProfile] = useState({});
   const [updateOpen, setUpdateOpen] = useState(false);
@@ -37,6 +38,8 @@ const Profile = () => {
 
   useEffect(() => {
     const getProfileInfo = async () => {
+      setLoading(true);
+
       const res = await axios.get(`/user/profile/${username}`);
 
       if (res.data.status === 200) {
@@ -46,19 +49,16 @@ const Profile = () => {
           ...bio,
           livesIn: res.data.profile.lives_in,
           bornIn: res.data.profile.born_in,
+          profilePicture: '',
         });
       }
 
-      setLoading(false);
-    };
+      const res2 = await axios.get(`/room/room-check/${username}/`);
 
-    const roomCheck = async () => {
-      const res = await axios.get(`/room/room-check/${username}/`);
-
-      if (res.data.status === 200) {
+      if (res2.data.status === 200) {
         setHasChat({
           hasChat: true,
-          chat_id: res.data.chat_id,
+          chat_id: res2.data.chat_id,
         });
       } else {
         setHasChat({
@@ -66,27 +66,43 @@ const Profile = () => {
           chat_id: '',
         });
       }
-    };
 
-    roomCheck(); // eslint-disable-next-line react-hooks/exhaustive-deps
+      setLoading(false);
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
+
     getProfileInfo(); // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      setLoading(null);
+      setBio(null);
+      setProfile(null);
+      setUpdateOpen(null);
+      setInputType(null);
+      setProcessing(null);
+      setHasChat(null);
+      setPosts(null);
+      setPreview(null);
+      setHasChat(null);
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   // Show preview of an image when the image state changes
   useEffect(() => {
-    const image = bio.profilePicture;
+    if (bio) {
+      const image = bio.profilePicture;
 
-    if (image) {
-      const reader = new FileReader();
+      if (image) {
+        const reader = new FileReader();
 
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(image);
-    } else {
-      setPreview(null);
-    }
-  }, [bio.profilePicture]);
+        reader.onloadend = () => {
+          setPreview(reader.result);
+        };
+        reader.readAsDataURL(image);
+      } else {
+        setPreview(null);
+      }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [useEfffectCondition]);
 
   if (!updateOpen) {
     document.body.style.overflowY = 'initial';
@@ -98,6 +114,8 @@ const Profile = () => {
       behavior: 'smooth',
     });
   }
+
+  if (loading) return <Loading />;
 
   const onChange = (e) => {
     setBio({ ...bio, [e.target.name]: e.target.value });
@@ -159,8 +177,6 @@ const Profile = () => {
       setUpdateOpen(false);
     }
   };
-
-  if (loading) return <Loading />;
 
   return (
     <>

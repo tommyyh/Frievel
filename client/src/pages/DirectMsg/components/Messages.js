@@ -51,11 +51,11 @@ const Messages = ({ user }) => {
 
     if (window.innerWidth < 480) {
       window.addEventListener('scroll', handler);
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
 
     return () => {
       window.removeEventListener('scroll', handler);
-    };
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ammount]);
 
   // End at the end of the div on msg change
@@ -64,7 +64,7 @@ const Messages = ({ user }) => {
       if (!stopScroll) {
         window.scrollTo(0, document.body.scrollHeight);
       } // eslint-disable-next-line react-hooks/exhaustive-deps
-    }
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [msg]);
 
   return (

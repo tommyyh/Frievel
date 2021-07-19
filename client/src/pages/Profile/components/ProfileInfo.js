@@ -36,6 +36,11 @@ const ProfileInfo = ({
     };
 
     checkIfFollowing();
+
+    return () => {
+      setFollowed(null);
+      setFollowedHover(null);
+    };
   }, [username]);
 
   const follow = async () => {

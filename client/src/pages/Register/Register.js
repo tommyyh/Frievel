@@ -27,6 +27,13 @@ const Register = () => {
 
   useEffect(() => {
     setLoading(false);
+
+    return () => {
+      setLoading(null);
+      setProcessing(null);
+      setUserInfo(null);
+      setErrorMsg(null);
+    };
   }, []);
 
   const createUser = async (e) => {

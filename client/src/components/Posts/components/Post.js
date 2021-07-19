@@ -55,6 +55,11 @@ const Post = ({
 
     checkIfSave(); // eslint-disable-next-line react-hooks/exhaustive-deps
     checkIfLiked(); // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      setIsLiked(null);
+      setIsSaved(null);
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const savePost = async () => {

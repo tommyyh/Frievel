@@ -14,6 +14,10 @@ const Suggestions = () => {
     };
 
     getSuggestions();
+
+    return () => {
+      setSuggestions(null);
+    };
   }, []);
 
   return (

@@ -57,6 +57,10 @@ const Posts = () => {
     };
 
     getPosts(); // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => {
+      setLoading(null);
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

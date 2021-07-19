@@ -31,11 +31,10 @@ const Login = () => {
     setLoading(false);
 
     return () => {
-      setProgress(false);
-      setUserInfo({
-        email: '',
-        password: '',
-      });
+      setProgress(null);
+      setErrorMsg(null);
+      setUserInfo(null);
+      setLoading(null);
     };
   }, []);
 
@@ -51,7 +50,6 @@ const Login = () => {
 
     const res = await axios.post('/user/login/', userInfo);
     const { name, username, email, profile_pic } = res.data;
-    console.log(res.data);
 
     if (res.data.status === 201) {
       dispatch(SIGN_IN());
