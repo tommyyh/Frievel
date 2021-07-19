@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuid } from 'uuid';
 import './messages.scss';
 import Message from './Message';
 import { useMediaQuery } from 'react-responsive';
@@ -69,30 +68,36 @@ const Messages = ({ user }) => {
 
   return (
     <>
-      {desktopScreen && (
-        <div
-          className='inbox_scroll_right'
-          style={{ cursor: 'pointer' }}
-          onClick={() => push(`/profile/${user.person2_username}`)}
-        >
-          <img src={user.person2_profilePic} alt='User profile' />
-          <span>
-            <h1>{user.person2_name}</h1>
-            <p>@{user.person2_username}</p>
-          </span>
-        </div>
+      {user ? (
+        <>
+          {desktopScreen && (
+            <div
+              className='inbox_scroll_right'
+              style={{ cursor: 'pointer' }}
+              onClick={() => push(`/profile/${user.person2_username}`)}
+            >
+              <img src={user.person2_profilePic} alt='User profile' />
+              <span>
+                <h1>{user.person2_name}</h1>
+                <p>@{user.person2_username}</p>
+              </span>
+            </div>
+          )}
+          <main className='direct_messages'>
+            {messages.map((message) => (
+              <Message
+                key={message.id}
+                name={message.name}
+                messageContent={message.message}
+                profilePic={message.profilePic}
+                sentAt={message.sentAt}
+              />
+            ))}
+          </main>
+        </>
+      ) : (
+        <></>
       )}
-      <main className='direct_messages'>
-        {messages.map((message) => (
-          <Message
-            key={uuid()}
-            name={message.name}
-            messageContent={message.message}
-            profilePic={message.profilePic}
-            sentAt={message.sentAt}
-          />
-        ))}
-      </main>
     </>
   );
 };

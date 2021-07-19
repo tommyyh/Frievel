@@ -13,7 +13,6 @@ import { SET_MSG } from '../../actions/msg';
 
 const Inbox = () => {
   const [loading, setLoading] = useState(true);
-  const [myMessages, setMyMessages] = useState([]);
   const [user, setUser] = useState({});
   const [stopScroll, setStopScroll] = useState(false);
   const [ammount, setAmmount] = useState(9);
@@ -26,33 +25,27 @@ const Inbox = () => {
   const msg = useSelector((state) => state.msg);
 
   useEffect(() => {
-    const getMyMessages = async () => {
-      const res = await axios.get('/user/my-messages/');
+    setLoading(true);
 
-      setMyMessages(res.data.messages);
-    };
+    if (
+      window.location.pathname === `/inbox/${id}/` ||
+      window.location.pathname === `/inbox/${id}`
+    ) {
+      (async () => {
+        const res = await axios.get(`/room/get-user/${id}`);
 
-    const getUser = async () => {
-      const res = await axios.get(`/room/get-user/${id}`);
+        if (res.data.status === 401) {
+          return push('/inbox');
+        } else {
+          setUser(res.data.direct_msg);
+        }
+      })(); // eslint-disable-next-line react-hooks/exhaustive-deps
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
 
-      if (res.data.status === 401) {
-        return push('/inbox');
-      } else {
-        setUser(res.data.direct_msg);
-      }
-    }; // eslint-disable-next-line react-hooks/exhaustive-deps
-
-    getMyMessages();
-
-    if (window.location.pathname === `/inbox/${id}`) {
-      getUser();
-    }
-
-    setLoading(false); // eslint-disable-next-line react-hooks/exhaustive-deps
+    setLoading(false);
 
     return () => {
       setLoading(null);
-      setMyMessages(null);
       setUser(null);
       setStopScroll(null);
       setAmmount(null);
@@ -67,6 +60,8 @@ const Inbox = () => {
       element.scrollTop = element.scrollHeight - element.clientHeight;
     } // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [msg]);
+
+  if (loading) return <Loading />;
 
   const getMore = async (e) => {
     if (e.scrollTop === 0) {
@@ -88,8 +83,6 @@ const Inbox = () => {
     }
   };
 
-  if (loading) return <Loading />;
-
   return (
     <>
       <HelmetProvider>
@@ -100,8 +93,8 @@ const Inbox = () => {
       <Header />
       <main className='inbox_parent'>
         <div className='inbox'>
-          <Messages currentlySelected={id} myMessages={myMessages} />
-          {pathName === '/inbox' ? (
+          <Messages currentlySelected={id} />
+          {pathName === '/inbox' || pathName === '/inbox/' ? (
             <>
               <div className='inbox_right'>
                 <h2>My messages</h2>
@@ -114,7 +107,7 @@ const Inbox = () => {
               ref={messagesRef}
               onScroll={(e) => getMore(e.target)}
             >
-              <DirectMessages user={user} />
+              <DirectMessages user={user} loading={loading} />
               <MsgMenu messagesRef={messagesRef} />
             </div>
           )}
