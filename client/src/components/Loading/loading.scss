@@ -54,6 +54,40 @@
   }
 }
 
+.loading_parent_small {
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  padding-top: 3rem;
+
+  & .loading_icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: #5b5d5e;
+    position: relative;
+    animation: loading 2s infinite;
+  }
+
+  & .loading_indicator {
+    background: #171819;
+    position: absolute;
+    height: 1.5rem;
+    width: 0.45rem;
+    left: -3%;
+  }
+
+  & .inner_circle {
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    background: #171819;
+  }
+}
+
 @media all and (min-width: 1025px) {
   .loading_parent_small {
     width: 100%;

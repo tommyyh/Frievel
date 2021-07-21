@@ -36,3 +36,15 @@ button {
     font-size: 1.33vw;
   }
 }
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  html {
+    font-size: 26px;
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) and (min-height: 1365px) and (max-height: 1366px) {
+  html {
+    font-size: 34px;
+  }
+}

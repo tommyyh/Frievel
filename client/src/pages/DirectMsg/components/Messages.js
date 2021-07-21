@@ -48,7 +48,7 @@ const Messages = ({ user }) => {
       }
     };
 
-    if (window.innerWidth < 480) {
+    if (window.innerWidth < 1024) {
       window.addEventListener('scroll', handler);
     } // eslint-disable-next-line react-hooks/exhaustive-deps
 
@@ -59,7 +59,7 @@ const Messages = ({ user }) => {
 
   // End at the end of the div on msg change
   useEffect(() => {
-    if (window.innerWidth < 480) {
+    if (window.innerWidth < 1024) {
       if (!stopScroll) {
         window.scrollTo(0, document.body.scrollHeight);
       } // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,7 +96,23 @@ const Messages = ({ user }) => {
           </main>
         </>
       ) : (
-        <></>
+        <>
+          {desktopScreen ? (
+            <></>
+          ) : (
+            <main className='direct_messages'>
+              {messages.map((message) => (
+                <Message
+                  key={message.id}
+                  name={message.name}
+                  messageContent={message.message}
+                  profilePic={message.profilePic}
+                  sentAt={message.sentAt}
+                />
+              ))}
+            </main>
+          )}
+        </>
       )}
     </>
   );

@@ -27,10 +27,14 @@ const PostForm = ({ profilePic }) => {
       return;
     }
 
+    const rootFontSize = window
+      .getComputedStyle(document.body)
+      .getPropertyValue('font-size');
+
     // Increase height
     e.style.height = '';
     e.style.overflow = 'hidden';
-    e.style.height = e.scrollHeight / 16 + 'rem';
+    e.style.height = e.scrollHeight / rootFontSize + 'rem';
   };
 
   const publish = async () => {
