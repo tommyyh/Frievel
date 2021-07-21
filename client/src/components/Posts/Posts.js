@@ -12,9 +12,9 @@ const Posts = () => {
   const { username } = useParams();
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const posts = useSelector((state) => state.posts);
-  const savedStyling = !mobileScreen
+  const savedStyling = !isTabletOrMobile
     ? {
         fontSize: '0.9rem',
         fontWeight: '200',
@@ -27,7 +27,7 @@ const Posts = () => {
         color: '#c7c7c7',
         marginTop: '2.65rem',
       };
-  const homeStyling = !mobileScreen
+  const homeStyling = !isTabletOrMobile
     ? {
         fontSize: '0.9rem',
         fontWeight: '200',

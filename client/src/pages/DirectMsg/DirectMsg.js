@@ -23,7 +23,7 @@ const DirectMsg = () => {
     query: '(min-device-width: 1025px)',
   });
   const { id } = useParams();
-  const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
 
   useEffect(() => {
     const getUser = async () => {
@@ -97,7 +97,7 @@ const DirectMsg = () => {
           <title>Direct • Frievel</title>
         </Helmet>
       </HelmetProvider>
-      {mobileScreen && (
+      {isTabletOrMobile && (
         <>
           <MsgMenu />
           <Messages />

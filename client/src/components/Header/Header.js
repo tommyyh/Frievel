@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './header.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import ProfileMenu from './components/ProfileMenu';
 import { useMediaQuery } from 'react-responsive';
-import axios from 'axios';
 import { SET_UNREAD } from '../../actions/unread';
+import SearchItem from './components/SearchItem';
 
 const Header = () => {
   const pathName = window.location.pathname;
   const { push } = useHistory();
   const { username } = useParams();
   const [profileMenu, setProfileMenu] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [searchData, setSearchData] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const desktopScreen = useMediaQuery({
     query: '(min-device-width: 1025px)',
   });
   const dispatch = useDispatch();
-  const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const profilePic = useSelector((state) => state.profilePic);
   const unread = useSelector((state) => state.unread);
 
@@ -30,9 +34,19 @@ const Header = () => {
     getUnread(); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const search = async (query) => {
+    setSearchLoading(true);
+    const res = await axios.post('/user/search/', {
+      query: query,
+    });
+
+    setSearchData(res.data.result);
+    setSearchLoading(false);
+  };
+
   return (
     <>
-      {mobileScreen && (
+      {isTabletOrMobile && (
         <header>
           <nav>
             <div className='top_header'>
@@ -64,7 +78,30 @@ const Header = () => {
                   fill='#006DD2'
                 />
               </svg>
-              <input type='text' name='nav_search' placeholder='Search...' />
+              <span className='nav_search'>
+                <input
+                  type='text'
+                  name='nav_search'
+                  placeholder='Search...'
+                  onChange={(e) => {
+                    setSearchInput(e.target.value);
+                    search(e.target.value);
+                  }}
+                />
+                {searchInput && (
+                  <div className='search_dropdown'>
+                    {!searchLoading &&
+                      searchData.map((result) => (
+                        <SearchItem
+                          key={result.id}
+                          profilePic={result.profilePic}
+                          name={result.name}
+                          username={`@${result.username}`}
+                        />
+                      ))}
+                  </div>
+                )}
+              </span>
             </div>
             <div className='bottom_header'>
               <svg
@@ -205,7 +242,30 @@ const Header = () => {
                   fill='#006DD2'
                 />
               </svg>
-              <input type='text' name='nav_search' placeholder='Search...' />
+              <span className='nav_search'>
+                <input
+                  type='text'
+                  name='nav_search'
+                  placeholder='Search...'
+                  onChange={(e) => {
+                    setSearchInput(e.target.value);
+                    search(e.target.value);
+                  }}
+                />
+                {searchInput && (
+                  <div className='search_dropdown'>
+                    {!searchLoading &&
+                      searchData.map((result) => (
+                        <SearchItem
+                          key={result.id}
+                          profilePic={result.profilePic}
+                          name={result.name}
+                          username={`@${result.username}`}
+                        />
+                      ))}
+                  </div>
+                )}
+              </span>
             </div>
             <div className='nav_right'>
               <svg

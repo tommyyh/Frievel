@@ -1,0 +1,133 @@
+.search_dropdown {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 78.3%;
+  border-radius: 3px;
+  background: #292a2b;
+  margin-top: -0.2rem;
+  z-index: -1;
+  padding: 0.5% 0% 0 0%;
+  max-height: 20rem;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.4rem;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #414244;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #5f5f5f;
+    border-radius: 3px;
+  }
+}
+
+.search_item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #5a5a5a;
+  padding: 3.8% 3% 3.8% 3%;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  & img {
+    border-radius: 50%;
+    width: 2.5rem;
+    margin-right: 3.3%;
+    height: 2.5rem;
+  }
+
+  & h5 {
+    font-weight: 100;
+    font-size: 1rem;
+    margin-top: -0.1rem;
+    color: #cacaca;
+  }
+
+  & h6 {
+    font-weight: 100;
+    font-size: 0.75rem;
+    color: #949494;
+    margin-top: -0.15rem;
+  }
+}
+
+@media all and (min-width: 1025px) {
+  .search_dropdown {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 22.12%;
+    border-radius: 3px;
+    background: #313233;
+    margin-top: -0.2rem;
+    z-index: -1;
+    padding: 0.3% 0% 0 0%;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 0 0.2rem 0 #7d7e7e;
+    max-height: 19.5rem;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #414244;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #5f5f5f;
+      border-radius: 3px;
+    }
+  }
+
+  .search_item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #5a5a5a;
+    padding: 3.8% 5% 3.8% 5%;
+    transition: ease 230ms;
+
+    &:hover {
+      background: #3d3e3f;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    & img {
+      border-radius: 50%;
+      width: 2.25rem;
+      margin-right: 3.3%;
+      height: 2.25rem;
+    }
+
+    & h5 {
+      font-weight: 100;
+      font-size: 1rem;
+      margin-top: -0.1rem;
+      color: #cacaca;
+    }
+
+    & h6 {
+      font-weight: 100;
+      font-size: 0.75rem;
+      color: #949494;
+      margin-top: -0.15rem;
+    }
+  }
+}

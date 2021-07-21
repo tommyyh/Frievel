@@ -10,6 +10,7 @@ import bcrypt
 import jwt
 import random
 from decouple import config
+from django.db.models import Q
 
 @api_view(['POST'])
 def register(request):
@@ -78,6 +79,7 @@ def login(request):
     }
 
     encoded_jwt = jwt.encode(payload, 'secret', algorithm='HS256')
+    max_age = 999999 * 999999 * 999999 * 999999 * 999999
 
     # Send token to cookies
     response = Response({
@@ -87,7 +89,7 @@ def login(request):
         'email': account.email,
         'profile_pic': profile_pic,
       })
-    response.set_cookie('token', encoded_jwt, max_age=None, httponly=True)
+    response.set_cookie('token', encoded_jwt, max_age=max_age, httponly=True)
 
     # Save user to session
     request.session['user'] = payload
@@ -243,3 +245,13 @@ def my_messages(request):
   serializer = Direct_message_serializer(direct_message, many=True)
 
   return Response({ 'status': 200, 'messages': serializer.data })
+
+@api_view(['POST'])
+def search(request):
+  query = request.data['query']
+  search_result = Account.objects.filter(
+    Q(name__contains = query) | Q(username__contains = query)
+  )
+  serializer = AccountSerializer(search_result, many=True)
+
+  return Response({ 'status': 200, 'result': serializer.data })

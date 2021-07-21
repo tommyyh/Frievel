@@ -13,4 +13,5 @@ urlpatterns = [
   path('following/<str:username>/', views.following, name='user-following'),
   path('update/<str:username>/', views.updateProfile, name='user-update'),
   path('my-messages/', views.my_messages, name='user-my-messages'),
+  path('search/', views.search, name='user-search'),
 ]

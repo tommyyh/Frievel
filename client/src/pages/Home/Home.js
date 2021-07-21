@@ -17,10 +17,10 @@ const Home = () => {
   const desktopScreen = useMediaQuery({
     query: '(min-device-width: 1025px)',
   });
-  const mobileScreen = useMediaQuery({ query: '(max-device-width: 480px)' });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1024px)' });
   const profilePic = useSelector((state) => state.profilePic);
   const posts = useSelector((state) => state.posts);
-  const condition = mobileScreen && !posts[0];
+  const condition = isTabletOrMobile && !posts[0];
 
   useEffect(() => {
     setLoading(false);
