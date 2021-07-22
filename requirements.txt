@@ -14,7 +14,7 @@ channels-redis==3.3.0
 charset-normalizer==2.0.3
 constantly==15.1.0
 cryptography==3.4.7
-daphne==0.8.1
+daphne==3.0.2
 Django==3.2.5
 django-cors-headers==3.7.0
 django-storages==1.11.1

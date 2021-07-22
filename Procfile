@@ -1,1 +1,1 @@
-web: daphne -p $PORT -b 0.0.0.0 my_config.asgi:application
+web: daphne Frievel.asgi:application --port $PORT --bind 0.0.0.0 -v2
