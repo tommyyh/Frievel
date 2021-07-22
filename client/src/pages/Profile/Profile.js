@@ -40,7 +40,7 @@ const Profile = () => {
     const getProfileInfo = async () => {
       setLoading(true);
 
-      const res = await axios.get(`/user/profile/${username}`);
+      const res = await axios.get(`/user/profile-account/${username}/`);
 
       if (res.data.status === 200) {
         setPosts(res.data.profilePosts);

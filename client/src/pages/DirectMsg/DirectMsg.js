@@ -39,6 +39,10 @@ const DirectMsg = () => {
         ammount: 9,
       });
 
+      if (res.data.status === 401) {
+        return push('/inbox');
+      }
+
       const msgs = res.data.messages.reverse();
 
       dispatch(SET_MSG(msgs));

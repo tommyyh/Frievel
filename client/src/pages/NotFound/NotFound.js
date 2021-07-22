@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { FaChevronLeft } from 'react-icons/fa';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import Loading from '../../components/Loading/Loading';
-import Header from '../../components/Header/Header';
 
 const NotFound = () => {
   const [loading, setLoading] = useState(true);
@@ -22,7 +21,6 @@ const NotFound = () => {
           <title>Page Not Found • Frievel</title>
         </Helmet>
       </HelmetProvider>
-      <Header />
       <main className='notFound'>
         <h1>
           <span>We're sorry, but the</span>

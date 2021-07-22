@@ -19,7 +19,7 @@ const MsgMenu = ({ messagesRef }) => {
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get(`/room/get-user/${id}`);
+      const res = await axios.get(`/room/get-user/${id}/`);
 
       if (res.data.status === 401) {
         return push('/inbox');

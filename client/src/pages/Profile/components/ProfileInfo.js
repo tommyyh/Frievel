@@ -64,7 +64,7 @@ const ProfileInfo = ({
   };
 
   const messageUser = async () => {
-    const res = await axios.get(`/room/message-user/${username}`);
+    const res = await axios.get(`/room/message-user/${username}/`);
 
     push(`/inbox/${res.data.direct_message.chat_id}`);
   };

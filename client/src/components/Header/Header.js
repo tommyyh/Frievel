@@ -117,7 +117,7 @@ const Header = () => {
                   fill={pathName === '/' ? '#1E82DF' : '#B0B3B8'}
                 />
               </svg>
-              {unread === 0 ? (
+              {parseInt(unread) === 0 ? (
                 <span className='messages_icon_p2'>
                   <svg
                     width='2.1rem'
@@ -282,7 +282,7 @@ const Header = () => {
                   fill={pathName === '/' ? '#1E82DF' : '#B0B3B8'}
                 />
               </svg>
-              {unread === 0 ? (
+              {parseInt(unread) === 0 ? (
                 <span className='messages_icon_p2'>
                   <svg
                     width='2.1rem'

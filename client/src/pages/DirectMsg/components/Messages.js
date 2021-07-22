@@ -22,9 +22,13 @@ const Messages = ({ user }) => {
 
   useEffect(() => {
     const seen = async () => {
-      const res = await axios.get(`/room/seen/${id}`);
+      const res = await axios.get(`/room/seen/${id}/`);
 
-      dispatch(SET_UNREAD(res.data.unread));
+      if (res.data.status === 404) {
+        return;
+      } else {
+        dispatch(SET_UNREAD(res.data.unread.toString()));
+      }
     };
 
     seen(); // eslint-disable-next-line react-hooks/exhaustive-deps
