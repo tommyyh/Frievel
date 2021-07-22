@@ -1,1 +1,1 @@
-web: gunicorn Frievel.asgi.application --log-file -
+web: daphne -p $PORT -b 0.0.0.0 my_config.asgi:application
