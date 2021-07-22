@@ -1,1 +1,0 @@
-web: gunicorn Frievel.asgi.application --log-file -
