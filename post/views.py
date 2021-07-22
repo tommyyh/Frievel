@@ -172,6 +172,7 @@ def delete(request):
   post = Post.objects.filter(id = id)
 
   # Delete post
+  post.file.delete()
   post.delete()
 
   return Response({ 'status': 200 })

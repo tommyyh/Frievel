@@ -57,7 +57,7 @@ def get_user(request, chat_id):
   try:
     direct_message = Direct_message.objects.get(chat_id = chat_id, person_1_id = user_id)
     serializer = Direct_message_serializer(direct_message)
-
+    
     return Response({ 'status': 200, 'direct_msg': serializer.data })
   except:
     return Response({ 'status': 401 })
@@ -65,9 +65,9 @@ def get_user(request, chat_id):
 @api_view(['GET'])
 def room_check(request, username):
   user_id = request.session['user']['id']
-  account = Account.objects.get(username = username)
 
   try:
+    account = Account.objects.get(username = username)
     direct_message = Direct_message.objects.get(
       person_1_id = user_id, person_2_id = account.id
     )

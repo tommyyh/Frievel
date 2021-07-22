@@ -79,7 +79,7 @@ def login(request):
     }
 
     encoded_jwt = jwt.encode(payload, 'secret', algorithm='HS256')
-    max_age = 999999 * 999999 * 999999 * 999999 * 999999
+    max_age = 365 * 24 * 60 * 60
 
     # Send token to cookies
     response = Response({
