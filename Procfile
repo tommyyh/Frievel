@@ -1,1 +1,1 @@
-web: gunicorn Frievel.asgi --log-file -
+web: gunicorn Frievel.asgi.application --log-file -
