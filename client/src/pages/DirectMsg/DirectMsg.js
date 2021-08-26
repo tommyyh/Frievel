@@ -90,7 +90,9 @@ const DirectMsg = () => {
   };
 
   socket.onclose = () => {
-    new WebSocket(`ws://localhost:5000/ws/${id}/`);
+    const connection = window.location.protocol === 'https:' ? 'wss' : 'ws';
+    
+    new WebSocket(`${connection}://localhost:5000/ws/${id}/`);
   };
 
   if (loading) return <Loading />;
