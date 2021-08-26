@@ -53,7 +53,8 @@ const DirectMsg = () => {
 
     // Make socket connection
     if (/^\d+$/.test(id)) {
-      const socket = new WebSocket(`ws://localhost:5000/ws/${id}/`);
+      const connection = window.location.protocol === 'https:' ? 'wss' : 'ws';
+      const socket = new WebSocket(`${connection}://localhost:5000/ws/${id}/`);
 
       setSocket(socket);
       dispatch(SET_SOCKET(socket));
